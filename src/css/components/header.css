@@ -1,0 +1,11 @@
+/* HEADER */
+/* ======= */
+
+@layer components {
+  .header__link:hover + .header__dropdown,
+  .header__link:focus + .header__dropdown,
+  .header__dropdown:hover,
+  .header__dropdown:focus-within {
+    @apply h-auto opacity-100;
+  }
+}

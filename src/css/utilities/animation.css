@@ -1,0 +1,31 @@
+/* ANIMATION */
+/* - utility classes to add default animation stuff */
+/* ======= */
+
+@layer utilities {
+
+  .animation-100 {
+    @apply transition duration-100;
+  }
+  .animation-300 {
+    @apply transition duration-300;
+  }
+  .animation-500 {
+    @apply transition duration-500;
+  }
+  .animation-500--all {
+    @apply transition-all duration-500;
+  }
+  .animation-1000 {
+    @apply transition duration-1000;
+  }
+  .animation-5000 {
+    @apply transition;
+    transition-duration: 5000ms;
+  }
+  .animation-5000--all {
+    @apply transition-all;
+    transition-duration: 5000ms;
+  }
+  
+}

@@ -1,0 +1,130 @@
+/* TYPOGRAPHY */
+/* - apply base styles to set type */
+/* ======= */
+
+@layer base {
+  /* body */
+  html,
+  body,
+  blockquote,
+  dl,
+  dd,
+  hr,
+  figure,
+  p,
+  pre,
+  span {
+    @apply type__body type--base;
+  }
+
+  /* headlines */
+  h1,
+  .h1,
+  h1 > * {
+    @apply type__heading--bold-1;
+    @apply leading-none;
+  }
+  h2,
+  .h2,
+  h2 > * {
+    @apply type__heading--bold-2;
+    @apply leading-none;
+  }
+  h3,
+  .h3,
+  h3 > * {
+    @apply type__heading--bold-3;
+    @apply leading-none;
+  }
+  h4,
+  .h4,
+  h4 > * {
+    @apply type__heading--bold-4;
+    @apply leading-tight;
+  }
+  h5,
+  .h5,
+  h5 > * {
+    @apply type__heading--bold-5;
+    @apply leading-tight;
+  }
+  h6,
+  .h6,
+  h6 > * {
+    @apply type__heading--bold-6;
+    @apply leading-tight;
+  }
+
+  /* nav */
+  input,
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="search"],
+  input[type="tel"],
+  select,
+  select[multiple],
+  textarea,
+  .form-input,
+  .form-select {
+    @apply type__nav text-base;
+  }
+  label {
+    @apply type__body type--small cursor-pointer;
+  }
+
+  /* links  */
+  a {
+    @apply animation-500 underline-offset-1 underline;
+
+    &:hover {
+      @apply underline opacity-50;
+    }
+
+    &:focus {
+      @apply border--focus;
+    }
+  }
+
+  /* spacing */
+  blockquote,
+  dl,
+  dd,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  figure,
+  p,
+  pre {
+    @apply md:mb-4 mb-2;
+  }
+
+  ul {
+    @apply pl-4 list-disc;
+  }
+
+  ol {
+    @apply pl-4 list-decimal;
+  }
+
+  /* font weight */
+  strong {
+    font-weight: bold;
+  }
+
+  /* mark tag for search query highlight */
+  mark {
+    background: none;
+    font-weight: bold;
+  }
+}

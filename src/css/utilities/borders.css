@@ -1,0 +1,77 @@
+/* BORDERS */
+/* - utility classes to add default border styles */
+/* ======= */
+
+@layer utilities {
+  /* ======= */
+  /* default borders */
+  /* - default border width */
+  .border--width {
+    border-width: var(--sizes-border-width);
+  }
+  .border--t-width {
+    border-top-width: var(--sizes-border-width);
+  }
+  .border--r-width {
+    border-right-width: var(--sizes-border-width);
+  }
+  .border--b-width {
+    border-bottom-width: var(--sizes-border-width);
+  }
+  .border--l-width {
+    border-left-width: var(--sizes-border-width);
+  }
+  /* - default border raidus */
+  .border--radius {
+    border-radius: var(--sizes-border-element-radius);
+  }
+  .mobile-border--radius-t-0 {
+    @media (max-width: 768px) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+  .mobile-border--radius-b-0 {
+    @media (max-width: 768px) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+  /* - default focus border */
+  .border--focus {
+    box-shadow: var(--color__bg-body-light) 0px 0px 0px 2px,
+      var(--color__border-selected-light-1) 0px 0px 0px 4px;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+
+  /* ======= */
+  /* button borders */
+  .border__button {
+    @apply border--width;
+  }
+  .border__button--focus {
+    @apply border--focus;
+  }
+  .border__button--hover {
+  }
+  .border__button--radius {
+    border-radius: var(--sizes-border-button-radius);
+  }
+
+  /* ======= */
+  /* input borders */
+  .border__input {
+    @apply border--width color__border-divider-2;
+  }
+  .border__input--focus {
+    @apply border--focus color__border-divider-2;
+  }
+  .border__input--hover {
+    @apply color__border-selected-1;
+  }
+  .border__input--radius {
+    border-radius: var(--sizes-border-input-radius);
+  }
+
+}

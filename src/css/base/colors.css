@@ -1,0 +1,9 @@
+/* COLORS */
+/* - apply base styles to color the page */
+/* ======= */
+
+@layer base {
+  body {
+    @apply color__bg-body color__text;
+  }
+}

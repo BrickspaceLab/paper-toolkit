@@ -1,0 +1,75 @@
+/* FORMS */
+/* - apply base styles to set form inputs */
+/* ======= */
+
+@layer base {
+  /* basic inputs */
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="number"],
+  input[type="url"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="week"],
+  input[type="time"],
+  input[type="search"],
+  input[type="tel"],
+  select,
+  select[multiple],
+  textarea {
+    @apply color__bg-overlay-1 animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input;
+    &::placeholder {
+      @apply color__text opacity-50;
+    }
+    &:hover {
+      @apply border__input--hover;
+    }
+    &:focus {
+      @apply border__input--focus color__bg-body;
+    }
+  }
+
+  /* checkboxes and radios */
+  input[type="checkbox"] {
+    @apply color__link color__bg-overlay-1 border__input cursor-pointer;
+    &:checked {
+      @apply bg-current !important;
+    }
+    &:hover {
+      @apply border__input--hover;
+    }
+    &:focus {
+      @apply border__input--focus;
+    }
+  }
+  input[type="radio"] {
+    @apply color__link color__bg-overlay-1 border__input rounded-full cursor-pointer;
+    &:checked {
+      @apply bg-current !important;
+    }
+    &:hover {
+      @apply border__input--hover;
+    }
+    &:focus {
+      @apply border__input--focus;
+    }
+  }
+
+  button {
+    &:hover {
+      @apply border__button--hover;
+    }
+    &:focus {
+      @apply border__button--focus;
+    }
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 24px;
+    height: 24px;
+    -webkit-appearance: none;
+  }
+}

@@ -1,0 +1,90 @@
+/* BUTTONS */
+/* ======= */
+
+@layer components {
+  /* standard button */
+  .btn {
+    @apply type__nav border__button--radius color__button-primary border__button animation-500 inline-flex items-center justify-center w-auto px-6 py-2 overflow-hidden text-center no-underline cursor-pointer min-h-[44px] min-w-[44px];
+    text-transform: var(--type-button-capiliziation);
+
+    * {
+      @apply type__nav;
+      text-transform: var(--type-button-capiliziation);
+    }
+
+    &__content {
+      @apply type__nav flex items-center;
+    }
+
+    /* states */
+    &--hover,
+    &:hover {
+      @apply border__button--hover no-underline opacity-75;
+    }
+    &--focus,
+    &:focus {
+      @apply border__button--focus;
+    }
+    &--disabled,
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* sizes */
+    &--small {
+      @apply type--small px-3;
+    }
+    &--small > * {
+      @apply type--small;
+    }
+    &--smaller {
+      @apply type--smaller px-3 py-1;
+    }
+    &--smaller > * {
+      @apply type--smaller;
+    }
+    &--big {
+      @apply type--big px-9 py-3;
+    }
+    &--big > * {
+      @apply type--big;
+    }
+
+    /* standard colors */
+    &--secondary {
+      @apply color__button-secondary;
+    }
+    &--tertiary {
+      @apply color__button-tertiary;
+    }
+    &--neutral {
+      @apply color__button-neutral;
+    }
+    &--plain {
+      @apply color__button-plain;
+    }
+
+    /* button animations */
+    /* - set style for default loading button */
+    &--load {
+      @apply relative;
+    }
+    &--loading {
+      cursor: wait;
+    }
+    /* - make sure spinner is spinner */
+    &__spinner {
+      @apply left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4 bg-inherit absolute flex items-center justify-center invisible w-11/12 transform;
+      svg {
+        @apply animate-spin-slow m-0 m-auto;
+      }
+    }
+    /* - when loading class used, hide content and show spinner */
+    &--loading &__content {
+      @apply invisible;
+    }
+    &--loading &__spinner {
+      @apply visible;
+    }
+  }
+}
