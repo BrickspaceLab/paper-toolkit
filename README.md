@@ -6,7 +6,6 @@
 
 ---
 
-
 # Overview
 This is a kit to help extend and customize the Paper Shopify theme. You will need to have a valid copy of Paper installed on your Shopify account in order to use this. Consider applying to our [affiliate program](https://brickspacelab.notion.site/Paper-partner-program-4f3da78aff844b43badce89b570777a6) for a commision on any Paper installs.
 
@@ -41,9 +40,9 @@ Paper has a number of useful features that make it a developer friendly theme to
 
 - `npm run login` - Logs out of any Shopify account then logs in to the store assigend in `package.json`
 - `npm run download` - Pulls theme files from your Shopify account
-- `npm run watch` - Creates a development theme then watches for changes to update the development preview with compiles CSS and JavaScript
 - `npm run build` - Builds minified CSS and JavaScript assets
 - `npm run deploy` - Builds minified CSS and JavaScript assets then deploys to a theme
+- `npm run watch` - Creates a development theme then watches for changes to update the development preview with compiled CSS and JavaScript
 
 ---
 
