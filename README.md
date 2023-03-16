@@ -39,25 +39,23 @@ Paper has a number of useful features that make it a developer friendly theme to
 
 ### Command refferance
 
-| Command  | Description |
-| ------------- | ------------- |
-| `npm run login`  | Logs out of any Shopify account then logs in to the store assigend in `package.json` |
-| `npm run download`  | Pulls theme files from your Shopify account |
-| `npm run watch`  | Creates a development theme then watches for changes to update the development preview with compiles CSS and JavaScript |
-| `npm run build`  | Builds minified CSS and JavaScript assets |
-| `npm run deploy`  | Builds minified CSS and JavaScript assets then deploys to a theme |
+- `npm run login` - Logs out of any Shopify account then logs in to the store assigend in `package.json`
+- `npm run download` - Pulls theme files from your Shopify account
+- `npm run watch` - Creates a development theme then watches for changes to update the development preview with compiles CSS and JavaScript
+- `npm run build` - Builds minified CSS and JavaScript assets
+- `npm run deploy` - Builds minified CSS and JavaScript assets then deploys to a theme
 
 ---
 
 # Making changes
 
 ### Development previews
-Use `npm run watch` to setup a development preview that refreshes your CSS and JavaScript as you make changes. This is the best way to implement more in-depth changes on Paper.
+Use `npm run watch` to setup a development preview that refreshes your CSS and JavaScript as you make changes. This is the best way to implement more in-depth changes on Paper. You should also consider implementing the [GitHub integration](https://shopify.dev/docs/themes/tools/github) into your workflow. 
 
 ### Naming coventions
 Paper uses a naming convention to help keep things organized. We use the following prefixes to help identify the files in our `/snippet` folder.
 - `components__`: Components are reusable pieces of code that can be used in multiple places. Most of our components are used in multiple places throughout the theme.
-- `theme__`: Theme files are only ever used in the `theme.liquid` file. These are global snippets that appear on every page of your theme. `
+- `theme__`: Theme files are only ever used in the `theme.liquid` file. These are global snippets that appear on every page of your theme.
 - `script__`: Script files contain small snippets of JavaScript that are used throughout the theme.
 - `article__`, `collection__`, `product__`: Article, collection and product files are used in their respecitive templates only.
 - `header__`: Header files are used to within the header of your theme.
