@@ -2,7 +2,7 @@
 
 ##  Paper
 
-Customize your Shopify theme even faster with Tailwind and Alpine
+Customize the Paper Shopify theme even faster with Tailwind and Alpine
 
 [Join Discord](https://discord.gg/NeSWQWCh) / [Download theme](https://themes.shopify.com/themes/paper/styles/poster)
 
