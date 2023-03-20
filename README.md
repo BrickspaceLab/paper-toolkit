@@ -71,7 +71,7 @@ Section files follow a similar naming convention.
 - [Discord server](https://discord.gg/NeSWQWCh)
 - [Twitter updates](https://twitter.com/brickspacelab)
 - [Our blog](https://brickspacelab.com/blogs/news)
-- [Paper changelog](https://www.notion.so/brickspacelab/Paper-changelog-cdfeea8101ae465f8880ac90ce22e951)
+- [Paper changelog](https://brickspacelab.notion.site/Paper-changelog-cdfeea8101ae465f8880ac90ce22e951)
 - [Merchant support](https://brickspacelab.notion.site/Paper-help-center-84ce6b9217574833a7d9b9f4053cb403)
 
 
