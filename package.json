@@ -1,5 +1,5 @@
 {
-  "name": "Paper",
+  "name": "Paper toolkit",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
     "shopify_dev": "shopify theme dev --store paper-theme.myshopify.com",
