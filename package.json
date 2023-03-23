@@ -1,8 +1,8 @@
 {
-  "name": "Paper toolkit",
+  "name": "paper-toolkit",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
-    "pull": "shopify theme pull --store paper-theme.myshopify.com",
+    "pull": "shopify theme pull --nodelete --store paper-theme.myshopify.com",
     "shopify_dev": "shopify theme dev --store paper-theme.myshopify.com",
     "vite_dev": "vite dev",
     "test": "vitest",
