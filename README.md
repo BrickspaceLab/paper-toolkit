@@ -24,7 +24,7 @@ Paper has a number of useful features that make it a developer friendly theme to
 ### Requirements
 - [Paper](https://themes.shopify.com/themes/paper/styles/poster) installed on your Shopify account
 - NPM (6.0.0 or higher)
-- [Node.js](https://nodejs.org/en/download/) (14.17.0 or higher)
+- [Node.js](https://nodejs.org/en/download/) (16.x or higher)
 - [Shopify CLI](https://shopify.dev/docs/themes/tools/cli/install)
 
 
