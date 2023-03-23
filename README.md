@@ -24,25 +24,23 @@ Paper has a number of useful features that make it a developer friendly theme to
 ### Requirements
 - [Paper](https://themes.shopify.com/themes/paper/styles/poster) installed on your Shopify account
 - NPM (6.0.0 or higher)
-- [Node.js](https://nodejs.org/en/download/) (16.x or higher)
-- [Shopify CLI](https://shopify.dev/docs/themes/tools/cli/install)
+- [Node.js](https://nodejs.org/en/download/) (16.0.0 or higher)
+- [Shopify CLI](https://shopify.dev/docs/themes/tools/cli/install) (3.0.0 or higher)
 
 
 ### Installing
 1. Clone this repo
-2. Update the `login` command in `package.json` to point to your store
-3. Run `npm install` to install dependencies
-4. Run `npm run login` to log in to your Shopify account
-5. Run `npm run download` to download theme files from your account
-6. Run `npm run watch` to watch for changes and start a develeopment preview
+2. Run `npm install` to install dependencies
+3. Update the `shopify_dev` command in `package.json` to point to your store. This can be done by replacing `paper-theme.myshopify.com` with your development store URL.
+4. Run `npm run dev` to create a development preview
+5. Run `npm run build` to build production ready assets
 
 ### Command refferance
-
-- `npm run login` - Logs out of any Shopify account then logs in to the store assigend in `package.json`
-- `npm run download` - Pulls theme files from your Shopify account
-- `npm run build` - Builds minified CSS and JavaScript assets
-- `npm run deploy` - Builds minified CSS and JavaScript assets then deploys to a theme
-- `npm run watch` - Creates a development theme then watches for changes to update the development preview with compiled CSS and JavaScript
+| Task Name | Description |
+| :--- | :--- |
+| `npm run dev` | Run development preview |
+| `npm run build` | Build prodution assets |
+| `npm run test` | Run tests |
 
 ---
 

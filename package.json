@@ -1,11 +1,12 @@
 {
   "name": "Paper",
   "scripts": {
-    "login": "shopify logout && shopify login --store YOUR-STORE.myshopify.com",
-    "download": "shopify theme pull --nodelete",
-    "watch": "mix watch & shopify theme dev",
-    "build": "mix --production",
-    "deploy": "mix --production && shopify theme push"
+    "dev": "npm-run-all --parallel vite_dev shopify_dev",
+    "shopify_dev": "shopify theme dev --store paper-theme.myshopify.com",
+    "vite_dev": "vite dev",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
+    "build": "vite build"
   },
   "author": {
     "name": "Brickspace Lab",
@@ -14,25 +15,26 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/aspect-ratio": "^0.4.0",
-    "@tailwindcss/forms": "^0.4.0-alpha.2",
-    "autoprefixer": "^10.4.0",
-    "laravel-mix": "^6.0.19",
-    "laravel-mix-eslint": "^0.2.0",
-    "eslint": "^7.28.0",
-    "eslint-webpack-plugin": "^2.5.4",
-    "postcss": "^8.4.5",
-    "postcss-clean": "^1.2.2",
-    "postcss-cli": "^8.3.1",
-    "postcss-import": "^14.0.2",
-    "postcss-nested": "^5.0.5",
-    "tailwindcss": "^3.2.4"
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.3",
+    "autoprefixer": "^10.4.14",
+    "jsdom": "^21.1.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.21",
+    "postcss-import": "^15.1.0",
+    "postcss-nested": "^6.0.1",
+    "prettier": "^2.8.4",
+    "prettier-plugin-tailwindcss": "^0.2.5",
+    "tailwindcss": "^3.2.7",
+    "vite": "^4.2.0",
+    "vite-plugin-shopify": "^1.0.2",
+    "vitest": "^0.29.7"
   },
   "dependencies": {
-    "@alpinejs/intersect": "^3.7.1",
-    "@alpinejs/persist": "^3.10.1",
-    "@alpinejs/focus": "^3.7.1",
-    "alpinejs": "^3.7.1",
-    "instant.page": "^1.2.2"
+    "@alpinejs/focus": "^3.12.0",
+    "@alpinejs/intersect": "^3.12.0",
+    "@alpinejs/persist": "^3.12.0",
+    "alpinejs": "^3.12.0",
+    "instant.page": "5.1.1"
   }
 }

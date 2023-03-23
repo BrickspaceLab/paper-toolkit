@@ -6,26 +6,26 @@
 
 /* ======= */
 /* utilities */
-@import "./utilities/colors.css";
-@import "./utilities/borders.css";
-@import "./utilities/typography.css";
-@import "./utilities/animation.css";
+@import "../css/utilities/colors.css";
+@import "../css/utilities/borders.css";
+@import "../css/utilities/typography.css";
+@import "../css/utilities/animation.css";
 
 /* ======= */
 /* base */
-@import "./base/colors.css";
-@import "./base/typography.css";
-@import "./base/forms.css";
-@import "./base/images.css";
-@import "./base/tables.css";
+@import "../css/base/colors.css";
+@import "../css/base/typography.css";
+@import "../css/base/forms.css";
+@import "../css/base/images.css";
+@import "../css/base/tables.css";
 
 /* ======= */
 /* components */
 /* - atoms */
-@import "./components/buttons.css";
-@import "./components/windows.css";
+@import "../css/components/buttons.css";
+@import "../css/components/windows.css";
 /* - components */
-@import "./components/header.css";
+@import "../css/components/header.css";
 
 /* ======= */
 /* development */
