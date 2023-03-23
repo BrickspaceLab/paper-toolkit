@@ -31,7 +31,8 @@ Paper has a number of useful features that make it a developer friendly theme to
 ### Installing
 1. Clone this repo
 2. Run `npm install` to install dependencies
-3. Update the `shopify_dev` command in `package.json` to point to your store. This can be done by replacing `paper-theme.myshopify.com` with your development store URL.
+3. Update the `STORE_URL` value in the `.env` file to your point to your Shopify store
+4. Run `npm run pull` to download the full theme files from your Shopify store
 4. Run `npm run dev` to create a development preview
 5. Run `npm run build` to build production ready assets
 
