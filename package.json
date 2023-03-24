@@ -28,7 +28,7 @@
     "prettier-plugin-tailwindcss": "^0.2.5",
     "tailwindcss": "^3.2.7",
     "vite": "^4.2.0",
-    "vite-plugin-shopify": "^1.0.2",
+    "vite-plugin-shopify": "^2.0.2",
     "vitest": "^0.29.7"
   },
   "dependencies": {
