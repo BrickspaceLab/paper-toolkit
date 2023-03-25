@@ -14,7 +14,7 @@ export default function formatMoney(
     : "${{ amount }}";
 
   // Set default options
-  function defaultOption(opt: any, def: any) {
+  function defaultOption<T>(opt: T | undefined, def: T): T {
     return typeof opt == "undefined" ? def : opt;
   }
 

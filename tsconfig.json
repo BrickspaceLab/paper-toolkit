@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es2015",                      
+    "module": "commonjs",                     
+    "lib": [                                  
+      "dom", "DOM.Iterable","es2017", "es2019"
+    ],                       
+     "removeComments": true,                  
+    "strict": true,                           
+    "noImplicitThis": false,                
+    "esModuleInterop": true,                 
+    "skipLibCheck": true,                     
+    "forceConsistentCasingInFileNames": true  
+  }
+}

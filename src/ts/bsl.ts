@@ -1,6 +1,7 @@
 import formatMoney from "./shopify/formatMoney";
 import initAnimationObserver from "./animation/observer";
 import { IShopify } from "./models.interface";
+import { AppInterface } from "./models.interface";
 import { globals } from "./globals/globals";
 import { cart } from "./cart/cart";
 import { search } from "./search/search";
@@ -11,13 +12,13 @@ import { utils } from "./util/util";
 declare global {
   interface Window {
     Shopify: IShopify;
-    app: any;
-    __initialData: any;
+    app: () => AppInterface;
+    __initialData: AppInterface;
   }
 }
 
 // Set up Shopify stuff
-const Shopify: IShopify = window.Shopify || {};
+let Shopify = window.Shopify || {};
 Shopify.formatMoney = formatMoney;
 
 // Watch for class changes for animation

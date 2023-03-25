@@ -1,3 +1,4 @@
+import { Product } from "../models.interface";
 export const cart = {
   
   // Update cart with fetched data
@@ -23,11 +24,11 @@ export const cart = {
 
         // Custom properties
         this.cart.shipping_gap =
-          this.progress_bar_threshold * (+Shopify.currency.rate || 1) -
+          this.progress_bar_threshold * (+window.Shopify.currency.rate || 1) -
           this.cart.total_price;
         this.cart.shipping_progress =
           (this.cart.total_price /
-            (this.progress_bar_threshold * (+Shopify.currency.rate || 1))) *
+            (this.progress_bar_threshold * (+window.Shopify.currency.rate || 1))) *
             100 +
           "%";
 
@@ -107,7 +108,7 @@ export const cart = {
     sellingPlanId: number,
     quantity: number,
     openCart: boolean,
-    properties: any[]
+    properties: HTMLCollectionOf<HTMLInputElement>
   ) {
     this.cart_loading = true;
     let formData;
@@ -176,7 +177,7 @@ export const cart = {
   },
 
   // Add multiple items to cart, used for cart sharing
-  addCartItems(items: any[], clear = false) {
+  addCartItems(items: Product[], clear = false) {
     this.cart_loading = true;
     let formData = {
       items: items,
@@ -257,7 +258,7 @@ export const cart = {
       let objArr = qArray.map((item) => {
         if (item != "") {
           var properties = item.split(",");
-          var obj = {} as any;
+          var obj: { [key: string]: string } = {};
           properties.forEach(function (property) {
             var tup = property.split(":");
             obj[tup[0]] = tup[1];
@@ -270,19 +271,28 @@ export const cart = {
   },
 
   // Generate url with query string based on cart contents
-  generateUrl(): string {
-    let queryString = '';
 
-    const serialize = function (obj: { [key: string]: any }): string {
+  
+  generateUrl(): string {
+    interface ICartItem {
+      cartshare: boolean;
+      id: number;
+      quantity: number;
+    }
+    
+    type StringIndexable<T> = T & { [key: string]: string | number | boolean };
+    let queryString = '';
+  
+    const serialize = function (obj: StringIndexable<ICartItem>): string {
       const str = [];
       for (const p in obj) {
         if (obj.hasOwnProperty(p)) {
-          str.push(`${encodeURIComponent(p)}:${encodeURIComponent(obj[p])}`);
+          str.push(`${encodeURIComponent(p)}:${encodeURIComponent(obj[p].toString())}`);
         }
       }
       return str.join(',') + '&';
     };
-
+  
     const filteredCart = this.cart.items.map((item: Product) => {
       return ({
         cartshare: true,
@@ -290,11 +300,12 @@ export const cart = {
         quantity: item.quantity,
       });
     });
-
-    filteredCart.forEach((item: { cartshare: boolean; id: number; quantity: number }) => {
+  
+    filteredCart.forEach((item: StringIndexable<ICartItem>) => {
       queryString = queryString.concat(serialize(item));
     });
     return window.location.origin + '?' + queryString;
   },
+  
 
 };

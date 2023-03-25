@@ -1,3 +1,4 @@
+import { Params } from "../models.interface";
 export const search = {
 
   // Fetch search suggestions and update alpine variables

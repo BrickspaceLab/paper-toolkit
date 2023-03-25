@@ -3,21 +3,20 @@
 
 // Setup IntersectionObserver to add classes on scroll
 export default function initAnimationObserver() {
-  
   // observerCallback for IntersectionObserver
   const observerCallback: IntersectionObserverCallback = function (entries) {
     entries.forEach((entry) => {
-      let element = document.getElementById((entry.target as any).dataset.id);
+      let element = document.getElementById((entry.target as HTMLElement).dataset.id!);
 
       // Update classes
       if (entry.isIntersecting) {
         let replaceClasses = JSON.parse(
-          (entry.target as any).dataset.replace.replace(/'/g, '"')
-        );
-        let delay = (entry.target as any).dataset.delay;
+          (entry.target as HTMLElement).dataset.replace!.replace(/'/g, '"')
+        ) as { [key: string]: string };
+        let delay = (entry.target as HTMLElement).dataset.delay || '';
 
-        let callback = (entry.target as any).dataset.callback;
-        var x = eval(callback);
+        let callback = (entry.target as HTMLElement).dataset.callback!;
+        let x = eval(callback);
         if (typeof x == "function") {
           x();
         }
@@ -31,7 +30,7 @@ export default function initAnimationObserver() {
               entry.target.classList.remove(key);
               entry.target.classList.add(replaceClasses[key]);
             }
-          }, delay);
+          }, parseInt(delay, 10));
         });
       }
     });

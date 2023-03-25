@@ -43,40 +43,51 @@ export const collections = {
   },
 
   // Handle filter change
-  handleFilterChange: function (id: string) {
+  handleFilterChange(id: string): void {
     // Show loading indication
     this.collection_loading = true;
-
+  
     // Reset pagination
     this.pagination_current_page = 1;
-
+  
     // Get filter data
-    let filter = document.getElementById(id);
-    let filterData = new FormData(filter as any);
-
-    this.fetchAndRenderCollection(filterData);
+    const filter = document.getElementById(id) as HTMLFormElement | null;
+    
+    if (filter) {
+      const filterData = new FormData(filter);
+  
+      this.fetchAndRenderCollection(filterData);
+    } else {
+      console.error("Filter element not found.");
+    }
   },
-
+  
   // Handle deleting filters
-  handleFilterDelete: function (filterToReset: string) {
+  handleFilterDelete(filterToReset: string): void {
     // Show loading indication
     this.collection_loading = true;
-
+  
     // Get filter data
-    let filter = document.getElementById("js:desktopFilter");
-    let filterData = new FormData(filter as any);
-
-    // Remove deleted filter
-    filterData.delete(filterToReset);
-    if (filterToReset.indexOf("price") !== -1) {
-      filterData.delete("filter.v.price.gte");
-      filterData.delete("filter.v.price.lte");
-      this.filter_min_price = this.filter_min;
-      this.filter_max_price = this.filter_max;
+    const filter = document.getElementById("js:desktopFilter") as HTMLFormElement | null;
+    
+    if (filter) {
+      const filterData = new FormData(filter);
+  
+      // Remove deleted filter
+      filterData.delete(filterToReset);
+      if (filterToReset.indexOf("price") !== -1) {
+        filterData.delete("filter.v.price.gte");
+        filterData.delete("filter.v.price.lte");
+        this.filter_min_price = this.filter_min;
+        this.filter_max_price = this.filter_max;
+      }
+  
+      this.fetchAndRenderCollection(filterData);
+    } else {
+      console.error("Filter element 'js:desktopFilter' not found.");
     }
-
-    this.fetchAndRenderCollection(filterData);
   },
+  
 
   // Handle deleting all filters
   handleFilterDeleteAll: function () {
