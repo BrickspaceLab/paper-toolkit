@@ -10,6 +10,7 @@
 @import "../css/utilities/borders.css";
 @import "../css/utilities/typography.css";
 @import "../css/utilities/animation.css";
+@import "../css/utilities/spacing.css";
 
 /* ======= */
 /* base */
@@ -141,5 +142,5 @@ html {
   @apply !border--focus;
 }
 .shopify-payment-button__more-options {
-  @apply color__bg-overlay-1 px-6 py-2;
+  @apply !color__bg-overlay-1 px-6 py-2;
 }

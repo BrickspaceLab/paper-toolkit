@@ -88,7 +88,6 @@ export const collections = {
     }
   },
   
-
   // Handle deleting all filters
   handleFilterDeleteAll: function () {
     // Show loading indication
@@ -161,6 +160,71 @@ export const collections = {
           this.collection_loading = false;
         }, 100);
       });
+  },
+
+  // Check if next page is avaible and inject more products
+  fetchAndRenderNextPage: function () {
+    // check if new page is available
+    if (this.pagination_current_page < this.pagination_total_pages) {
+      // show loading
+      this.collection_loading = true;
+
+      // get filter data
+      let filter = document.getElementById("js:desktopFilter");
+
+      // get pagination count
+      let pageUrl = "&page=" + (this.pagination_current_page + 1);
+
+      // get search thingy
+      let searchUrl = new URL(location.href).searchParams.get("q");
+      searchUrl = "&q=" + searchUrl;
+
+      // build fetch url
+      let fetchUrl = "";
+      if (filter) {
+        let filterData = new FormData(filter);
+        let filterUrl = this.buildUrlFilter(filterData);
+
+        fetchUrl =
+          window.location.pathname +
+          "?section_id=" +
+          this.pagination_section +
+          filterUrl +
+          pageUrl +
+          searchUrl;
+      } else {
+        fetchUrl =
+          window.location.pathname +
+          "?section_id=" +
+          this.pagination_section +
+          pageUrl +
+          searchUrl;
+      }
+
+      // load new page with filters and sort
+      fetch(fetchUrl)
+        .then((response) => response.text())
+        .then((responseText) => {
+          // extract products and inject into grid
+          let html = document.createElement("div");
+          html.innerHTML = responseText;
+          let htmlCleaned = html.querySelector("#js\\:results").innerHTML;
+          document
+            .getElementById("js:results")
+            .insertAdjacentHTML("beforeend", htmlCleaned);
+          setTimeout(() => {
+            this.collection_loading = false;
+          }, 100);
+
+          // update next page url
+          this.pagination_current_page = this.pagination_current_page + 1;
+        });
+    }
+
+    // if last pgae
+    else {
+      this.collection_loading = false;
+    }
   },
 
 };

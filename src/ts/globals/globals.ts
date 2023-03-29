@@ -4,9 +4,9 @@ export const globals = {
   // Scroll related properties
   is_scrolled: window.__initialData.is_scrolled,                            // Boolean to toggle the dynamic header when scrolling up or down
   prev_scroll_pos: window.__initialData.prev_scroll_pos,                    // Calculates the scroll direction for the dynamic header
-  hide_header: window.__initialData.hide_header,                            // Boolean to hide header when opening over overlays
   scroll_up: window.__initialData.scroll_up,                                // Boolean to toggle the the "Back to top" button
   scroll_up_force: window.__initialData.scroll_up_force,                    // Boolean to force the "Back to top" to be hidden
+  hide_header: window.__initialData.hide_header,                            // Boolean to hide header when opening other overlays
 
   // Mouse position properties
   mouse_x: window.__initialData.mouse_x,                                    // Mouse position X to position zoomed images

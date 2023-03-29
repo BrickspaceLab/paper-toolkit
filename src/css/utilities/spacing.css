@@ -1,0 +1,39 @@
+/* SPACING */
+/* - utility classes to add padding and margin that matches the set gap sizing */
+/* ======= */
+
+@layer utilities {
+
+  .padding--gap {
+    padding: var(--sizes-gap-width);
+  }
+  .padding--t-gap {
+    padding-top: var(--sizes-gap-width);
+  }
+  .padding--r-gap {
+    padding-right: var(--sizes-gap-width);
+  }
+  .padding--b-gap {
+    padding-bottom: var(--sizes-gap-width);
+  }
+  .padding--l-gap {
+    padding-left: var(--sizes-gap-width);
+  }
+
+  .margin--gap {
+    margin: var(--sizes-gap-width);
+  }
+  .margin--t-gap {
+    margin-top: var(--sizes-gap-width);
+  }
+  .margin--r-gap {
+    margin-right: var(--sizes-gap-width);
+  }
+  .margin--b-gap {
+    margin-bottom: var(--sizes-gap-width);
+  }
+  .margin--l-gap {
+    margin-left: var(--sizes-gap-width);
+  }
+
+}

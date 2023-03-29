@@ -6,8 +6,9 @@ export default {
   },
   plugins: [
     shopify({
-        sourceCodeDir:"src",
-        entrypointsDir: 'src/entrypoints',
+      sourceCodeDir:"src",
+      entrypointsDir: 'src/entrypoints',
+      snippetFile: "assets.liquid"
     }),
   ],
   test: {
