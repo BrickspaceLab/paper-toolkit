@@ -5,7 +5,7 @@
     "lib": [                                  
       "dom", "DOM.Iterable","es2017", "es2019"
     ],                       
-     "removeComments": true,                  
+    "removeComments": true,                  
     "strict": true,                           
     "noImplicitThis": false,                
     "esModuleInterop": true,                 
