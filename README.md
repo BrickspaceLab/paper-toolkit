@@ -49,7 +49,7 @@ Paper has a number of useful features that make it a developer friendly theme to
 # Making changes
 
 ### Development previews
-Use `npm run watch` to setup a development preview that refreshes your CSS and JavaScript as you make changes. This is the best way to implement more in-depth changes on Paper. You should also consider implementing the [GitHub integration](https://shopify.dev/docs/themes/tools/github) into your workflow. 
+Use `npm run dev` to setup a development preview that refreshes your CSS and JavaScript as you make changes. This is the best way to implement more in-depth changes on Paper. You should also consider implementing the [GitHub integration](https://shopify.dev/docs/themes/tools/github) into your workflow. 
 
 ### Naming coventions
 Paper uses a naming convention to help keep things organized. We use the following prefixes to help identify the files in our `/snippet` folder.
