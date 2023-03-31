@@ -14,7 +14,7 @@
   .color__bg-text {
     background-color: var(--color__text-light);
   }
-  
+
   /* - overlay 1 */
   .color__bg-overlay-1 {
     background-color: var(--color__bg-overlay-light-1);
@@ -91,7 +91,7 @@
   .color__tertiary {
     color: var(--color-tertiary-button-text-light);
   }
-  
+
   /* - neutral */
   .color__neutral {
     color: var(--color-neutral-button-text-light);
@@ -133,7 +133,6 @@
   .color__border-primary {
     border-color: var(--color-primary-button-background-light);
   }
-  
 
   /* ======= */
   /* buttons */
@@ -166,7 +165,7 @@
       color: var(--color-tertiary-button-text-light);
     }
   }
-  
+
   /* - neutral */
   .color__button-neutral {
     background-color: var(--color-neutral-button-background-light);
@@ -186,5 +185,4 @@
       color: var(--color-plain-button-text-light);
     }
   }
-
 }

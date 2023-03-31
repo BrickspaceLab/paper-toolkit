@@ -32,7 +32,9 @@
 /* development */
 
 /* - reset default border color */
-*, ::before, ::after {
+*,
+::before,
+::after {
   @apply color__border-divider-1;
 }
 
@@ -65,12 +67,12 @@ html {
   top: 50%;
   border-top: 2px solid;
   border-color: var(--color__text-light) !important;
-  
-  -webkit-transform:rotate(-15deg);
-  -moz-transform:rotate(-15deg);
-  -ms-transform:rotate(-15deg);
-  -o-transform:rotate(-15deg);
-  transform:rotate(-15deg);
+
+  -webkit-transform: rotate(-15deg);
+  -moz-transform: rotate(-15deg);
+  -ms-transform: rotate(-15deg);
+  -o-transform: rotate(-15deg);
+  transform: rotate(-15deg);
 }
 
 /* hide scrollbar */
@@ -84,7 +86,7 @@ html {
 
 /* - flag stuff */
 .fi {
-  @apply relative inline-block pr-2 bg-center bg-no-repeat bg-contain;
+  @apply relative inline-block bg-contain bg-center bg-no-repeat pr-2;
   width: 1.33333333em;
   line-height: 1em;
 }
@@ -128,7 +130,7 @@ html {
   @apply !border__button--radius overflow-hidden;
 }
 .shopify-payment-button__button--unbranded {
-  @apply color__bg-secondary !color__secondary hover:color__bg-secondary hover:opacity-75 !px-6 !py-2;
+  @apply color__bg-secondary !color__secondary hover:color__bg-secondary !px-6 !py-2 hover:opacity-75;
   @apply !leading-normal !tracking-wide;
 }
 .shopify-payment-button__button--branded {
