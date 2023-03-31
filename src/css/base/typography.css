@@ -82,7 +82,7 @@
 
   /* links  */
   a {
-    @apply animation-500 underline-offset-1 underline;
+    @apply animation-500 underline underline-offset-1;
 
     &:hover {
       @apply underline opacity-50;
@@ -106,15 +106,15 @@
   figure,
   p,
   pre {
-    @apply md:mb-4 mb-2;
+    @apply mb-2 md:mb-4;
   }
 
   ul {
-    @apply pl-4 list-disc;
+    @apply list-disc pl-4;
   }
 
   ol {
-    @apply pl-4 list-decimal;
+    @apply list-decimal pl-4;
   }
 
   /* font weight */

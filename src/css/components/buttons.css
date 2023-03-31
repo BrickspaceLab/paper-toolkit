@@ -4,7 +4,7 @@
 @layer components {
   /* standard button */
   .btn {
-    @apply type__nav border__button--radius color__button-primary border__button animation-500 inline-flex items-center justify-center w-auto px-6 py-2 overflow-hidden text-center no-underline cursor-pointer min-h-[44px] min-w-[44px];
+    @apply type__nav border__button--radius color__button-primary border__button animation-500 inline-flex min-h-[44px] w-auto min-w-[44px] cursor-pointer items-center justify-center overflow-hidden px-6 py-2 text-center no-underline;
     text-transform: var(--type-button-capiliziation);
 
     * {
@@ -27,7 +27,7 @@
     }
     &--disabled,
     &:disabled {
-      @apply opacity-50 cursor-not-allowed;
+      @apply cursor-not-allowed opacity-50;
     }
 
     /* sizes */
@@ -74,9 +74,9 @@
     }
     /* - make sure spinner is spinner */
     &__spinner {
-      @apply left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4 bg-inherit absolute flex items-center justify-center invisible w-11/12 transform;
+      @apply invisible absolute left-2/4 top-2/4 flex w-11/12 -translate-y-2/4 -translate-x-2/4 transform items-center justify-center bg-inherit;
       svg {
-        @apply animate-spin-slow m-0 m-auto;
+        @apply m-0 m-auto animate-spin-slow;
       }
     }
     /* - when loading class used, hide content and show spinner */

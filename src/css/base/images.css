@@ -7,7 +7,7 @@
     @apply relative;
   }
   img:after {
-    @apply md:absolute md:type--smaller md:top-0 md:flex md:flex-col md:justify-center md:w-full md:h-full md:p-4 md:text-center md:whitespace-normal color__text items-center justify-center hidden;
+    @apply md:type--smaller color__text hidden items-center justify-center md:absolute md:top-0 md:flex md:h-full md:w-full md:flex-col md:justify-center md:whitespace-normal md:p-4 md:text-center;
     content: "" attr(alt) !important;
   }
 }
