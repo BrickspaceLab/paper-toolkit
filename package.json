@@ -2,8 +2,8 @@
   "name": "paper-toolkit",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
-    "pull": "shopify theme pull --nodelete --store paper-theme.myshopify.com",
-    "shopify_dev": "shopify theme dev --store paper-theme.myshopify.com",
+    "pull": "shopify theme pull --nodelete --store $npm_package_config_store",
+    "shopify_dev": "shopify theme dev --store $npm_package_config_store",
     "vite_dev": "vite dev",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -37,5 +37,8 @@
     "@alpinejs/persist": "^3.12.0",
     "alpinejs": "^3.12.0",
     "instant.page": "5.1.1"
+  },
+  "config": {
+    "store": "paper-theme.myshopify.com"
   }
 }
