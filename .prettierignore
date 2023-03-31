@@ -1,0 +1,7 @@
+assets
+*.cjs
+*.js
+*.ts
+src/entrypoints/*
+!src/entrypoints/*.css
+assets.liquid
