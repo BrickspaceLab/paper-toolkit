@@ -23,9 +23,8 @@ export const search = {
       this.search_items = [];
       return;
     }
-
     fetch(
-      `/search/suggest.json?q=${searchTerm}&resources[type]=product,collection,article,page,query&resources[limit]=6&[options][fields]=${buildParams()}&section_id=predictive-search`
+      `${window.Shopify.routes.root}search/suggest.json?q=${searchTerm}&resources[type]=product,collection,article,page,query&resources[limit]=6&[options][fields]=${buildParams()}&section_id=predictive-search`
     )
       .then((response) => {
         if (!response.ok) {

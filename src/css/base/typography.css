@@ -74,7 +74,7 @@
   textarea,
   .form-input,
   .form-select {
-    @apply type__nav text-base;
+    @apply type__body text-base;
   }
   label {
     @apply type__body type--small cursor-pointer;
@@ -82,7 +82,7 @@
 
   /* links  */
   a {
-    @apply animation-500 underline underline-offset-1;
+    @apply animation-500 underline-offset-1 underline;
 
     &:hover {
       @apply underline opacity-50;
@@ -106,15 +106,15 @@
   figure,
   p,
   pre {
-    @apply mb-2 md:mb-4;
+    @apply md:mb-4 mb-2;
   }
 
   ul {
-    @apply list-disc pl-4;
+    @apply pl-4 list-disc;
   }
 
   ol {
-    @apply list-decimal pl-4;
+    @apply pl-4 list-decimal;
   }
 
   /* font weight */

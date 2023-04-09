@@ -196,6 +196,9 @@ interface Cart {
 }
 
 export interface AppInterface {
+  click_audio: string;
+  success_audio: string;
+  enable_audio: boolean;
   is_scrolled: boolean;
   prev_scroll_pos: number;
   hide_header: boolean;

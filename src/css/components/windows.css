@@ -2,17 +2,19 @@
 /* ======= */
 
 @layer components {
+
   /* standard containers */
   .window--narrow {
-    @apply m-auto px-4 md:max-w-2xl lg:max-w-3xl xl:max-w-4xl;
+    @apply md:max-w-2xl lg:max-w-3xl xl:max-w-4xl px-4 m-auto;
   }
   .window {
-    @apply m-auto px-4 md:max-w-4xl lg:max-w-5xl xl:max-w-6xl;
+    @apply md:max-w-4xl lg:max-w-5xl xl:max-w-6xl px-4 m-auto;
   }
   .window--wide {
-    @apply m-auto px-4 md:max-w-5xl lg:max-w-6xl xl:max-w-7xl;
+    @apply md:max-w-5xl lg:max-w-6xl xl:max-w-7xl px-4 m-auto;
   }
   .window--full {
-    @apply m-auto px-4;
+    @apply px-4 m-auto;
   }
+  
 }

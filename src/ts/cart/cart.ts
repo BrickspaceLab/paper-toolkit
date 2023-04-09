@@ -1,6 +1,41 @@
 import { Product } from "../models.interface";
 export const cart = {
   
+  // Update cart with note input
+    updateCartNote(note: string) {
+      this.cart_loading = true;
+      fetch("/cart/update.js", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ note: note }),
+      })
+        .then(async (response) => {
+          let data = await response.json();
+
+          // good response
+          if (response.status === 200) {
+            this.cart.items = data.items.map((item:Product) => {
+              return {
+                ...item,
+              };
+            });
+            this.updateCart(false);
+          }
+
+          // error response
+          else {
+            (this.error_title = data.message),
+              (this.error_message = data.description),
+              (this.show_alert = true);
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          this.cart_loading = false;
+        });
+    },
   // Update cart with fetched data
   updateCart(openCart: boolean) {
     this.cart_loading = true;
@@ -21,7 +56,7 @@ export const cart = {
         this.cart.total_discount = data.total_discount;
         this.cart.cart_level_discount_applications =
           data.cart_level_discount_applications;
-
+          this.cart.note = data.note;
         // Custom properties
         this.cart.shipping_gap =
           this.progress_bar_threshold * (+window.Shopify.currency.rate || 1) -
@@ -70,12 +105,16 @@ export const cart = {
     openCart: boolean,
     refresh: boolean
   ) {
+    if(this.enable_audio) {
+      const click_audio = new Audio(this.click_audio);
+      click_audio.play();
+    }
+
     this.cart_loading = true;
     let formData = {
       id: key.toString(),
       quantity: quantity.toString(),
     };
-
     fetch("/cart/change.js", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -85,6 +124,12 @@ export const cart = {
     })
       .then((response) => response.json())
       .then((data) => {
+        if(data.status === 422 ) {
+          this.error_title = data.message,
+          this.error_message = data.description,
+          this.show_alert = true;
+          this.cart_loading = false;
+        }
         this.cart.items = data.items.map((item: Product) => {
           return {
             ...item,
@@ -110,6 +155,11 @@ export const cart = {
     openCart: boolean,
     properties: HTMLCollectionOf<HTMLInputElement>
   ) {
+    if(this.enable_audio) {
+      const click_audio = new Audio(this.click_audio);
+      click_audio.play();
+    }
+
     this.cart_loading = true;
     let formData;
     let propertiesArr = [];
@@ -160,6 +210,10 @@ export const cart = {
 
         // Good response
         if (response.status === 200) {
+          if(this.enable_audio){
+              const success_audio = new Audio(this.success_audio);
+              success_audio.play();
+            }
           this.updateCart(openCart);
         }
 

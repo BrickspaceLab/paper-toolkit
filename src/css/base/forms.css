@@ -19,7 +19,7 @@
   select,
   select[multiple],
   textarea {
-    @apply color__bg-overlay-1 animation-500 border__input--radius border__input min-h-[44px] w-full appearance-none px-3 py-1.5;
+    @apply color__bg-overlay-1 animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input;
     &::placeholder {
       @apply color__text opacity-50;
     }
@@ -45,7 +45,7 @@
     }
   }
   input[type="radio"] {
-    @apply color__link color__bg-overlay-1 border__input cursor-pointer rounded-full;
+    @apply color__link color__bg-overlay-1 border__input rounded-full cursor-pointer;
     &:checked {
       @apply bg-current !important;
     }

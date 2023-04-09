@@ -39,7 +39,8 @@
   }
   /* - default focus border */
   .border--focus {
-    box-shadow: var(--color__bg-body-light) 0px 0px 0px 2px, var(--color__border-selected-light-1) 0px 0px 0px 4px;
+    box-shadow: var(--color__bg-body-light) 0px 0px 0px 2px,
+      var(--color__border-selected-light-1) 0px 0px 0px 4px;
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
@@ -72,4 +73,5 @@
   .border__input--radius {
     border-radius: var(--sizes-border-input-radius);
   }
+
 }

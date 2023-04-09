@@ -3,6 +3,7 @@
 /* ======= */
 
 @layer utilities {
+
   .animation-100 {
     @apply transition duration-100;
   }
@@ -26,4 +27,5 @@
     @apply transition-all;
     transition-duration: 5000ms;
   }
+  
 }

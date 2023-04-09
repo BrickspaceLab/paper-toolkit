@@ -1,5 +1,10 @@
 // Exporting global constants
 export const globals = {
+  // Audio related properties
+  click_audio: window.__initialData.click_audio,
+  success_audio: window.__initialData.success_audio,
+  enable_audio: window.__initialData.enable_audio,
+  audio_popup: window.__initialData.audio_popup,
 
   // Scroll related properties
   is_scrolled: window.__initialData.is_scrolled,                            // Boolean to toggle the dynamic header when scrolling up or down
