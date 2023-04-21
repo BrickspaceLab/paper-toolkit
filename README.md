@@ -80,7 +80,7 @@ Section files follow a similar naming convention.
 
 # Resources
 
-- [Discord server](https://discord.gg/NeSWQWCh)
+- [Discord server](https://discord.gg/4qdBFhmzCR)
 - [Twitter updates](https://twitter.com/brickspacelab)
 - [Our blog](https://brickspacelab.com/blogs/news)
 - [Paper changelog](https://brickspacelab.notion.site/Paper-changelog-cdfeea8101ae465f8880ac90ce22e951)
