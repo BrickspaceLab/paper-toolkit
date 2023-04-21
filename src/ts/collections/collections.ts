@@ -3,8 +3,7 @@ export const collections = {
   // Load quick add with section render
   fetchAndRenderQuickAdd: function (product_handle: string, template: string) {
     if(this.enable_audio) {
-      const click_audio = new Audio(this.click_audio);
-      click_audio.play();
+      this.playSound(this.click_audio);
     }
 
     fetch(

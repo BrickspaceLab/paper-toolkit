@@ -102,6 +102,71 @@ html {
   }
 }
 
+/* store locator */
+.gmnoprint {
+  min-height: 28px;
+}
+.gm-style-cc {
+  min-height: 28px;
+}
+
+/* Customer template */
+.login a {
+  display: block;
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.login a[href='#recover'] {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.login .field + a {
+  margin-top: 1rem;
+}
+
+.login p {
+  margin: 1.5rem 0;
+}
+
+.login h3 {
+  margin-top: 1.5rem;
+  text-align: left;
+  font-size: calc(var(--font-heading-scale) * 1.6rem);
+}
+
+#customer_login_guest button {
+  margin-top: 0;
+}
+
+#recover,
+#recover + div {
+  display: none;
+}
+
+#recover:target {
+  display: block;
+}
+
+#recover:target + div {
+  display: block;
+}
+
+#recover:target ~ #login,
+#recover:target ~ #login + div {
+  display: none;
+}
+
+#recover,
+#login {
+  scroll-margin-top: 20rem;
+}
+
+#recover {
+  margin-bottom: 0;
+}
+
 /* - add spacing to challenge captcha page */
 /* - add spacing to shopify legal pages */
 .shopify-challenge__container,
@@ -128,7 +193,7 @@ html {
   @apply !border__button--radius overflow-hidden;
 }
 .shopify-payment-button__button--unbranded {
-  @apply color__bg-secondary !color__secondary hover:color__bg-secondary hover:opacity-75 !px-6 !py-2;
+  @apply !color__bg-secondary !color__secondary hover:color__bg-secondary hover:opacity-75 !px-6 !py-2;
   @apply !leading-normal !tracking-wide;
 }
 .shopify-payment-button__button--branded {

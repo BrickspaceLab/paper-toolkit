@@ -106,8 +106,7 @@ export const cart = {
     refresh: boolean
   ) {
     if(this.enable_audio) {
-      const click_audio = new Audio(this.click_audio);
-      click_audio.play();
+      this.playSound(this.click_audio);
     }
 
     this.cart_loading = true;
@@ -156,8 +155,7 @@ export const cart = {
     properties: HTMLCollectionOf<HTMLInputElement>
   ) {
     if(this.enable_audio) {
-      const click_audio = new Audio(this.click_audio);
-      click_audio.play();
+      this.playSound(this.click_audio);
     }
 
     this.cart_loading = true;
@@ -211,8 +209,7 @@ export const cart = {
         // Good response
         if (response.status === 200) {
           if(this.enable_audio){
-              const success_audio = new Audio(this.success_audio);
-              success_audio.play();
+            this.playSound(this.success_audio);
             }
           this.updateCart(openCart);
         }
