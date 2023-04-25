@@ -80,8 +80,12 @@ Section files follow a similar naming convention.
 
 # Resources
 
-- [Discord server](https://discord.gg/4qdBFhmzCR)
+- [Discord community](https://discord.gg/4qdBFhmzCR)
 - [Twitter updates](https://twitter.com/brickspacelab)
 - [Our blog](https://brickspacelab.com/blogs/news)
+- [Paper docs](https://brickspacelab.notion.site/Paper-help-center-84ce6b9217574833a7d9b9f4053cb403)
 - [Paper changelog](https://brickspacelab.notion.site/Paper-changelog-cdfeea8101ae465f8880ac90ce22e951)
-- [Merchant support](https://brickspacelab.notion.site/Paper-help-center-84ce6b9217574833a7d9b9f4053cb403)
+- [Shopify Vite Plugin](https://shopify-vite.barrelny.com/)
+- [Alpine.js](https://alpinejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+
