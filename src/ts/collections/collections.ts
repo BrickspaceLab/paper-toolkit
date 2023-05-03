@@ -128,10 +128,11 @@ export const collections = {
   // Call section render API with data from filter
   fetchAndRenderCollection: function (filterData: FormData) {
     // Go back to top
-    var element = document.getElementById("js:top");
-    if (element) {
-      element.scrollIntoView();
-    }
+    var collectionTop = document.getElementById("js:top").offsetTop;
+    window.scrollTo({ top: collectionTop, behavior: 'smooth'});
+
+    // close filters
+    this.filter_popup = false;
 
     // Loop through form data and build url
     let filterUrl = this.buildUrlFilter(filterData);

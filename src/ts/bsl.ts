@@ -14,6 +14,7 @@ declare global {
     Shopify: IShopify;
     app: () => AppInterface;
     __initialData: AppInterface;
+    webkitAudioContext: any
   }
 }
 

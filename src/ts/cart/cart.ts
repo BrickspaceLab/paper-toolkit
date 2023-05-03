@@ -152,8 +152,9 @@ export const cart = {
     sellingPlanId: number,
     quantity: number,
     openCart: boolean,
-    properties: HTMLCollectionOf<HTMLInputElement>
-  ) {
+    giftCardRecipient: boolean,
+    productHandle: string
+    ) {
     if(this.enable_audio) {
       this.playSound(this.click_audio);
     }
@@ -162,6 +163,8 @@ export const cart = {
     let formData;
     let propertiesArr = [];
     let propertiesObj;
+
+    let properties =  document.getElementsByClassName(`custom-input_${productHandle}`) as  HTMLCollectionOf<HTMLInputElement>;
 
     if (properties) {
       for (const property of properties) {
@@ -172,6 +175,32 @@ export const cart = {
       }
     }
 
+    // gift card recipient
+      let recipientCheckbox =  document.querySelector(`#recipient-checkbox`) as HTMLInputElement;
+      let recipientObj;
+      if(giftCardRecipient && recipientCheckbox.checked) {
+      let recipientName =  document.querySelector(`#recipient-name`) as HTMLInputElement;
+      let recipientEmail =  document.querySelector(`#recipient-email`) as HTMLInputElement;
+      let recipientMessage =  document.querySelector(`#recipient-message`) as HTMLInputElement;
+
+      // throw error if name or email are empty
+      if(!recipientName.value || !recipientEmail.value) {
+        this.error_title = "Error",
+        this.error_message = "Please fill out name and email of gift card recepient",
+        this.show_alert = true;
+        this.cart_loading = false;
+        return;
+      }
+
+      recipientObj = {
+        "Recipient email": recipientEmail.value,
+        "Recipient name": recipientName.value,
+        "Message": recipientMessage.value,
+        "__shopify_send_gift_card_to_recipient": "on",
+      }
+
+    }
+
     // Update formData if sellingPlanId is available
     if (sellingPlanId == 0) {
       formData = {
@@ -179,7 +208,10 @@ export const cart = {
           {
             id: variantID,
             quantity: quantity,
-            properties: propertiesObj,
+            properties: {
+              ...propertiesObj,
+              ...recipientObj
+            },
           },
         ],
       };

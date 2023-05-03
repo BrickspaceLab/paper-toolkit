@@ -103,11 +103,19 @@
   .color__border-transparent {
     border-color: transparent;
   }
+  /* .color__border-transparent-sides {
+    border-left-color: transparent;
+    border-right-color: transparent;
+  } */
 
   /* - divider 1 */
   .color__border-divider-1 {
     border-color: var(--color__border-divider-light-1);
   }
+  /* .color__border-divider-1-sides {
+    border-left-color: var(--color__border-divider-light-1);
+    border-right-color: var(--color__border-divider-light-1);
+  } */
 
   /* - divider 2 */
   .color__border-divider-2 {
@@ -123,6 +131,10 @@
   .color__border-selected-1 {
     border-color: var(--color__border-selected-light-1);
   }
+  /* .color__border-selected-1-sides {
+    border-left-color: var(--color__border-selected-light-1);
+    border-right-color: var(--color__border-selected-light-1);
+  } */
 
   /* - selected 2 */
   .color__border-selected-2 {
