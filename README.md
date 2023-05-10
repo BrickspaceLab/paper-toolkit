@@ -76,6 +76,11 @@ Section files follow a similar naming convention.
 
 - Use the `theme__styles.liquid` file to update or edit theme-wide CSS variables.
 
+### Using Alpine.js
+
+- For debugging there are [Chrome](https://chrome.google.com/webstore/detail/alpinejs-devtools/fopaemeedckajflibkpifppcankfmbhk) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/alpinejs-devtools/?src=recommended) browser extensions available.
+- For an extensive list of Alpine resources take a look at this [repo](https://github.com/alpine-collective/awesome). 
+
 ---
 
 # Resources
