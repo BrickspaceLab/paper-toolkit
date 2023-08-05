@@ -12,6 +12,7 @@ export const globals = {
   scroll_up: window.__initialData.scroll_up,                                // Boolean to toggle the the "Back to top" button
   scroll_up_force: window.__initialData.scroll_up_force,                    // Boolean to force the "Back to top" to be hidden
   hide_header: window.__initialData.hide_header,                            // Boolean to hide header when opening other overlays
+  reduce_product_zindex: window.__initialData.reduce_product_zindex,                            // Boolean to hide header when opening other overlays
 
   // Mouse position properties
   mouse_x: window.__initialData.mouse_x,                                    // Mouse position X to position zoomed images
@@ -23,6 +24,7 @@ export const globals = {
 
   // Popup related properties
   age_popup: window.__initialData.age_popup,                                // Boolean to toggle the age popup
+  back_in_stock_popup: window.__initialData.back_in_stock_popup,
   filter_popup: window.__initialData.filter_popup,                          // Boolean to toggle the filter popup
   localization_popup: window.__initialData.localization_popup,              // Boolean to toggle the localization popup
 
@@ -34,7 +36,7 @@ export const globals = {
   // Product related properties
   recent_products: window.__initialData.recent_products,                    // Array of recently viewed products
   incomplete_fields: window.__initialData.incomplete_fields,                // Boolean to check if product options are incomplete
-
+  selectedImageIndex: window.__initialData.selectedImageIndex,              // Index of the selected product image (used for fullscreen slider)
   // Cart related properties
   cart_drawer: window.__initialData.cart_drawer,                            // Boolean to toggle the cart drawer
   cart_loading: window.__initialData.cart_loading,                          // Boolean to toggle the cart loading state
@@ -68,4 +70,6 @@ export const globals = {
   filter_min_thumb: window.__initialData.filter_min_thumb,                  // Sets position of min price thumb
   filter_max_thumb: window.__initialData.filter_max_thumb,                  // Sets position of max price thumb
 
+  // Store related properties
+  currency_symbol: window.__initialData.currency_symbol
 };

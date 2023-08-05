@@ -1,6 +1,9 @@
 export default function formatMoney(
   cents: string | number,
-  currency?: string
+  currency: string,
+  showCurrency?: boolean,
+  format = "amount",
+  subunits = '100'
 ) {
   // Convert string cents to number
   if (typeof cents == "string") {
@@ -9,9 +12,24 @@ export default function formatMoney(
 
   let value = "";
   const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
-  const formatString = currency
-    ? `${currency + "{{ amount }}"}`
-    : "${{ amount }}";
+  let formatString;
+  let isISO;
+  let regex = new RegExp("[A-Za-z]")
+  if(!currency.match(regex)) {
+    isISO = false;
+  } else {
+    isISO = true;
+  }
+
+  if (currency && showCurrency && !isISO) {
+    formatString = `${currency + `{{ ${format} }}`}`;
+  } else if(currency && showCurrency && isISO) {
+    formatString = `${`{{ ${format} }}` + ' ' + currency}`;
+  } else if (showCurrency) {
+    formatString = "$" + `{{ ${format} }}`;
+  } else {
+    formatString = `{{ ${format} }}`;
+  }
 
   // Set default options
   function defaultOption<T>(opt: T | undefined, def: T): T {
@@ -33,7 +51,14 @@ export default function formatMoney(
       return "0";
     }
 
-    const numberString = (number / 100.0).toFixed(precision);
+    if(subunits === '1000'){
+      precision = 3
+    }
+
+    // Adjust the number to account for subunits
+    number = number / 100;
+
+    const numberString = number.toFixed(precision);
 
     const parts = numberString.split("."),
       dollars = parts[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1" + thousands),
@@ -48,7 +73,14 @@ export default function formatMoney(
       value = formatWithDelimiters(cents as number, 2);
       break;
     case "amount_no_decimals":
-      value = formatWithDelimiters(cents as number, 0);
+      // Check if the numberString ends with "00"
+      const numberString = (cents as number / 100).toFixed(2);
+      if (numberString.endsWith("00")) {
+        value = formatWithDelimiters(cents as number, 0);
+      } else {
+        // Format as if format was "amount" since it doesn't end with "00"
+        value = formatWithDelimiters(cents as number, 2);
+      }
       break;
     case "amount_with_comma_separator":
       value = formatWithDelimiters(cents as number, 2, ".", ",");

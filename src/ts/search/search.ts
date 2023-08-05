@@ -2,7 +2,7 @@ import { Params } from "../models.interface";
 export const search = {
 
   // Fetch search suggestions and update alpine variables
-  fetchAndUpdateSearch(event: InputEvent, params: Params) {
+  fetchAndUpdateSearch(event: InputEvent, params: Params, resources: any) {
     // Build query parameters string
     const buildParams = () => {
       let paramsArr = [];
@@ -15,16 +15,31 @@ export const search = {
       return paramsString;
     };
 
+    const buildResources= () => {
+      let resourceArr = [];
+      for (const [key, value] of Object.entries(resources)) {
+        if (value) {
+          resourceArr.push(key.toString());
+        }
+      }
+      const resourcesString = resourceArr.join();
+      return resourcesString;
+    };
+
     const searchTerm = (event.target as HTMLInputElement).value;
 
     this.search_loading = true;
     if (searchTerm.length === 0 || !searchTerm.replace(/\s/g, "").length) {
       this.search_loading = false;
       this.search_items = [];
+        this.search_items_collections = [];
+        this.search_items_pages = [];
+        this.search_items_articles = [];
+        this.search_items_queries = [];
       return;
     }
     fetch(
-      `${window.Shopify.routes.root}search/suggest.json?q=${searchTerm}&resources[type]=product,collection,article,page,query&resources[limit]=6&[options][fields]=${buildParams()}&section_id=predictive-search`
+      `${window.Shopify.routes.root}search/suggest.json?q=${searchTerm}&resources[type]=${buildResources()}&resources[limit]=6&[options][fields]=${buildParams()}&section_id=predictive-search`
     )
       .then((response) => {
         if (!response.ok) {
@@ -41,11 +56,11 @@ export const search = {
         let products = data.resources.results.products;
         let articles = data.resources.results.articles;
         let queries = data.resources.results.queries;
-        this.search_items = products;
-        this.search_items_collections = collections;
-        this.search_items_pages = pages;
-        this.search_items_articles = articles;
-        this.search_items_queries = queries;
+        this.search_items = products ? products : [];
+        this.search_items_collections = collections ? collections : [];
+        this.search_items_pages = pages ? pages : [];
+        this.search_items_articles = articles ? articles : [];
+        this.search_items_queries = queries ? queries : [];
         this.search_loading = false;
       })
       .catch((error) => {

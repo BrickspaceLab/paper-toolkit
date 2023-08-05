@@ -1,7 +1,7 @@
 export const collections = {
 
   // Load quick add with section render
-  fetchAndRenderQuickAdd: function (product_handle: string, template: string) {
+  fetchAndRenderQuickAdd: function (product_handle: string, template: string, edit = false) {
     if(this.enable_audio) {
       this.playSound(this.click_audio);
     }
@@ -99,7 +99,8 @@ export const collections = {
 
     // Reset filterData
     let filterData = new FormData();
-
+    this.filter_min_price = this.filter_min;
+    this.filter_max_price = this.filter_max;
     this.fetchAndRenderCollection(filterData);
   },
 
@@ -110,16 +111,16 @@ export const collections = {
       if (pair[0].indexOf("price") !== -1) {
         if (pair[0] === "filter.v.price.lte") {
           if (pair[1] < this.filter_max) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
+            urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
           }
         }
         if (pair[0] === "filter.v.price.gte") {
           if (pair[1] > this.filter_min) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
+            urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
           }
         }
       } else {
-        urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
+        urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
       }
     }
     return urlFilter;
@@ -127,6 +128,10 @@ export const collections = {
 
   // Call section render API with data from filter
   fetchAndRenderCollection: function (filterData: FormData) {
+    for (var pair of filterData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+  }
+
     // Go back to top
     var collectionTop = document.getElementById("js:top").offsetTop;
     window.scrollTo({ top: collectionTop, behavior: 'smooth'});

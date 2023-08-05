@@ -98,6 +98,83 @@ export const cart = {
       });
   },
 
+  // Edit cart item
+  editCartItem(
+    oldKey: number,
+    newKey: number,
+    sellingPlanId: number,
+    quantity: number,
+    openCart: boolean
+  ) { 
+    if(this.enable_audio) {
+      this.playSound(this.click_audio);
+    }
+
+    this.cart_loading = true;
+
+
+    // Remove old item
+    let formData = {
+      id: oldKey.toString(),
+      quantity: "0",
+    };  
+    fetch("/cart/change.js", {
+      method: "POST",
+      body: JSON.stringify(formData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        let formData;
+        if(sellingPlanId == 0) {
+          formData = {
+            id: newKey.toString(),
+            quantity: quantity.toString()
+          };
+        } else {
+          formData = {
+            id: newKey.toString(),
+            quantity: quantity.toString(),
+            selling_plan: sellingPlanId.toString(),
+          };
+        }
+        // Add new item
+        
+        fetch("/cart/add.js", {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then(async (response) => {
+          let data = await response.json();
+  
+          // Good response
+          if (response.status === 200) {
+            if(this.enable_audio){
+              this.playSound(this.success_audio);
+              }
+            this.updateCart(openCart);
+          }
+  
+          // Error response
+          else {
+            (this.error_title = data.message),
+              (this.error_message = data.description),
+              (this.show_alert = true);
+          }
+        })
+          .catch((error) => {
+            console.error("Error:", error);
+            this.cart_loading = false;
+          });
+      })
+
+  },
+
   // Call change.js to update cart item then use updateCart()
   changeCartItemQuantity(
     key: number,
@@ -146,8 +223,126 @@ export const cart = {
       });
   },
 
+  addCartItem(form: any, bundle = false) {
+    if(this.enable_audio) {
+      this.playSound(this.click_audio);
+    }
+    
+    this.cart_loading = true;
+    let formData = new FormData(form);
+
+    // if product is a bundle
+    let productArray = [];
+    if(bundle) {
+      // create array of product ids
+      for (var pair of formData.entries()) {
+        if(pair[0].includes('bundle_option')) {
+          productArray.push({id:pair[1], quantity: 1})
+        }
+      }
+    }
+
+    // check if selling plan is available
+    let sellingPlanId = formData.get("selling_plan") as number | string;
+    // get all custom properties from the formData
+    let propertiesArr = [];
+    let propertiesObj;
+    for (const pair of formData.entries()) {
+      if(pair[0].includes("properties")) {
+        let name = pair[0].replace("properties[", "").replace("]", "");
+        propertiesArr.push([name, pair[1]]);
+      }
+    }
+    if (propertiesArr.length > 0) {
+      propertiesObj = Object.fromEntries(propertiesArr);
+    }
+    // gift card recipient
+    let recipientCheckbox =  document.querySelector(`#recipient-checkbox`) as HTMLInputElement;
+    let recipientObj;
+    if(recipientCheckbox && recipientCheckbox.checked) {
+    let recipientName =  document.querySelector(`#recipient-name`) as HTMLInputElement;
+    let recipientEmail =  document.querySelector(`#recipient-email`) as HTMLInputElement;
+    let recipientMessage =  document.querySelector(`#recipient-message`) as HTMLInputElement;
+
+    // throw error if name or email are empty
+    if(!recipientName.value || !recipientEmail.value) {
+      this.error_title = "Error",
+      this.error_message = "Please fill out name and email of gift card recepient",
+      this.show_alert = true;
+      this.cart_loading = false;
+      return;
+    }
+
+    recipientObj = {
+      "Recipient email": recipientEmail.value,
+      "Recipient name": recipientName.value,
+      "Message": recipientMessage.value,
+      "__shopify_send_gift_card_to_recipient": "on",
+    }
+  }
+    let reqBody;
+      if(bundle) {
+        reqBody = {
+          items: [...productArray]}
+      } else if(sellingPlanId == 0) {
+        reqBody = {items: [
+          {
+            id: formData.get("id"),
+            quantity: formData.get("quantity"),
+            properties: {
+              ...propertiesObj,
+              ...recipientObj
+            },
+          },
+        ]}
+      } else {
+        reqBody = {items: [
+          {
+            id: formData.get("id"),
+            quantity: formData.get("quantity"),
+            selling_plan: sellingPlanId,
+            properties: {
+              ...propertiesObj,
+              ...recipientObj
+            },
+          },
+        ]}
+      }
+
+    fetch("/cart/add.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then(async (response) => {
+        let data = await response.json();
+
+        // Good response
+        if (response.status === 200) {
+          if(this.enable_audio){
+            this.playSound(this.success_audio);
+            }
+          this.updateCart(true);
+        }
+
+        // Error response
+        else {
+          (this.error_title = data.message),
+            (this.error_message = data.description),
+            (this.show_alert = true);
+            this.cart_loading = false;
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        this.cart_loading = false;
+      });
+  },
+
   // Call add.js to add cart item then use updateCart()
-  addCartItem(
+  addWithId(
     variantID: number,
     sellingPlanId: number,
     quantity: number,

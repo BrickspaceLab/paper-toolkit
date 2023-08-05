@@ -9,19 +9,19 @@
     font-family: var(--type-font-body-family);
     font-style: var(--type-font-body-style);
     font-weight: var(--type-font-body-weight);
-    @apply leading-relaxed tracking-normal;
+    @apply underline-offset-1 leading-relaxed tracking-normal;
   }
   .type__body--bold {
     font-family: var(--type-font-body-family);
-    @apply font-bold leading-relaxed tracking-normal;
+    @apply underline-offset-1 font-bold leading-relaxed tracking-normal;
   }
   .type__body--italic {
     font-family: var(--type-font-body-family);
-    @apply italic leading-relaxed tracking-normal;
+    @apply underline-offset-1 italic leading-relaxed tracking-normal;
   }
   .type__body--bold-italic {
     font-family: var(--type-font-body-family);
-    @apply italic font-bold leading-relaxed tracking-normal;
+    @apply underline-offset-1 italic font-bold leading-relaxed tracking-normal;
   }
 
   /* ======= */
@@ -30,49 +30,49 @@
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply tracking-normal;
+    @apply underline-offset-2 tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-1 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-5xl text-4xl tracking-normal;
+    @apply md:text-5xl underline-offset-2 text-4xl tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-2 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-4xl text-3xl tracking-normal;
+    @apply md:text-4xl underline-offset-2 text-3xl tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-3 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-3xl text-2xl tracking-normal;
+    @apply md:text-3xl underline-offset-2 text-2xl tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-4 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-2xl text-xl tracking-normal;
+    @apply md:text-2xl underline-offset-2 text-xl tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-5 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-xl text-lg tracking-normal;
+    @apply md:text-xl underline-offset-2 text-lg tracking-normal;
     @apply leading-tight;
   }
   .type__heading--bold-6 {
     font-family: var(--type-font-header-family);
     font-style: var(--type-font-header-style);
     font-weight: var(--type-font-header-weight);
-    @apply md:text-lg text-base tracking-normal;
+    @apply md:text-lg underline-offset-2 text-base tracking-normal;
     @apply leading-tight;
   }
 
@@ -82,7 +82,7 @@
     font-family: var(--type-font-nav-family);
     font-style: var(--type-font-nav-style);
     font-weight: var(--type-font-nav-weight);
-    @apply leading-normal tracking-wide;
+    @apply underline-offset-1 leading-normal tracking-wide;
   }
 
   /* ======= */

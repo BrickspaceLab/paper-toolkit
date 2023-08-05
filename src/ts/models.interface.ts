@@ -202,6 +202,7 @@ export interface AppInterface {
   is_scrolled: boolean;
   prev_scroll_pos: number;
   hide_header: boolean;
+  reduce_product_zindex: boolean;
   scroll_up: boolean;
   scroll_up_force: boolean;
   mouse_x: number;
