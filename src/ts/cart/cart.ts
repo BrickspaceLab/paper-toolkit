@@ -70,6 +70,7 @@ export const cart = {
         // Finish loading
         setTimeout(() => {
           this.cart_loading = false;
+          this.button_loading = false;
         }, 300);
 
         // Open cart if set
@@ -227,7 +228,7 @@ export const cart = {
     if(this.enable_audio) {
       this.playSound(this.click_audio);
     }
-    
+    this.button_loading = true;
     this.cart_loading = true;
     let formData = new FormData(form);
 
@@ -333,6 +334,7 @@ export const cart = {
             (this.error_message = data.description),
             (this.show_alert = true);
             this.cart_loading = false;
+            this.button_loading = false;
         }
       })
       .catch((error) => {

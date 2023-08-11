@@ -71,5 +71,6 @@ export const globals = {
   filter_max_thumb: window.__initialData.filter_max_thumb,                  // Sets position of max price thumb
 
   // Store related properties
-  currency_symbol: window.__initialData.currency_symbol
+  currency_symbol: window.__initialData.currency_symbol,
+  button_loading: window.__initialData.button_loading
 };
