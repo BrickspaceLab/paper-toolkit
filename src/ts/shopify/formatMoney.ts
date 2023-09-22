@@ -1,3 +1,5 @@
+import { createLogger } from "vite";
+
 export default function formatMoney(
   cents: string | number,
   currency: string,
@@ -13,13 +15,11 @@ export default function formatMoney(
   let value = "";
   const placeholderRegex = /\{\{\s*(\w+)\s*\}\}/;
   let formatString;
-  let isISO;
-  let regex = new RegExp("[A-Za-z]")
-  if(!currency.match(regex)) {
-    isISO = false;
-  } else {
+  let isISO = false;
+  const isoCurrencyRegex = /^[A-Z]{3}$/;
+  if(isoCurrencyRegex.test(currency)) {
     isISO = true;
-  }
+  } 
 
   if (currency && showCurrency && !isISO) {
     formatString = `${currency + `{{ ${format} }}`}`;

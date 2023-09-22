@@ -24,7 +24,6 @@ export const globals = {
 
   // Popup related properties
   age_popup: window.__initialData.age_popup,                                // Boolean to toggle the age popup
-  back_in_stock_popup: window.__initialData.back_in_stock_popup,
   filter_popup: window.__initialData.filter_popup,                          // Boolean to toggle the filter popup
   localization_popup: window.__initialData.localization_popup,              // Boolean to toggle the localization popup
 

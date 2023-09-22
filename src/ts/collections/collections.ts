@@ -147,7 +147,7 @@ export const collections = {
     searchUrl = "&q=" + searchUrl;
 
     // Update page url
-    history.pushState(
+    history.replaceState(
       null,
       "",
       window.location.pathname + "?" + filterUrl + searchUrl

@@ -110,6 +110,15 @@ html {
   min-height: 28px;
 }
 
+/* Page layout adjustment */
+.rte img {
+  display: initial;
+}
+.rte {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Customer template */
 .login a {
   display: block;
@@ -209,3 +218,4 @@ html {
 .shopify-payment-button__more-options {
   @apply !color__bg-overlay-1 px-6 py-2;
 }
+
