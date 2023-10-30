@@ -129,7 +129,6 @@ export const collections = {
   // Call section render API with data from filter
   fetchAndRenderCollection: function (filterData: FormData) {
     for (var pair of filterData.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]); 
   }
 
     // Go back to top

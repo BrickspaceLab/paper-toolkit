@@ -73,6 +73,26 @@ html {
   transform:rotate(-15deg);
 }
 
+/* unavailable */
+.unavailable {
+  @apply relative;
+}
+
+.unavailable:before {
+  @apply absolute left-0 right-0 opacity-50;
+  content: "";
+  top: 50%;
+  border-top: 2px solid;
+  border-color: var(--color__text-light) !important;
+
+  -webkit-transform: rotate(-15deg);
+  -moz-transform: rotate(-15deg);
+  -ms-transform: rotate(-15deg);
+  -o-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+}
+
+
 /* hide scrollbar */
 .hidescrollbar {
   scrollbar-width: none;
