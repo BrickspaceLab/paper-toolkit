@@ -44,6 +44,12 @@
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
+  .border--focus--inset {
+    box-shadow: none;
+    outline: 2px solid var(--color__bg-body-light);
+    outline-offset: -4px;
+    border: 2px solid var(--color__border-selected-light-1) !important;
+  }
 
   /* ======= */
   /* button borders */

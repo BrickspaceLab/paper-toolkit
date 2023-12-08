@@ -45,7 +45,7 @@ html {
 
 /* - hide alpine elements until ready */
 [x-cloak] {
-  @apply hidden;
+  @apply !hidden;
 }
 
 /* - remove margin on child content */
@@ -194,6 +194,15 @@ html {
 
 #recover {
   margin-bottom: 0;
+}
+
+input[type=range]::-moz-range-thumb {
+	pointer-events: all;
+  cursor: pointer;
+	-moz-appearance: none;
+	width: 24px;
+	height: 24px;
+/* @apply w-6 h-6 appearance-none pointer-events-auto; */
 }
 
 /* - add spacing to challenge captcha page */

@@ -111,16 +111,16 @@ export const collections = {
       if (pair[0].indexOf("price") !== -1) {
         if (pair[0] === "filter.v.price.lte") {
           if (pair[1] < this.filter_max) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
+            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
           }
         }
         if (pair[0] === "filter.v.price.gte") {
           if (pair[1] > this.filter_min) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
+            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
           }
         }
       } else {
-        urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1] instanceof File ? "" : pair[1]);
+        urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1]);
       }
     }
     return urlFilter;

@@ -3,7 +3,7 @@ export const cart = {
 	// Update cart with note input
 	updateCartNote(note: string) {
 		this.cart_loading = true;
-		fetch("/cart/update.js", {
+		fetch(`${window.Shopify.routes.root}cart/update.js`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -53,19 +53,18 @@ export const cart = {
 				this.cart.total_price = data.total_price;
 				this.cart.original_total_price = data.original_total_price;
 				this.cart.total_discount = data.total_discount;
-				this.cart.cart_level_discount_applications =
-					data.cart_level_discount_applications;
+				this.cart.cart_level_discount_applications = data.cart_level_discount_applications;
 				this.cart.note = data.note;
+
 				// Custom properties
-				this.cart.shipping_gap =
-					this.progress_bar_threshold * (+window.Shopify.currency.rate || 1) -
-					this.cart.total_price;
-				this.cart.shipping_progress =
-					(this.cart.total_price /
-						(this.progress_bar_threshold *
-							(+window.Shopify.currency.rate || 1))) *
-						100 +
-					"%";
+				let calcTotal;
+				if (this.cart_shipping_bar_total === 'total') {
+					calcTotal = this.cart.total_price
+				} else {
+					calcTotal = this.cart.original_total_price
+				}
+				this.cart.shipping_gap = this.progress_bar_threshold * (+window.Shopify.currency.rate || 1) - calcTotal;
+				this.cart.shipping_progress = (calcTotal / (this.progress_bar_threshold * (+window.Shopify.currency.rate || 1))) * 100 + "%";
 
 				// Finish loading
 				setTimeout(() => {
@@ -75,8 +74,15 @@ export const cart = {
 
 				// Open cart if set
 				if (openCart == true) {
+					let cart_behavior;
+					if(window.screen.width < 768){
+						cart_behavior = this.cart_behavior_mobile;
+					  }
+					  else {
+						cart_behavior = this.cart_behavior_desktop;
+					  }
 					this.cart_delay_width = "0%";
-					if (this.cart_behavior == "alert") {
+					if (cart_behavior == "alert") {
 						this.cart_alert = true;
 						setTimeout(() => {
 							this.cart_delay_width = "100%";
@@ -85,10 +91,10 @@ export const cart = {
 							this.cart_alert = false;
 						}, this.cart_delay);
 					}
-					if (this.cart_behavior == "drawer") {
+					if (cart_behavior == "drawer") {
 						this.cart_drawer = true;
 					}
-					if (this.cart_behavior == "redirect") {
+					if (cart_behavior == "redirect") {
 						window.location.href = "/cart";
 					}
 				}
@@ -118,7 +124,7 @@ export const cart = {
 			id: oldKey.toString(),
 			quantity: "0",
 		};
-		fetch("/cart/change.js", {
+		fetch(`${window.Shopify.routes.root}cart/change.js`, {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -142,7 +148,7 @@ export const cart = {
 				}
 				// Add new item
 
-				fetch("/cart/add.js", {
+				fetch(`${window.Shopify.routes.root}cart/add.js`, {
 					method: "POST",
 					body: JSON.stringify(formData),
 					headers: {
@@ -190,7 +196,7 @@ export const cart = {
 			id: key.toString(),
 			quantity: quantity.toString(),
 		};
-		fetch("/cart/change.js", {
+		fetch(`${window.Shopify.routes.root}cart/change.js`, {
 			method: "POST",
 			body: JSON.stringify(formData),
 			headers: {
@@ -447,7 +453,7 @@ export const cart = {
 			};
 		}
 
-		fetch("/cart/add.js", {
+		fetch(`${window.Shopify.routes.root}cart/add.js`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -488,7 +494,7 @@ export const cart = {
 		if (clear) {
 			this.cart_loading = true;
 
-			fetch("/cart/clear.js", {
+			fetch(`${window.Shopify.routes.root}cart/clear.js`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -499,7 +505,7 @@ export const cart = {
 					this.updateCart(true);
 				})
 				.then(() => {
-					fetch("/cart/add.js", {
+					fetch(`${window.Shopify.routes.root}cart/add.js`, {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
@@ -522,7 +528,7 @@ export const cart = {
 					this.cart_loading = false;
 				});
 		} else {
-			fetch("/cart/add.js", {
+			fetch(`${window.Shopify.routes.root}cart/add.js`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

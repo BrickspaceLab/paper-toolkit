@@ -37,12 +37,14 @@ export const globals = {
   incomplete_fields: window.__initialData.incomplete_fields,                // Boolean to check if product options are incomplete
   selectedImageIndex: window.__initialData.selectedImageIndex,              // Index of the selected product image (used for fullscreen slider)
   // Cart related properties
+  cart_shipping_bar_total: window.__initialData.cart_shipping_bar_total,    // Total or subtotal
   cart_drawer: window.__initialData.cart_drawer,                            // Boolean to toggle the cart drawer
   cart_loading: window.__initialData.cart_loading,                          // Boolean to toggle the cart loading state
   cart_alert: window.__initialData.cart_alert,                              // Boolean to toggle the cart alert
   cart_delay: window.__initialData.cart_delay,                              // Set the delay for the cart alert to close
   cart_delay_width: window.__initialData.cart_delay_width,                  // Set the width for the cart alert progress bar
-  cart_behavior: window.__initialData.cart_behavior,                        // Set to 'drawer' 'alert' or 'redirect'
+  cart_behavior_desktop: window.__initialData.cart_behavior_desktop,                        // Set to 'drawer' 'alert' or 'redirect'
+  cart_behavior_mobile: window.__initialData.cart_behavior_mobile,                        // Set to 'drawer' 'alert' or 'redirect'
   cart: window.__initialData.cart,                                          // Object to store the cart data
   progress_bar_threshold: window.__initialData.progress_bar_threshold,      // Set the threshold for the 'free shipping' progress bar
 
