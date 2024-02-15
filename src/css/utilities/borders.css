@@ -6,20 +6,54 @@
   /* ======= */
   /* default borders */
   /* - default border width */
+  .outline--width {
+    outline-width: var(--sizes__border-element-width);
+    outline-style: solid;
+  }
   .border--width {
-    border-width: var(--sizes-border-width);
+    border-width: var(--sizes__border-element-width);
   }
   .border--t-width {
-    border-top-width: var(--sizes-border-width);
+    border-top-width: var(--sizes__border-element-width);
   }
   .border--r-width {
-    border-right-width: var(--sizes-border-width);
+    border-right-width: var(--sizes__border-element-width);
   }
   .border--b-width {
-    border-bottom-width: var(--sizes-border-width);
+    border-bottom-width: var(--sizes__border-element-width);
   }
   .border--l-width {
-    border-left-width: var(--sizes-border-width);
+    border-left-width: var(--sizes__border-element-width);
+  }
+  .border--button-width {
+    border-width: var(--sizes__border-button-width);
+  }
+  .border--t-button-width {
+    border-top-width: var(--sizes__border-button-width);
+  }
+  .border--r-button-width {
+    border-right-width: var(--sizes__border-button-width);
+  }
+  .border--b-button-width {
+    border-bottom-width: var(--sizes__border-button-width);
+  }
+  .border--l-button-width {
+    border-left-width: var(--sizes__border-button-width);
+  }
+  .border--input-width {
+    border-width: var(--sizes__border-input-width);
+  }
+  .border--t-input-width {
+    border-top-width: var(--sizes__border-input-width);
+  }
+  .border--r-input-width {
+    border-right-width: var(--sizes__border-input-width);
+  }
+  .border--b-input-width {
+    border-bottom-width: var(--sizes__border-input-width);
+  }
+  .border--l-input-width {
+    border-left-width: var(--sizes__border-input-width);
   }
   /* - default border raidus */
   .border--radius {
@@ -54,7 +88,7 @@
   /* ======= */
   /* button borders */
   .border__button {
-    @apply border--width;
+    @apply border--button-width;
   }
   .border__button--focus {
     @apply border--focus;
@@ -68,7 +102,7 @@
   /* ======= */
   /* input borders */
   .border__input {
-    @apply border--width color__border-divider-2;
+    @apply border--input-width color__border-divider-2;
   }
   .border__input--focus {
     @apply border--focus color__border-divider-2;

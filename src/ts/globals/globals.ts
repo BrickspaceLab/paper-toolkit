@@ -1,77 +1,88 @@
 // Exporting global constants
+const app = window.__initialData;
 export const globals = {
-  // Audio related properties
-  click_audio: window.__initialData.click_audio,
-  success_audio: window.__initialData.success_audio,
-  enable_audio: window.__initialData.enable_audio,
-  audio_popup: window.__initialData.audio_popup,
 
-  // Scroll related properties
-  is_scrolled: window.__initialData.is_scrolled,                            // Boolean to toggle the dynamic header when scrolling up or down
-  prev_scroll_pos: window.__initialData.prev_scroll_pos,                    // Calculates the scroll direction for the dynamic header
-  scroll_up: window.__initialData.scroll_up,                                // Boolean to toggle the the "Back to top" button
-  scroll_up_force: window.__initialData.scroll_up_force,                    // Boolean to force the "Back to top" to be hidden
-  hide_header: window.__initialData.hide_header,                            // Boolean to hide header when opening other overlays
-  reduce_product_zindex: window.__initialData.reduce_product_zindex,                            // Boolean to hide header when opening other overlays
-
-  // Mouse position properties
-  mouse_x: window.__initialData.mouse_x,                                    // Mouse position X to position zoomed images
-  mouse_y: window.__initialData.mouse_y,                                    // Mouse position Y to position zoomed images
+  // Scroll
+  is_scrolled: app.is_scrolled,                                     // {boolean} Used to toggle dynamic header bar
+  prev_scroll_pos: app.prev_scroll_pos,                             // {number} Pprevious scroll position of the page.
+  show_scroll_up: app.show_scroll_up,                               // {boolean} To show the 'back to top' button
   
-  // Menu related properties
-  menu_drawer: window.__initialData.menu_drawer,                            // Boolean to toggle the menu drawer
-  menu_nested: window.__initialData.menu_nested,                            // Boolean to toggle the nested menu drawer
+  // Audio
+  click_audio: app.click_audio,                                     // {string} URL for click sound
+  success_audio: app.success_audio,                                 // {string} URL for success sound
+  enable_audio: app.enable_audio,                                   // {boolean} To enable or disable audio
 
-  // Popup related properties
-  age_popup: window.__initialData.age_popup,                                // Boolean to toggle the age popup
-  filter_popup: window.__initialData.filter_popup,                          // Boolean to toggle the filter popup
-  localization_popup: window.__initialData.localization_popup,              // Boolean to toggle the localization popup
+  // Popups
+  age_popup: app.age_popup,                                         // {boolean} To toggle the age popup
+  filter_popup: app.filter_popup,                                   // {boolean} To toggle the filter popup
+  localization_popup: app.localization_popup,                       // {boolean} To toggle the localization popup
+  audio_popup: app.audio_popup,                                     // {boolean} To toggle audio settings popup
+  cookie_popup: app.cookie_popup,                                   // {boolean} To toggle the cookie compliance popup
+  discount_popup: app.discount_popup,                               // {boolean} To toggle the discount popup
 
-  // Alert related properties
-  show_alert: window.__initialData.show_alert,                              // Boolean to toggle the alert
-  error_title: window.__initialData.error_title,                            // String for alert title
-  error_message: window.__initialData.error_message,                        // String for alert message
+  // Quick sections
+  quick_add_popup: app.quick_add_popup,                               // {boolean} To toggle the quick add popup
+  quick_edit_popup: app.quick_edit_popup,                             // {boolean} To toggle the quick edit popup
+  quick_edit_handle: app.quick_edit_handle,                           // {string} The product handle of the product being edited
+  quick_add_handle: app.quick_add_handle,                             // {string} The product handle of the product being added
+  
+  // Menu 
+  menu_drawer: app.menu_drawer,                                     // {boolean} To toggle the menu drawer
+  menu_nested: app.menu_nested,                                     // {boolean} To check if the menu is nested
+  
+  // Header
+  hide_header: app.hide_header,                                     // {boolean} To hide the header
 
-  // Product related properties
-  recent_products: window.__initialData.recent_products,                    // Array of recently viewed products
-  incomplete_fields: window.__initialData.incomplete_fields,                // Boolean to check if product options are incomplete
-  selectedImageIndex: window.__initialData.selectedImageIndex,              // Index of the selected product image (used for fullscreen slider)
-  // Cart related properties
-  cart_shipping_bar_total: window.__initialData.cart_shipping_bar_total,    // Total or subtotal
-  cart_drawer: window.__initialData.cart_drawer,                            // Boolean to toggle the cart drawer
-  cart_loading: window.__initialData.cart_loading,                          // Boolean to toggle the cart loading state
-  cart_alert: window.__initialData.cart_alert,                              // Boolean to toggle the cart alert
-  cart_delay: window.__initialData.cart_delay,                              // Set the delay for the cart alert to close
-  cart_delay_width: window.__initialData.cart_delay_width,                  // Set the width for the cart alert progress bar
-  cart_behavior_desktop: window.__initialData.cart_behavior_desktop,                        // Set to 'drawer' 'alert' or 'redirect'
-  cart_behavior_mobile: window.__initialData.cart_behavior_mobile,                        // Set to 'drawer' 'alert' or 'redirect'
-  cart: window.__initialData.cart,                                          // Object to store the cart data
-  progress_bar_threshold: window.__initialData.progress_bar_threshold,      // Set the threshold for the 'free shipping' progress bar
+  // Errors
+  error_alert: app.error_alert,                                     // {boolean} To show the alert
+  error_message: app.error_message,                                 // {string} Error message
 
-  // Search related properties
-  search_loading: window.__initialData.search_loading,                      // Boolean to toggle the search loading state
-  search_active: window.__initialData.search_active,                        // Boolean to toggle the search overlay
-  search_items: window.__initialData.search_items,                          // Array of product search results
-  search_items_pages: window.__initialData.search_items_pages,              // Aray of page search results
-  search_items_collections: window.__initialData.search_items_collections,  // Array of collection search results
-  search_items_articles: window.__initialData.search_items_articles,        // Array of article search results
-  search_items_queries: window.__initialData.search_items_queries,          // Array of query search results
+  // Prices
+  price_format_with_currency: app.price_format_with_currency,       // {string} Format for price with currency
+  price_format_without_currency: app.price_format_without_currency, // {string} Format for price without currency
+  price_enable_zeros: app.price_enable_zeros,                       // {Boolean} Set to false to hide '.00'
+  price_enable_currency: app.price_enable_currency,                 // {Boolean} Set to false to hide 'CAD
+  
+  // Product
+  recent_products: app.recent_products,                             // {array} of recently viewed products
+  
+  // Cart
+  cart_alert: app.cart_alert,                                       // {boolean} To show the cart alert
+  cart_drawer: app.cart_drawer,                                     // {boolean} To toggle the cart drawer
+  cart_loading: app.cart_loading,                                   // {boolean} To check if the cart is loading
+  cart_behavior_desktop: app.cart_behavior_desktop,                 // {string} Behavior of the cart on desktop
+  cart_behavior_mobile: app.cart_behavior_mobile,                   // {string} Behavior of the cart on mobile
+  cart: app.cart,                                                   // {object} Object to store the cart data
+  progress_bar_threshold: app.progress_bar_threshold,               // {number} Set the threshold for the 'free shipping' progress bar
+  
+  // Search
+  search_active: app.search_active,                                 // {boolean} to toggle the search overlay
+  search_loading: app.search_loading,                               // {boolean} To check if the search is loading
+  search_term: app.search_term,                                     // {string} Term for the search
+  search_items: app.search_items,                                   // {array} Array of search items
+  search_focus_index: app.search_focus_index,                       // {string} Index of the focused search item
+  search_focus_url: app.search_focus_url,                           // {string} URL of the focused search item
+  search_items_pages: app.search_items_pages,                       // {array} Array of search items in pages
+  search_items_collections: app.search_items_collections,           // {array} Array of search items in collections
+  search_items_articles: app.search_items_articles,                 // {array} Array of search items in articles
+  search_items_queries: app.search_items_queries,                   // {array} Array of search items in queries
 
-  // Collection and pagination related properties
-  collection_loading: window.__initialData.collection_loading,              // Boolean to toggle the collection loading state
-  pagination_total_pages: window.__initialData.pagination_total_pages,      // Total number of pages for the current collection
-  pagination_current_page: window.__initialData.pagination_current_page,    // Current page number in pagination
-  pagination_section: window.__initialData.pagination_section,              // Points to a {{ section.id }} to paginate
+  // Pagination
+  pagination_loading: app.pagination_loading,                       // {boolean} To show loading state in pagination
+  pagination_total_pages: app.pagination_total_pages,               // {number} Total number of pages for the current collection
+  pagination_current_page: app.pagination_current_page,             // {number} Current page number in pagination
+  pagination_section: app.pagination_section,                       // {string} Points to a {{ section.id }} to paginate
+  
+  // Filter
+  filter_min_price: app.filter_min_price,                           // {number} Value of the min price input
+  filter_max_price: app.filter_max_price,                           // {number} Value of the max price input
+  filter_min: app.filter_min,                                       // {number} Min price for the current collection
+  filter_max: app.filter_max,                                       // {number} Max price for the current collection
+  filter_min_thumb: app.filter_min_thumb,                           // {number} Sets position of min price thumb
+  filter_max_thumb: app.filter_max_thumb,                           // {number} Sets position of max price thumb
 
-  // Filter related properties
-  filter_min_price: window.__initialData.filter_min_price,                  // Value of the min price input
-  filter_max_price: window.__initialData.filter_max_price,                  // Value of the max price input
-  filter_min: window.__initialData.filter_min,                              // Min price for the current collection
-  filter_max: window.__initialData.filter_max,                              // Max price for the current collection
-  filter_min_thumb: window.__initialData.filter_min_thumb,                  // Sets position of min price thumb
-  filter_max_thumb: window.__initialData.filter_max_thumb,                  // Sets position of max price thumb
+  // TODO: - Remove, merge and connect. Referce Space
+  show_alert: app.show_alert,
+  enable_body_scrolling: app.enable_body_scrolling,
 
-  // Store related properties
-  currency_symbol: window.__initialData.currency_symbol,
-  button_loading: window.__initialData.button_loading
 };

@@ -152,7 +152,7 @@
   /* - primary */
   .color__button-primary {
     background-color: var(--color-primary-button-background-light);
-    border-color: var(--color-primary-button-border-light);
+    border-color: var(--color__border-primary);
     color: var(--color-primary-button-text-light);
     * {
       color: var(--color-primary-button-text-light);
@@ -162,7 +162,7 @@
   /* - secondary */
   .color__button-secondary {
     background-color: var(--color-secondary-button-background-light);
-    border-color: var(--color-secondary-button-border-light);
+    border-color: var(--color__border-secondary);
     color: var(--color-secondary-button-text-light);
     * {
       color: var(--color-secondary-button-text-light);
@@ -172,7 +172,7 @@
   /* - tertiary */
   .color__button-tertiary {
     background-color: var(--color-tertiary-button-background-light);
-    border-color: var(--color-tertiary-button-border-light);
+    border-color: var(--color__border-tertiary);
     color: var(--color-tertiary-button-text-light);
     * {
       color: var(--color-tertiary-button-text-light);
@@ -192,7 +192,7 @@
   /* - plain */
   .color__button-plain {
     background-color: var(--color-plain-button-background-light);
-    border-color: var(--color-plain-button-border-light);
+    border-color: var(--color__border-plain);
     color: var(--color-plain-button-text-light);
     * {
       color: var(--color-plain-button-text-light);

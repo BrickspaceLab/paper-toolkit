@@ -1,55 +1,161 @@
 export const collections = {
 
-  // Load quick add with section render
-  fetchAndRenderQuickAdd: function (product_handle: string, template: string, edit = false) {
-    if(this.enable_audio) {
-      this.playSound(this.click_audio);
+  // Call section render API with data from filter
+  async fetchAndRenderCollection (
+    filterData: FormData
+  ) {
+
+    // Go back to top
+    const element = document.getElementById("js-top"); 
+    if (element) {
+      element.scrollIntoView();
     }
 
-    fetch(
-      window.Shopify.routes.root +
-        "products/" +
-        product_handle +
-        "?section_id=quick-add"
-    )
-      .then((response) => response.text())
-      .then((responseText) => {
-        const html = responseText;
-        document.getElementById(
-          "js:quickAdd-" + template + "-" + product_handle
-        )!.innerHTML = html;
-      });
+    // Loop through form data and build url
+    const filterUrl = this.buildUrlFilter(filterData);
+
+    // Get search term
+    let searchUrl = new URL(location.href).searchParams.get("q");
+    searchUrl = searchUrl ? `&q=${searchUrl}` : '';
+
+    // Update page url
+    history.pushState(
+      null,
+      "",
+      `${window.location.pathname}?${filterUrl}${searchUrl}`
+    );
+
+    // Listen to popstate event
+    window.addEventListener('popstate', () => {
+      this.fetchAndRenderCollection(filterData);
+    });
+    
+    // Get data from Shopify
+    try {
+      const response = await fetch(
+        `${window.location.pathname}?section_id=${this.pagination_section}${filterUrl}${searchUrl}`
+      );
+
+      // If response is not OK, throw an error
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      // Parse response data
+      const data = await response.text();
+
+      // Replace section with new content
+      const sectionElement = document.getElementById(`shopify-section-${this.pagination_section}`);
+      if (sectionElement) {
+        sectionElement.innerHTML = data;
+      }
+      
+      // Reset loading
+      this.pagination_loading = false;
+      this.filter_popup = false;
+    } 
+    
+    catch (error) {
+      console.error("Error:", error);
+      this.pagination_loading = false;
+    }
   },
 
-  // Handle filter changes on max price
-  handleMaxPriceFilter: function () {
-    this.filter_max_price = Math.max(
-      this.filter_max_price,
-      this.filter_min_price
-    );
-    this.filter_max_thumb =
-      100 -
-      ((this.filter_max_price - this.filter_min) /
-        (this.filter_max - this.filter_min)) *
-        100;
+  // Check if next page is avaible and inject more products
+  async fetchAndRenderNextPage () {
+
+    // Show loading
+    this.pagination_loading = true;
+
+    // Get filter data
+    const filter = document.getElementById("js-desktopFilter") as HTMLFormElement;
+
+    // Get pagination count
+    const pageUrl = `&page=${this.pagination_current_page + 1}`;
+
+    // Get search parameter
+    const searchUrl = new URL(location.href).searchParams.get("q") ? `&q=${new URL(location.href).searchParams.get("q")}` : '';
+
+    // Build fetch url
+    let fetchUrl = `${window.location.pathname}?section_id=${this.pagination_section}${pageUrl}${searchUrl}`;
+
+    // If filter exists, add filter data to fetch url
+    if (filter) {
+      const filterData = new FormData(filter);
+      const filterUrl = this.buildUrlFilter(filterData);
+      fetchUrl += filterUrl;
+    }
+    
+    // Check if new page is available
+    if (this.pagination_current_page < this.pagination_total_pages) {
+
+      // Get data from Shopify
+      try {
+        const response = await fetch(fetchUrl);
+        const data = await response.text();
+
+        // Create a new HTML element and set its innerHTML to the fetched data
+        const tempElement = document.createElement("div");
+        tempElement.innerHTML = data;
+
+        // Find the results within the fetched data
+        const fetchedElement = tempElement.querySelector("#js-results");
+
+        // If results are found, append its innerHTML to the existing element on the page
+        if (fetchedElement) {
+          const resultsElement = document.getElementById("js-results");
+          if (resultsElement) {
+            resultsElement.insertAdjacentHTML("beforeend", fetchedElement.innerHTML);
+          }
+        }
+
+        // Update next page url
+        this.pagination_current_page += 1;
+        
+        // Reset loading
+        // this.loadImages();
+        this.pagination_loading = false;
+      } 
+
+      catch (error) {
+        console.error("Error:", error);
+        this.pagination_loading = false;
+      }
+    } 
+    
+    // If last page, stop loading
+    else {
+      this.pagination_loading = false;
+    }
   },
 
-  // Handle filter changes on min price
-  handleMinPriceFilter: function () {
-    this.filter_min_price = Math.min(
-      this.filter_min_price,
-      this.filter_max_price
-    );
-    this.filter_min_thumb =
-      ((this.filter_min_price - this.filter_min) /
-        (this.filter_max - this.filter_min)) *
-      100;
+   // Handle filter changes on price
+  handlePriceFilterChange (
+    filterType: string
+  ) {
+    // Use destructuring to make the code cleaner and easier to read
+    const { filter_min_price, filter_max_price, filter_min, filter_max } = this;
+
+    // Calculate the price range
+    const priceRange = filter_max - filter_min;
+
+    // Check the filter type and update the appropriate values
+    if (filterType === 'max') {
+      this.filter_max_price = Math.max(filter_max_price, filter_min_price);
+      this.filter_max_thumb = 100 - ((this.filter_max_price - filter_min) / priceRange) * 100;
+    } 
+    else if (filterType === 'min') {
+      this.filter_min_price = Math.min(filter_min_price, filter_max_price);
+      this.filter_min_thumb = ((this.filter_min_price - filter_min) / priceRange) * 100;
+    } else {
+      console.error('Invalid filter type. Expected "min" or "max".');
+    }
   },
 
   // Handle filter change
   handleFilterChange(id: string): void {
     // Show loading indication
-    this.collection_loading = true;
+    this.pagination_loading = true;
   
     // Reset pagination
     this.pagination_current_page = 1;
@@ -69,10 +175,10 @@ export const collections = {
   // Handle deleting filters
   handleFilterDelete(filterToReset: string): void {
     // Show loading indication
-    this.collection_loading = true;
+    this.pagination_loading = true;
   
     // Get filter data
-    const filter = document.getElementById("js:desktopFilter") as HTMLFormElement | null;
+    const filter = document.getElementById("js-desktopFilter") as HTMLFormElement | null;
     
     if (filter) {
       const filterData = new FormData(filter);
@@ -88,14 +194,14 @@ export const collections = {
   
       this.fetchAndRenderCollection(filterData);
     } else {
-      console.error("Filter element 'js:desktopFilter' not found.");
+      console.error("Filter element 'js-desktopFilter' not found.");
     }
   },
   
   // Handle deleting all filters
   handleFilterDeleteAll: function () {
     // Show loading indication
-    this.collection_loading = true;
+    this.pagination_loading = true;
 
     // Reset filterData
     let filterData = new FormData();
@@ -105,135 +211,34 @@ export const collections = {
   },
 
   // Build urlFilter
-  buildUrlFilter: function (filterData: FormData) {
+  buildUrlFilter (
+    filterData: FormData
+  ) {
+    
+    // Reset filter URL 
     let urlFilter = "";
-    for (var pair of filterData.entries()) {
-      if (pair[0].indexOf("price") !== -1) {
-        if (pair[0] === "filter.v.price.lte") {
-          if (pair[1] < this.filter_max) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
-          }
+
+    // Loop through filterData form
+    for (let pair of filterData.entries()) {
+      const [key, value] = pair;
+
+      // If filtering with price range
+      if (key.includes("price")) { 
+        if (key === "filter.v.price.lte" && value < this.filter_max) {
+          urlFilter += `&${key}=${value}`;
         }
-        if (pair[0] === "filter.v.price.gte") {
-          if (pair[1] > this.filter_min) {
-            urlFilter = urlFilter + "&" + pair[0] + "=" + pair[1];
-          }
+        if (key === "filter.v.price.gte" && value > this.filter_min) {
+          urlFilter += `&${key}=${value}`;
         }
-      } else {
-        urlFilter = urlFilter + "&" + pair[0] + "=" + encodeURIComponent(pair[1]);
+      }
+
+      // All other filters
+      else {
+        urlFilter += `&${key}=${encodeURIComponent(value)}`;
       }
     }
+
+    // Return url
     return urlFilter;
-  },
-
-  // Call section render API with data from filter
-  fetchAndRenderCollection: function (filterData: FormData) {
-    for (var pair of filterData.entries()) {
   }
-
-    // Go back to top
-    var collectionTop = document.getElementById("js:top").offsetTop;
-    window.scrollTo({ top: collectionTop, behavior: 'smooth'});
-
-    // close filters
-    this.filter_popup = false;
-
-    // Loop through form data and build url
-    let filterUrl = this.buildUrlFilter(filterData);
-
-    // Get search term
-    let searchUrl = new URL(location.href).searchParams.get("q");
-    searchUrl = "&q=" + searchUrl;
-
-    // Update page url
-    history.replaceState(
-      null,
-      "",
-      window.location.pathname + "?" + filterUrl + searchUrl
-    );
-
-    fetch(
-      window.location.pathname +
-        "?section_id=" +
-        this.pagination_section +
-        filterUrl +
-        searchUrl
-    )
-      .then((response) => response.text())
-      .then((responseText) => {
-        const html = responseText;
-        document.getElementById(
-          "shopify-section-" + this.pagination_section + ""
-        )!.innerHTML = html;
-        setTimeout(() => {
-          this.collection_loading = false;
-        }, 100);
-      });
-  },
-
-  // Check if next page is avaible and inject more products
-  fetchAndRenderNextPage: function () {
-    // check if new page is available
-    if (this.pagination_current_page < this.pagination_total_pages) {
-      // show loading
-      this.collection_loading = true;
-
-      // get filter data
-      let filter = document.getElementById("js:desktopFilter");
-
-      // get pagination count
-      let pageUrl = "&page=" + (this.pagination_current_page + 1);
-
-      // get search thingy
-      let searchUrl = new URL(location.href).searchParams.get("q");
-      searchUrl = "&q=" + searchUrl;
-
-      // build fetch url
-      let fetchUrl = "";
-      if (filter) {
-        let filterData = new FormData(filter);
-        let filterUrl = this.buildUrlFilter(filterData);
-
-        fetchUrl =
-          window.location.pathname +
-          "?section_id=" +
-          this.pagination_section +
-          filterUrl +
-          pageUrl +
-          searchUrl;
-      } else {
-        fetchUrl =
-          window.location.pathname +
-          "?section_id=" +
-          this.pagination_section +
-          pageUrl +
-          searchUrl;
-      }
-
-      // load new page with filters and sort
-      fetch(fetchUrl)
-        .then((response) => response.text())
-        .then((responseText) => {
-          // extract products and inject into grid
-          let html = document.createElement("div");
-          html.innerHTML = responseText;
-          let htmlCleaned = html.querySelector("#js\\:results").innerHTML;
-          document
-            .getElementById("js:results")
-            .insertAdjacentHTML("beforeend", htmlCleaned);
-          setTimeout(() => {
-            this.collection_loading = false;
-          }, 100);
-
-          // update next page url
-          this.pagination_current_page = this.pagination_current_page + 1;
-        });
-    }
-
-    // if last pgae
-    else {
-      this.collection_loading = false;
-    }
-  },
-
 };

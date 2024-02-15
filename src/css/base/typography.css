@@ -88,7 +88,7 @@
       @apply underline opacity-50;
     }
 
-    &:focus {
+    &:focus-visible {
       @apply border--focus;
     }
   }

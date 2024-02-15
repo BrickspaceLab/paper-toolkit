@@ -1,4 +1,63 @@
-export interface IShopify {
+// Global interfaces
+export interface AppInterface {
+  is_scrolled: boolean;
+  prev_scroll_pos: number;
+  show_scroll_up: boolean;
+  click_audio: string;
+  success_audio: string;
+  enable_audio: boolean;
+  age_popup: boolean;
+  filter_popup: boolean;
+  localization_popup: boolean;
+  audio_popup: boolean;
+  cookie_popup: boolean;
+  discount_popup: boolean;
+  quick_add_popup: boolean;
+  quick_edit_popup: boolean;
+  quick_edit_handle: string;
+  quick_add_handle: string; 
+  menu_drawer: boolean;
+  menu_nested: boolean;
+  hide_header: boolean;
+  error_alert: boolean;
+  error_message: string;
+  price_format_with_currency: string;
+  price_format_without_currency: string;
+  price_enable_zeros: boolean;
+  price_enable_currency: boolean;
+  recent_products: any[];
+  cart_alert: boolean;
+  cart_drawer: boolean;
+  cart_loading: boolean;
+  cart_behavior_desktop: string;
+  cart_behavior_mobile: string;
+  cart: object;
+  progress_bar_threshold: number;
+  search_active: boolean;
+  search_loading: boolean;
+  search_term: string;
+  search_items: any[];
+  search_focus_index: string;
+  search_focus_url: string;
+  search_items_pages: any[];
+  search_items_collections: any[];
+  search_items_articles: any[];
+  search_items_queries: any[];
+  pagination_loading: boolean;
+  pagination_total_pages: number;
+  pagination_current_page: number;
+  pagination_section: string;
+  filter_min_price: number;
+  filter_max_price: number;
+  filter_min: number;
+  filter_max: number;
+  filter_min_thumb: number;
+  filter_max_thumb: number;
+  show_alert: boolean;
+  enable_body_scrolling: boolean;
+}
+
+export interface ShopifyInterface {
   shop: string;
   locale: string;
   currency: {
@@ -28,74 +87,15 @@ export interface IShopify {
   formatMoney(cents: string | number, currency?: string): string;
 }
 
-interface FeaturedImage {
+// Collection interfaces
+interface Collection {
   id: number;
-  product_id: number;
-  position: number;
-  created_at: string;
-  updated_at: string;
-  alt: string;
-  width: number;
-  height: number;
-  src: string;
-  variant_ids: number[];
-}
-
-interface UnitPriceMeasurement {
-  measured_type: string;
-  quantity_value: string;
-  quantity_unit: string;
-  reference_value: number;
-  reference_unit: string;
-}
-
-interface SellingPlanAllocation {
-  price_adjustments: {
-    position: number;
-    price: number;
-  }[];
-  price: number;
-  compare_at_price: number;
-  per_delivery_price: number;
-  unit_price: number;
-  selling_plan_id: number;
-  selling_plan_group_id: string;
-}
-
-interface Variant {
-  id: number;
+  body: string;
+  handle: string;
+  published_at: string;
   title: string;
-  option1: string;
-  option2: string;
-  option3: null;
-  sku: string;
-  requires_shipping: boolean;
-  taxable: boolean;
+  url: string;
   featured_image: FeaturedImage;
-  available: boolean;
-  name: string;
-  public_title: string;
-  options: string[];
-  price: number;
-  weight: number;
-  compare_at_price: null | number;
-  inventory_management: string;
-  barcode: string;
-  featured_media: {
-    alt: string;
-    id: number;
-    position: number;
-    preview_image: {
-      aspect_ratio: number;
-      height: number;
-      width: number;
-      src: string;
-    };
-  };
-  unit_price: number;
-  unit_price_measurement: UnitPriceMeasurement;
-  requires_selling_plan: boolean;
-  selling_plan_allocations: SellingPlanAllocation[];
 }
 
 interface RecentProduct {
@@ -172,115 +172,7 @@ interface RecentProduct {
   }[];
 }
 
-interface Cart {
-  items: Product[];
-  item_count: number;
-  total_price: number;
-  original_total_price: number;
-  total_discount: number;
-  shipping_gap: number;
-  shipping_progress: string;
-  cart_level_discount_applications: {
-    type: string;
-    key: string;
-    title: string;
-    description: null | string;
-    value: string;
-    created_at: string;
-    value_type: string;
-    allocation_method: string;
-    target_selection: string;
-    target_type: string;
-    total_allocated_amount: number;
-  }[];
-}
-
-export interface AppInterface {
-  click_audio: string;
-  success_audio: string;
-  enable_audio: boolean;
-  is_scrolled: boolean;
-  prev_scroll_pos: number;
-  hide_header: boolean;
-  reduce_product_zindex: boolean;
-  scroll_up: boolean;
-  scroll_up_force: boolean;
-  mouse_x: number;
-  mouse_y: number;
-  menu_drawer: boolean;
-  menu_nested: boolean;
-  age_popup: boolean;
-  filter_popup: boolean;
-  localization_popup: boolean;
-  show_alert: boolean;
-  error_title: string;
-  error_message: string;
-  recent_products: RecentProduct[];
-  incomplete_fields: boolean;
-  cart_drawer: boolean;
-  cart_loading: boolean;
-  cart_alert: boolean;
-  cart_delay: number;
-  cart_delay_width: number;
-  cart_behavior: string;
-  cart: Cart;
-  progress_bar_threshold: number;
-  search_loading: boolean;
-  search_active: boolean;
-  search_items: Product[];
-  search_items_pages: Page[];
-  search_items_collections: Collection[];
-  search_items_articles: Article[];
-  search_items_queries: SearchQuery[];
-  collection_loading: boolean;
-  pagination_total_pages: number;
-  pagination_current_page: number;
-  pagination_section: number;
-  filter_min_price: number;
-  filter_max_price: number;
-  filter_min: number;
-  filter_max: number;
-  filter_min_thumb:number;
-  filter_max_thumb:number;
-}
-
-interface Collection {
-  id: number;
-  body: string;
-  handle: string;
-  published_at: string;
-  title: string;
-  url: string;
-  featured_image: FeaturedImage;
-}
-interface Page {
-  id: number;
-  body: string;
-  handle: string;
-  published_at: string;
-  title: string;
-  url: string;
-}
-interface Article {
-  id: number;
-  body: string;
-  featured_image: FeaturedImage;
-  handle: string;
-  image: string;
-  summary_html: string;
-  tags: string[];
-  published_at: string;
-  title: string;
-  url: string;
-}
-
-interface SearchQuery {
-  styled_text: string;
-  text: string;
-  url: string;
-}
-
-
+// Product interfaces
 export interface Product {
   id: number;
   properties: null;
@@ -338,6 +230,107 @@ export interface Product {
   line_level_total_discount: number;
 }
 
+interface Variant {
+  id: number;
+  title: string;
+  option1: string;
+  option2: string;
+  option3: null;
+  sku: string;
+  requires_shipping: boolean;
+  taxable: boolean;
+  featured_image: FeaturedImage;
+  available: boolean;
+  name: string;
+  public_title: string;
+  options: string[];
+  price: number;
+  weight: number;
+  compare_at_price: null | number;
+  inventory_management: string;
+  barcode: string;
+  featured_media: {
+    alt: string;
+    id: number;
+    position: number;
+    preview_image: {
+      aspect_ratio: number;
+      height: number;
+      width: number;
+      src: string;
+    };
+  };
+  unit_price: number;
+  unit_price_measurement: UnitPriceMeasurement;
+  requires_selling_plan: boolean;
+  selling_plan_allocations: SellingPlanAllocation[];
+}
+
+interface FeaturedImage {
+  id: number;
+  product_id: number;
+  position: number;
+  created_at: string;
+  updated_at: string;
+  alt: string;
+  width: number;
+  height: number;
+  src: string;
+  variant_ids: number[];
+}
+
+interface UnitPriceMeasurement {
+  measured_type: string;
+  quantity_value: string;
+  quantity_unit: string;
+  reference_value: number;
+  reference_unit: string;
+}
+
+interface SellingPlanAllocation {
+  price_adjustments: {
+    position: number;
+    price: number;
+  }[];
+  price: number;
+  compare_at_price: number;
+  per_delivery_price: number;
+  unit_price: number;
+  selling_plan_id: number;
+  selling_plan_group_id: string;
+}
+
+// Cart interfaces
+interface Cart {
+  items: Product[];
+  item_count: number;
+  total_price: number;
+  original_total_price: number;
+  total_discount: number;
+  shipping_gap: number;
+  shipping_progress: string;
+  cart_level_discount_applications: {
+    type: string;
+    key: string;
+    title: string;
+    description: null | string;
+    value: string;
+    created_at: string;
+    value_type: string;
+    allocation_method: string;
+    target_selection: string;
+    target_type: string;
+    total_allocated_amount: number;
+  }[];
+}
+
+// Search interfaces
+interface SearchQuery {
+  styled_text: string;
+  text: string;
+  url: string;
+}
+
 export interface Params {
   author: string;
   body: string;
@@ -349,3 +342,27 @@ export interface Params {
   variants_title: string;
   vendor: string;
 }
+
+// Page and blog interfaces
+interface Page {
+  id: number;
+  body: string;
+  handle: string;
+  published_at: string;
+  title: string;
+  url: string;
+}
+
+interface Article {
+  id: number;
+  body: string;
+  featured_image: FeaturedImage;
+  handle: string;
+  image: string;
+  summary_html: string;
+  tags: string[];
+  published_at: string;
+  title: string;
+  url: string;
+}
+
