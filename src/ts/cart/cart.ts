@@ -1,6 +1,41 @@
 import { Product } from "../models.interface";
 export const cart = {
   
+  updateCartNote(note: string) {
+		this.cart_loading = true;
+		fetch(`${window.Shopify.routes.root}cart/update.js`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ note: note }),
+		})
+			.then(async (response) => {
+				let data = await response.json();
+
+				// good response
+				if (response.status === 200) {
+					this.cart.items = data.items.map((item: Product) => {
+						return {
+							...item,
+						};
+					});
+					this.updateCart(false);
+				}
+
+				// error response
+				else {
+					(this.error_title = data.message),
+						(this.error_message = data.description),
+						(this.show_alert = true);
+				}
+			})
+			.catch((error) => {
+				console.error("Error:", error);
+				this.cart_loading = false;
+			});
+	},
+
   // Update cart with fetched data
   async updateCart (
     openCart: boolean
