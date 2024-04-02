@@ -105,10 +105,11 @@ export const utils = {
   // Match to liquid handle filter
   handleize (
     str: string
-  ) {
+  ) {    
     return str
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Optional: Remove accents
+      .replace(/[^a-z0-9\p{L}\p{N}]+/gu, '-') // Allow letters and numbers from any language
       .replace(/-+/g, '-')
       .replace(/^-+|-+$/g, '');
   },

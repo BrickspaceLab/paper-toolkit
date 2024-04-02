@@ -5,12 +5,15 @@ export const products = {
     enableUrlParameters: boolean,
     preselectedVariantId: number
   ) {
-    
+
     // Set variant based on what's passed to this function
     this.setOptionsFromPreselectedVariantId(preselectedVariantId);
     
     // Find and set selectedVariant
     let selectedVariant = this.setSelectedVariant();
+
+    // Set options as unavailable
+    this.setUnavailableOptions();
 
     // Update display values based on selectedVariant
     this.setDefaultsFromSelectedVariant(selectedVariant);
@@ -34,29 +37,71 @@ export const products = {
     
   },
 
+   // Find options that are not available based on selected options
+   setUnavailableOptions() {
+
+    // Dynamically find matching variants excluding the option being considered
+    const findMatchingVariants = (excludeOptionIndex: number) => {
+      return this.product.variants.filter(variant => {
+        // Check if the variant is sold out
+        if (variant.available) {
+          return false;
+        }
+
+        // Loop through and find matching variants
+        for (let i = 1; i <= this.product.options.length; i++) {
+          if (i === excludeOptionIndex) continue;
+          const optionKey = `option${i}`;
+          if (variant[optionKey].toLowerCase() !== this[`option${i}`].toLowerCase()) {
+            return false; 
+          }
+        }
+        return true;
+      });
+    };
+
+    // Loop through options
+    for (let i = 1; i <= this.product.options.length; i++) {
+      const matchingVariants = findMatchingVariants(i);
+
+      // Initialize a set to hold unique sold-out options for each option
+      const unavailableOptionsSet = new Set<string>();
+
+      // For each matching variant, add its options to the unavailableOptionsSet
+      matchingVariants.forEach(variant => {
+        const optionKey = `option${i}`;
+        unavailableOptionsSet.add(this.handleize(variant[optionKey]));
+      });
+
+      // Convert the set to an array and assign it to the corresponding global variable
+      this[`unavailable_options${i}`] = Array.from(unavailableOptionsSet);
+    }
+  },
+
   // Set selectedVariant based on selected options
   // This will find the selectedVariant based on selected options
   setSelectedVariant () {
     let optionsSize = this.product.options.length;
     let selectedVariant;
 
+
     switch (optionsSize) {
       case 1:
         selectedVariant = this.product.variants.find(variant => 
-          (!this.option_1 || this.handleize(variant.option1) === this.option_1)
+          (this.handleize(variant.option1) === this.handleize(this.option1))
         );
         break;
       case 2:
         selectedVariant = this.product.variants.find(variant => 
-          (!this.option_1 || this.handleize(variant.option1) === this.option_1) &&
-          (!this.option_2 || this.handleize(variant.option2) === this.option_2)
+          (this.handleize(variant.option1) === this.handleize(this.option1)) &&
+          (this.handleize(variant.option2) === this.handleize(this.option2))
         );
         break;
       case 3:
         selectedVariant = this.product.variants.find(variant => 
-          (!this.option_1 || this.handleize(variant.option1) === this.option_1) &&
-          (!this.option_2 || this.handleize(variant.option2) === this.option_2) &&
-          (!this.option_3 || this.handleize(variant.option3) === this.option_3)
+          (this.handleize(variant.option1) === this.handleize(this.option1)) &&
+          (this.handleize(variant.option2) === this.handleize(this.option2)) &&
+          (this.handleize(variant.option3) === this.handleize(this.option3))
         );
         break;
     }
@@ -83,16 +128,16 @@ export const products = {
       if (selectedVariant) {
         switch (optionsSize) {
           case 1:
-            this.option_1 = this.handleize(selectedVariant.option1);
+            this.option1 = this.handleize(selectedVariant.option1);
             break;
           case 2:
-            this.option_1 = this.handleize(selectedVariant.option1);
-            this.option_2 = this.handleize(selectedVariant.option2);
+            this.option1 = this.handleize(selectedVariant.option1);
+            this.option2 = this.handleize(selectedVariant.option2);
             break;
           case 3:
-            this.option_1 = this.handleize(selectedVariant.option1);
-            this.option_2 = this.handleize(selectedVariant.option2);
-            this.option_3 = this.handleize(selectedVariant.option3);
+            this.option1 = this.handleize(selectedVariant.option1);
+            this.option2 = this.handleize(selectedVariant.option2);
+            this.option3 = this.handleize(selectedVariant.option3);
             break;
         }
       }
@@ -131,6 +176,9 @@ export const products = {
 
       // Set featured image id if available
       this.current_variant_featured_image_id = selectedVariant.featured_image ? selectedVariant.featured_image.id : null;
+      
+      // Set featured media id if available
+      this.current_variant_featured_media_id = selectedVariant.featured_media ? selectedVariant.featured_media.id : null;
 
       // Update unit price
       if (selectedVariant.unit_price) {
@@ -240,9 +288,9 @@ export const products = {
   setallOptionsSelected () {
     let optionsSize = this.product.options.length;
     this.all_options_selected = 
-      (optionsSize === 1 && this.option_1) ||
-      (optionsSize === 2 && this.option_1 && this.option_2) ||
-      (optionsSize === 3 && this.option_1 && this.option_2 && this.option_3);
+      (optionsSize === 1 && this.option1) ||
+      (optionsSize === 2 && this.option1 && this.option2) ||
+      (optionsSize === 3 && this.option1 && this.option2 && this.option3);
     if(optionsSize === 1) {
       this.all_options_selected = true;
     }
@@ -261,14 +309,24 @@ export const products = {
     } 
 
     // If store is not using enable_variant_images
-    // Scroll to first featured image
     else {
       const featuredImages = formContainer.querySelectorAll('.js-' + this.current_variant_featured_media_id);
       if (featuredImages.length > 0) {
+
+        // Slide to featured image
         const slideIndex = featuredImages[0].getAttribute('data-slide');
         if (slideIndex) {
           this.galleryScrollToIndex(parseInt(slideIndex));
         } 
+
+        // Reorder grid
+        else {
+          const parentElement = featuredImages[0].parentNode;
+          if (parentElement) {
+            parentElement.insertBefore(featuredImages[0], parentElement.firstChild);
+          }
+        }
+
       }
     }
 

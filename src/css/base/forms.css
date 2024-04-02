@@ -21,7 +21,7 @@
   textarea {
     @apply color__bg-overlay-1 animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input;
     &::placeholder {
-      @apply color__text opacity-50;
+      @apply opacity-50 color__text;
     }
     &:hover {
       @apply border__input--hover;
@@ -31,9 +31,17 @@
     }
   }
 
+  /* Adding back the chevron */
+  select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
+    background-repeat: no-repeat !important;
+    background-position-x: 98% !important;
+    background-position-y: 50% !important;
+  },
+
   /* checkboxes and radios */
   input[type="checkbox"] {
-    @apply color__link color__bg-overlay-1 border__input cursor-pointer;
+    @apply cursor-pointer color__link color__bg-overlay-1 border__input;
     &:checked {
       @apply bg-current !important;
     }
@@ -45,7 +53,7 @@
     }
   }
   input[type="radio"] {
-    @apply color__link color__bg-overlay-1 border__input rounded-full cursor-pointer;
+    @apply rounded-full cursor-pointer color__link color__bg-overlay-1 border__input;
     &:checked {
       @apply bg-current !important;
     }
