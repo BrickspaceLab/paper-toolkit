@@ -114,7 +114,10 @@ export const cart = {
         // Display different cart elements
         switch (cart_behavior) {
           case "alert":
-            this.cart_alert = true;
+            if(this.cart_drawer) {
+              return;
+            } else {
+              this.cart_alert = true;
             this.cart.alert_delay = "0%";
             setTimeout(() => {
               this.cart.alert_delay = "100%";
@@ -123,6 +126,8 @@ export const cart = {
               this.cart.alert_delay = "0%";
               this.cart_alert = false;
             }, 4100);
+            }
+            
             break;
           case "drawer":
             this.cart_drawer = true;
@@ -380,7 +385,6 @@ export const cart = {
     quantity: number,
     openCart: boolean
   ) {
-
     this.playAudioIfEnabled(this.click_audio);
     let formData;
 

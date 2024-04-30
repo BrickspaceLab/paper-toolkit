@@ -25,7 +25,6 @@ export const globals = {
   quick_edit_popup: app.quick_edit_popup,                             // {boolean} To toggle the quick edit popup
   quick_edit_handle: app.quick_edit_handle,                           // {string} The product handle of the product being edited
   quick_add_handle: app.quick_add_handle,                             // {string} The product handle of the product being added
-  
   // Menu 
   menu_drawer: app.menu_drawer,                                     // {boolean} To toggle the menu drawer
   menu_nested: app.menu_nested,                                     // {boolean} To check if the menu is nested
