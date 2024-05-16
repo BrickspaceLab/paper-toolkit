@@ -2,13 +2,13 @@
 
 # Paper
 
-[Join Discord](https://discord.gg/4qdBFhmzCR) / [Download theme](https://themes.shopify.com/themes/paper/styles/poster) / [Become an affiliate](https://brickspacelab.notion.site/Paper-partner-program-4f3da78aff844b43badce89b570777a6)
+[Join Discord](https://discord.gg/4qdBFhmzCR) / [Download theme](https://themes.shopify.com/themes/paper/styles/poster) / [Become an affiliate](https://help.brickspacelab.com/en/articles/137-affiliate-program)
 
 ---
 
 # Overview
 
-This is a kit to help extend and customize the [Paper Shopify theme](https://themes.shopify.com/themes/paper/styles/poster). You will need to have a valid copy of Paper installed on your Shopify account in order to use this. Consider applying to our [affiliate program](https://brickspacelab.notion.site/Paper-partner-program-4f3da78aff844b43badce89b570777a6) for a commision on any Paper installs.
+This is a kit to help extend and customize the [Paper Shopify theme](https://themes.shopify.com/themes/paper/styles/poster). You will need to have a valid copy of Paper installed on your Shopify account in order to use this. Consider applying to our [affiliate program](https://help.brickspacelab.com/en/articles/137-affiliate-program) for a commision on any Paper installs.
 
 ---
 
