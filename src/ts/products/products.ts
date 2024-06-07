@@ -1,5 +1,5 @@
 export const products = {
-
+  
   // Update page when variant selection changes
   handleProductFormChange (
     enableUrlParameters: boolean,
@@ -35,6 +35,40 @@ export const products = {
     // Update calculated price with quantity
     this.calculated_price = this.quantity * this.current_variant_price;
     
+  },
+
+  // If using combined listing this loads and sets title, description and images switching between products
+  async handleCombinedListing (
+    productURL: string,
+    sectionId: string
+  ) { 
+
+    // load product section with Section Render API
+    try {
+      const response = await fetch(
+        `${productURL}?section_id=${sectionId}`
+      );
+
+      // If response is not OK, throw an error
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      // Catpure data from fetch
+      const responseHtml = await response.text();
+      const html = new DOMParser().parseFromString(responseHtml, 'text/html');
+
+      // inject new html
+      const oldSection = document.querySelector('.js-product')
+      if(oldSection) {
+        const newSection = html.querySelector('.js-product');
+        oldSection.parentNode!.insertBefore(newSection!, oldSection);
+        oldSection.remove();
+      }
+    } 
+
+    catch (error) {
+      console.error(error);
+    }
   },
 
    // Find options that are not available based on selected options
@@ -291,9 +325,6 @@ export const products = {
       (optionsSize === 1 && this.option1) ||
       (optionsSize === 2 && this.option1 && this.option2) ||
       (optionsSize === 3 && this.option1 && this.option2 && this.option3);
-    if(optionsSize === 1) {
-      this.all_options_selected = true;
-    }
   },
 
   // Update order of product gallery images

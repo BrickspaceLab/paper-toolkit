@@ -85,7 +85,7 @@
     @apply animation-500 underline-offset-1 underline;
 
     &:hover {
-      @apply underline opacity-50;
+      @apply underline md:opacity-50;
     }
 
     &:focus-visible {
