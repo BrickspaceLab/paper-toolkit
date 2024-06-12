@@ -15,7 +15,7 @@ export interface AppInterface {
   quick_add_popup: boolean;
   quick_edit_popup: boolean;
   quick_edit_handle: string;
-  quick_add_handle: string; 
+  quick_add_handle: string;
   menu_drawer: boolean;
   menu_nested: boolean;
   hide_header: boolean;
@@ -26,6 +26,8 @@ export interface AppInterface {
   price_enable_zeros: boolean;
   price_enable_currency: boolean;
   recent_products: any[];
+  discount_text: string;
+  discount_code: string;
   cart_alert: boolean;
   cart_drawer: boolean;
   cart_loading: boolean;
@@ -218,13 +220,13 @@ export interface Product {
   line_level_discount_allocations: {
     amount: number;
     discount_application: {
-        target_selection: string,
-        target_type: string,
-        title: string,
-        total_allocated_amount: number,
-        type: string,
-        value: number,
-        value_type: string
+      target_selection: string,
+      target_type: string,
+      title: string,
+      total_allocated_amount: number,
+      type: string,
+      value: number,
+      value_type: string
     }
   }[];
   line_level_total_discount: number;
