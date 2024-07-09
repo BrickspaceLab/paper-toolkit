@@ -101,7 +101,14 @@ export const cart = {
 
       // Open cart if set
       if (openCart) {
-
+        // Hide other overlapping overlays
+        this.menu_drawer = false;
+        this.age_popup = false;
+        this.audio_popup = false;
+        this.discount_popup = false;
+        this.filter_popup = false;
+        this.localization_popup = false;
+        
         // Set cart behavior to alert, drawer or redirect
         let cart_behavior;
         if(window.innerWidth  < 768){

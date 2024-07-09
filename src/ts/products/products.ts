@@ -325,6 +325,9 @@ export const products = {
       (optionsSize === 1 && this.option1) ||
       (optionsSize === 2 && this.option1 && this.option2) ||
       (optionsSize === 3 && this.option1 && this.option2 && this.option3);
+      if(this.current_variant_has_only_default_variant === true) {
+        this.all_options_selected = true;
+      }
   },
 
   // Update order of product gallery images

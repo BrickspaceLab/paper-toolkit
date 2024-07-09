@@ -26,6 +26,8 @@ export interface AppInterface {
   price_enable_zeros: boolean;
   price_enable_currency: boolean;
   recent_products: any[];
+  discount_text: string;
+  discount_code: string;
   cart_alert: boolean;
   cart_drawer: boolean;
   cart_loading: boolean;

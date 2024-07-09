@@ -45,6 +45,10 @@ export const globals = {
   // Product
   recent_products: app.recent_products,                             // {array} of recently viewed products
   
+  // Discount properties
+  discount_text: app.discount_text,                                 // {string} Text for the discount
+  discount_code: app.discount_code,                                 // {string} Code for the discount
+
   // Cart
   cart_alert: app.cart_alert,                                       // {boolean} To show the cart alert
   cart_drawer: app.cart_drawer,                                     // {boolean} To toggle the cart drawer
