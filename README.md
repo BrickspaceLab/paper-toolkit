@@ -2,7 +2,7 @@
 
 # Paper
 
-[Join Discord](https://discord.gg/4qdBFhmzCR) / [Download theme](https://themes.shopify.com/themes/paper/styles/poster) / [Become an affiliate](https://help.brickspacelab.com/en/articles/137-affiliate-program)
+[Join Discord](https://discord.gg/4qdBFhmzCR) / [Download theme](https://themes.shopify.com/themes/paper/styles/poster) 
 
 ---
 
