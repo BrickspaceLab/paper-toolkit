@@ -14,9 +14,30 @@ export const search = {
 
     // Function to build query parameters string
     const buildParams = () => {
-      return Object.entries(params)
-        .reduce((acc, [key, value]) => value ? acc.concat(key) : acc, [])
-        .join();
+      const paramKeys = [
+        'author',
+        'body',
+        'product_type',
+        'tag',
+        'title',
+        'vendor',
+      ];
+
+      const variantKeys = [
+        'barcode',
+        'sku',
+        'title'
+      ];
+
+      const flattenedParams = paramKeys
+        .filter(key => params[key])
+        .concat(
+          variantKeys
+            .filter(key => params.variants && params.variants[key])
+            .map(key => `variants.${key}`)
+        );
+
+      return flattenedParams.join(',');
     };
 
     // Function to build resource string
@@ -47,7 +68,7 @@ export const search = {
     }
 
     // Fetch request URL
-    const requestUrl = `${window.Shopify.routes.root}search/suggest.json?q=${this.search_term}&resources[type]=${buildResources()}&resources[limit]=6&[options][fields]=${buildParams()}`;
+    const requestUrl = `${window.Shopify.routes.root}search/suggest.json?q=${this.search_term}&resources[type]=${buildResources()}&resources[limit]=6&resources[options][fields]=${buildParams()}`;
 
     // Get data from shopify
     try {

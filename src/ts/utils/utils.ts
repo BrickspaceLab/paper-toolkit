@@ -1,4 +1,5 @@
 export const utils = {
+
   // Initiate animation setup - classes will swap when elements scroll into view
   initAnimationObserver () {
 
@@ -101,17 +102,25 @@ export const utils = {
       timeout = setTimeout(later, wait);
     };
   },
-
+  
   // Match to liquid handle filter
   handleize (
     str: string
   ) {    
     return str
       .toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Optional: Remove accents
-      .replace(/[^a-z0-9\p{L}\p{N}]+/gu, '-') // Allow letters and numbers from any language
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '');
+      .replace(/['"]+/g, '') // Remove prime symbols and quotation marks
+      .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric characters with a dash
+      .replace(/^-+|-+$/g, '') // Remove leading/trailing dashes
+      .replace(/-+/g, '-'); // Replace multiple consecutive dashes with a single dash
+  },
+
+  // Encode to base64
+  // This should match liquid values like {{ value | replace: ' ', '+' | base64_encode }}
+  encodeToBase64 (
+    str: string
+  ) {
+    return btoa(unescape(encodeURIComponent(str)));
   },
 
   // Add classes to images after loading

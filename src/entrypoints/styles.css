@@ -65,7 +65,7 @@ html {
   top: 50%;
   border-top: 2px solid;
   border-color: var(--color__text-light) !important;
-  
+  outline: 1px solid var(--color__bg-body-light);
   -webkit-transform:rotate(-15deg);
   -moz-transform:rotate(-15deg);
   -ms-transform:rotate(-15deg);

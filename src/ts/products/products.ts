@@ -2,7 +2,6 @@ export const products = {
   
   // Update page when variant selection changes
   handleProductFormChange (
-    enableUrlParameters: boolean,
     preselectedVariantId: number
   ) {
 
@@ -28,9 +27,7 @@ export const products = {
     this.fetchAndRefreshPickup();
 
     // Add variant id to URL parameters
-    if (enableUrlParameters && this.all_options_selected) {
-      this.updateUrlParameters();
-    }
+    this.updateUrlParameters();
     
     // Update calculated price with quantity
     this.calculated_price = this.quantity * this.current_variant_price;
@@ -69,30 +66,71 @@ export const products = {
     catch (error) {
       console.error(error);
     }
+
   },
 
-   // Find options that are not available based on selected options
-   setUnavailableOptions() {
+  // Find options that are not available based on selected options
+  setUnavailableOptions() {
 
-    // Dynamically find matching variants excluding the option being considered
+    // Generate all possible combinations of options
+    const generateOptionCombinations = () => {
+      const options = this.product.options.map((option, index) => {
+        return [...new Set(this.product.variants.map(variant => this.encodeToBase64(variant[`option${index + 1}`])))];
+      });
+
+      const combinations = options.reduce((acc, option) => {
+        return acc.flatMap(combination => {
+          return option.map(optionValue => {
+            return { ...combination, [`option${options.indexOf(option) + 1}`]: optionValue };
+          });
+        });
+      }, [{}]);
+
+      return combinations;
+    };
+
+    // Find matching variants excluding the option being considered
+    // This will return an array of variants that are not available
     const findMatchingVariants = (excludeOptionIndex: number) => {
       return this.product.variants.filter(variant => {
+
         // Check if the variant is sold out
         if (variant.available) {
           return false;
         }
 
-        // Loop through and find matching variants
-        for (let i = 1; i <= this.product.options.length; i++) {
-          if (i === excludeOptionIndex) continue;
-          const optionKey = `option${i}`;
-          if (variant[optionKey].toLowerCase() !== this[`option${i}`].toLowerCase()) {
-            return false; 
+        // If there is only one option, return all unavailable variants
+        if (this.product.options.length === 1) {
+          return true;
+        }
+
+        // Loop through and find matching variants excluding the option being considered
+        else {
+          for (let i = 1; i <= this.product.options.length; i++) {
+            if (i === excludeOptionIndex) continue;
+            const optionKey = `option${i}`;
+            if (this.encodeToBase64(variant[optionKey]) !== this[`option${i}`]) {
+              return false;
+            }
           }
         }
+
         return true;
+
       });
     };
+
+    // Generate all possible combinations of options
+    const allCombinations = generateOptionCombinations();
+
+    // Find non-existent variants
+    const nonExistentVariants = allCombinations.filter(combination => {
+      return !this.product.variants.some(variant => {
+        return Object.keys(combination).every(optionKey => {
+          return this.encodeToBase64(variant[optionKey]) === combination[optionKey];
+        });
+      });
+    });
 
     // Loop through options
     for (let i = 1; i <= this.product.options.length; i++) {
@@ -104,43 +142,58 @@ export const products = {
       // For each matching variant, add its options to the unavailableOptionsSet
       matchingVariants.forEach(variant => {
         const optionKey = `option${i}`;
-        unavailableOptionsSet.add(this.handleize(variant[optionKey]));
+        unavailableOptionsSet.add(this.encodeToBase64(variant[optionKey]));
+      });
+
+      // Find unavailable options based on selected options and non-existent variants
+      nonExistentVariants.forEach(variant => {
+        const isMatch = Object.keys(variant).every(optionKey => {
+          
+          const optionIndex = parseInt(optionKey.replace('option', ''));
+          return optionIndex === i || variant[optionKey] === this[`option${optionIndex}`];
+        });
+
+        if (isMatch) {
+          unavailableOptionsSet.add(variant[`option${i}`]);
+        }
       });
 
       // Convert the set to an array and assign it to the corresponding global variable
       this[`unavailable_options${i}`] = Array.from(unavailableOptionsSet);
     }
+
   },
 
   // Set selectedVariant based on selected options
   // This will find the selectedVariant based on selected options
   setSelectedVariant () {
+
     let optionsSize = this.product.options.length;
     let selectedVariant;
-
 
     switch (optionsSize) {
       case 1:
         selectedVariant = this.product.variants.find(variant => 
-          (this.handleize(variant.option1) === this.handleize(this.option1))
+          (this.encodeToBase64(variant.option1) === this.option1)
         );
         break;
       case 2:
         selectedVariant = this.product.variants.find(variant => 
-          (this.handleize(variant.option1) === this.handleize(this.option1)) &&
-          (this.handleize(variant.option2) === this.handleize(this.option2))
+          (this.encodeToBase64(variant.option1) === this.option1) &&
+          (this.encodeToBase64(variant.option2) === this.option2)
         );
         break;
       case 3:
         selectedVariant = this.product.variants.find(variant => 
-          (this.handleize(variant.option1) === this.handleize(this.option1)) &&
-          (this.handleize(variant.option2) === this.handleize(this.option2)) &&
-          (this.handleize(variant.option3) === this.handleize(this.option3))
+          (this.encodeToBase64(variant.option1) === this.option1) &&
+          (this.encodeToBase64(variant.option2) === this.option2) &&
+          (this.encodeToBase64(variant.option3) === this.option3)
         );
         break;
     }
 
     return selectedVariant;
+
   },
 
   // Check if preselectedVariantId exists and set options
@@ -150,32 +203,29 @@ export const products = {
 
     let optionsSize = this.product.options.length;
 
+    // Find the matching variant in this.product.variants
+    // If a matching variant is found, update options to match the selected variant
     if (preselectedVariantId) {
       this.current_variant_id = preselectedVariantId;
-
-      // Find the matching variant in this.product.variants
       const selectedVariant = this.product.variants.find((variant: { id: number }) => 
         variant.id === preselectedVariantId
       );
-
-      // If a matching variant is found, update options to match the selected variant
       if (selectedVariant) {
         switch (optionsSize) {
           case 1:
-            this.option1 = this.handleize(selectedVariant.option1);
+            this.option1 = this.encodeToBase64(selectedVariant.option1);
             break;
           case 2:
-            this.option1 = this.handleize(selectedVariant.option1);
-            this.option2 = this.handleize(selectedVariant.option2);
+            this.option1 = this.encodeToBase64(selectedVariant.option1);
+            this.option2 = this.encodeToBase64(selectedVariant.option2);
             break;
           case 3:
-            this.option1 = this.handleize(selectedVariant.option1);
-            this.option2 = this.handleize(selectedVariant.option2);
-            this.option3 = this.handleize(selectedVariant.option3);
+            this.option1 = this.encodeToBase64(selectedVariant.option1);
+            this.option2 = this.encodeToBase64(selectedVariant.option2);
+            this.option3 = this.encodeToBase64(selectedVariant.option3);
             break;
         }
       }
-      
     }
 
   },
@@ -184,6 +234,7 @@ export const products = {
   setDefaultsFromSelectedVariant (
     selectedVariant: number
   ) {
+
     // Get product form container
     let formContainer = this.$refs.formContainer;
     
@@ -206,6 +257,7 @@ export const products = {
       if (customSelectedVariant && customSelectedVariant.length > 0) {
         this.current_variant_inventory_quantity = customSelectedVariant[0].inventory_quantity;
         this.current_variant_inventory_policy = customSelectedVariant[0].inventory_policy;
+        this.current_variant_inventory_management = customSelectedVariant[0].inventory_management;
       }
 
       // Set featured image id if available
@@ -332,6 +384,7 @@ export const products = {
 
   // Update order of product gallery images
   reorderProductGallery () {
+
     let formContainer = this.$refs.formContainer;
     
     // Check if enable_variant_images is enabled - this checks if store is using "Only show media associated with the selected variant"
@@ -367,15 +420,19 @@ export const products = {
   },
 
   // Add variant id to URL parameters
+  // URL will only update if on a product page and all options are selected
   updateUrlParameters () {
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.set('variant', this.current_variant_id);
-    const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-    history.replaceState(null, '', newRelativePathQuery);
+    if (window.location.pathname.includes('/products/') && this.all_options_selected) {
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('variant', this.current_variant_id);
+      const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+      history.replaceState(null, '', newRelativePathQuery);
+    }
   },
 
   // Refresh pickup availability block
   fetchAndRefreshPickup () {
+
     const formContainer = this.$refs.formContainer;
     const pickupContainer = formContainer.querySelector('.js-pickup');
 
@@ -398,6 +455,7 @@ export const products = {
         console.error('Error:', error);
       });
     }
+
   },
 
   // Scroll to next gallery item
@@ -414,6 +472,7 @@ export const products = {
 
     // Go to new slide
     this.galleryScrollToIndex(this.gallery_next);
+
   },
 
   // Scroll to previous gallery item
@@ -430,6 +489,7 @@ export const products = {
 
     // Go to new slide
     this.galleryScrollToIndex(this.gallery_next);
+
   },
 
   // Scroll to a specific gallery item
@@ -489,6 +549,7 @@ export const products = {
 
     // Update index
     this.gallery_index = index;
+
   },
 
   // Scroll to start of gallery slider
@@ -522,6 +583,7 @@ export const products = {
     
     // Update index
     this.gallery_index = 0;
+
   },
 
   // Unzoom all images
@@ -531,10 +593,12 @@ export const products = {
     }
   },
 
+  // Zoom in on gallery image
   galleryZoomIn() {
     this['gallery_zoom_'+this.gallery_index] = true;
   },
 
+  // Zoom out of gallery image
   galleryZoomOut() {
     this['gallery_zoom_'+this.gallery_index] = false;
   }
