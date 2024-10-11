@@ -7,94 +7,115 @@
   /* backgrounds */
   /* - body */
   .color__bg-body {
-    background-color: var(--color__bg-body-light);
+    background-color: var(--color__background-body);
   }
 
   /* - text */
   .color__bg-text {
-    background-color: var(--color__text-light);
+    background-color: var(--color__text-default);
   }
   
   /* - overlay 1 */
   .color__bg-overlay-1 {
-    background-color: var(--color__bg-overlay-light-1);
+    background-color: var(--color__background-overlay-1);
   }
 
   /* - overlay 2 */
   .color__bg-overlay-2 {
-    background-color: var(--color__bg-overlay-light-2);
+    background-color: var(--color__background-overlay-2);
   }
 
   /* - overlay 3 */
   .color__bg-overlay-3 {
-    background-color: var(--color__bg-overlay-light-3);
+    background-color: var(--color__background-overlay-3);
+  }
+
+  /* - shade 1 */
+  .color__bg-shade-1 {
+    background-color: var(--color__background-shade-1);
+  }
+
+  /* - shade 2 */
+  .color__bg-shade-2 {
+    background-color: var(--color__background-shade-2);
+  }
+
+  /* - shade 3 */
+  .color__bg-shade-3 {
+    background-color: var(--color__background-shade-3);
   }
 
   /* - primary */
   .color__bg-primary {
-    background-color: var(--color-primary-button-background-light);
+    background-color: var(--color__background-primary);
   }
 
   /* - secondary */
   .color__bg-secondary {
-    background-color: var(--color-secondary-button-background-light);
+    background-color: var(--color__background-secondary);
   }
 
   /* - tertiary */
   .color__bg-tertiary {
-    background-color: var(--color-tertiary-button-background-light);
+    background-color: var(--color__background-tertiary);
   }
 
   /* - neutral */
   .color__bg-neutral {
-    background-color: var(--color-neutral-button-background-light);
+    background-color: var(--color__background-neutral);
+  }
+
+  /* - input */
+  .color__bg-input {
+    background-color: var(--inputs__background);
   }
 
   /* ======= */
   /* text */
   /* force text color, dark color that contrasts on light background */
   .color__dark {
-    color: var(--color__text-light);
+    color: var(--color__text-default);
     * {
-      color: var(--color__text-light);
+      color: var(--color__text-default);
     }
   }
 
   /* force text color, light color that contrasts on dark background */
   .color__light {
-    color: var(--color__text-dark);
+    color: var(--color__text-alt);
     * {
-      color: var(--color__text-dark);
+      color: var(--color__text-alt);
     }
   }
 
   /* - text */
   .color__text {
-    color: var(--color__text-light);
+    color: var(--color__text-default);
   }
 
   /* - link */
   .color__link {
-    color: var(--color__link-light);
+    color: var(--color__text-link);
   }
+  
   /* - primary */
   .color__primary {
-    color: var(--color-primary-button-text-light);
+    color: var(--color__foreground-primary);
   }
 
   /* - secondary */
   .color__secondary {
-    color: var(--color-secondary-button-text-light);
+    color: var(--color__foreground-secondary);
   }
 
   /* - tertiary */
   .color__tertiary {
-    color: var(--color-tertiary-button-text-light);
+    color: var(--color__foreground-tertiary);
   }
   
   /* - neutral */
   .color__neutral {
-    color: var(--color-neutral-button-text-light);
+    color: var(--color__foreground-tertiary);
   }
 
   /* ======= */
@@ -110,92 +131,99 @@
 
   /* - divider 1 */
   .color__border-divider-1 {
-    border-color: var(--color__border-divider-light-1);
+    border-color: var(--color__border-divider-1);
   }
   /* .color__border-divider-1-sides {
-    border-left-color: var(--color__border-divider-light-1);
-    border-right-color: var(--color__border-divider-light-1);
+    border-left-color: var(--color__border-divider-1);
+    border-right-color: var(--color__border-divider-1);
   } */
 
   /* - divider 2 */
   .color__border-divider-2 {
-    border-color: var(--color__border-divider-light-2);
+    border-color: var(--color__border-divider-2);
   }
 
   /* - divider 3 */
   .color__border-divider-3 {
-    border-color: var(--color__border-divider-light-3);
+    border-color: var(--color__border-divider-3);
   }
 
   /* - selected 1 */
   .color__border-selected-1 {
-    border-color: var(--color__border-selected-light-1);
+    border-color: var(--color__border-selected-1);
   }
   /* .color__border-selected-1-sides {
-    border-left-color: var(--color__border-selected-light-1);
-    border-right-color: var(--color__border-selected-light-1);
+    border-left-color: var(--color__border-selected-1);
+    border-right-color: var(--color__border-selected-1);
   } */
 
   /* - selected 2 */
   .color__border-selected-2 {
-    border-color: var(--color__border-selected-light-2);
+    border-color: var(--color__border-selected-2);
   }
 
   /* - primary */
   .color__border-primary {
-    border-color: var(--color-primary-button-background-light);
+    border-color: var(--color__background-primary);
   }
   
+  /* - input */
+  .color__border-input {
+    border-color: var(--inputs__border);
+  }
+  .color__outline-input {
+    outline-color: var(--inputs__border);
+  }
 
   /* ======= */
   /* buttons */
   /* - primary */
   .color__button-primary {
-    background-color: var(--color-primary-button-background-light);
+    background-color: var(--color__background-primary);
     border-color: var(--color__border-primary);
-    color: var(--color-primary-button-text-light);
+    color: var(--color__foreground-primary);
     * {
-      color: var(--color-primary-button-text-light);
+      color: var(--color__foreground-primary);
     }
   }
 
   /* - secondary */
   .color__button-secondary {
-    background-color: var(--color-secondary-button-background-light);
+    background-color: var(--color__background-secondary);
     border-color: var(--color__border-secondary);
-    color: var(--color-secondary-button-text-light);
+    color: var(--color__foreground-secondary);
     * {
-      color: var(--color-secondary-button-text-light);
+      color: var(--color__foreground-secondary);
     }
   }
 
   /* - tertiary */
   .color__button-tertiary {
-    background-color: var(--color-tertiary-button-background-light);
+    background-color: var(--color__background-tertiary);
     border-color: var(--color__border-tertiary);
-    color: var(--color-tertiary-button-text-light);
+    color: var(--color__foreground-tertiary);
     * {
-      color: var(--color-tertiary-button-text-light);
+      color: var(--color__foreground-tertiary);
     }
   }
   
   /* - neutral */
   .color__button-neutral {
-    background-color: var(--color-neutral-button-background-light);
-    border-color: var(--color-neutral-button-border-light);
-    color: var(--color-neutral-button-text-light);
+    background-color: var(--color__background-neutral);
+    border-color: var(--color__border-neutral);
+    color: var(--color__foreground-neutral);
     * {
-      color: var(--color-neutral-button-text-light);
+      color: var(--color__foreground-neutral);
     }
   }
 
   /* - plain */
   .color__button-plain {
-    background-color: var(--color-plain-button-background-light);
+    background-color: var(--color__background-plain);
     border-color: var(--color__border-plain);
-    color: var(--color-plain-button-text-light);
+    color: var(--color__foreground-plain);
     * {
-      color: var(--color-plain-button-text-light);
+      color: var(--color__foreground-plain);
     }
   }
 

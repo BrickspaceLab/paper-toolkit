@@ -4,6 +4,7 @@ module.exports = {
   future: {
     hoverOnlyWhenSupported: true,
   },
+  darkMode: "media",
   content: [
     "./assets/**/*.{liquid,js,json}",
     "./config/**/*.{liquid,js,json}",
@@ -13,6 +14,26 @@ module.exports = {
     "./templates/**/*.{liquid,js,json}",
   ],
   safelist: [
+    'w-[10%]',
+    'w-[20%]',
+    'w-[30%]',
+    'w-[40%]',
+    'w-[50%]',
+    'w-[60%]',
+    'w-[70%]',
+    'w-[80%]',
+    'w-[90%]',
+    'w-[100%]',
+    'md:w-[10%]',
+    'md:w-[20%]',
+    'md:w-[30%]',
+    'md:w-[40%]',
+    'md:w-[50%]',
+    'md:w-[60%]',
+    'md:w-[70%]',
+    'md:w-[80%]',
+    'md:w-[90%]',
+    'md:w-[100%]',
     'w-1/12',
     'w-2/12',
     'w-3/12',
@@ -78,7 +99,17 @@ module.exports = {
         transparent: "transparent",
         current: "currentColor",
       },
+      scale: {
+        '1-1': '1.1',
+        '1-2': '1.2',
+        '1-5': '1.5',
+        '2': '2',
+        '2-5': '2.5',
+        '3': '3'
+      },
       screens: {
+        light: { raw: "(prefers-color-scheme: light)" },
+        dark: { raw: "(prefers-color-scheme: dark)" },
         xs: "360px",
       },
       animation: {

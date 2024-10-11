@@ -5,35 +5,35 @@
 @layer utilities {
 
   .padding--gap {
-    padding: var(--sizes-gap-width);
+    padding: var(--sizes__gap);
   }
   .padding--t-gap {
-    padding-top: var(--sizes-gap-width);
+    padding-top: var(--sizes__gap);
   }
   .padding--r-gap {
-    padding-right: var(--sizes-gap-width);
+    padding-right: var(--sizes__gap);
   }
   .padding--b-gap {
-    padding-bottom: var(--sizes-gap-width);
+    padding-bottom: var(--sizes__gap);
   }
   .padding--l-gap {
-    padding-left: var(--sizes-gap-width);
+    padding-left: var(--sizes__gap);
   }
 
   .margin--gap {
-    margin: var(--sizes-gap-width);
+    margin: var(--sizes__gap);
   }
   .margin--t-gap {
-    margin-top: var(--sizes-gap-width);
+    margin-top: var(--sizes__gap);
   }
   .margin--r-gap {
-    margin-right: var(--sizes-gap-width);
+    margin-right: var(--sizes__gap);
   }
   .margin--b-gap {
-    margin-bottom: var(--sizes-gap-width);
+    margin-bottom: var(--sizes__gap);
   }
   .margin--l-gap {
-    margin-left: var(--sizes-gap-width);
+    margin-left: var(--sizes__gap);
   }
 
 }

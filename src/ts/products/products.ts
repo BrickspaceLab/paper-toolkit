@@ -383,37 +383,37 @@ export const products = {
   },
 
   // Update order of product gallery images
-  reorderProductGallery () {
-
+  reorderProductGallery() {
     let formContainer = this.$refs.formContainer;
-    
+
     // Check if enable_variant_images is enabled - this checks if store is using "Only show media associated with the selected variant"
     // If so we scroll to start of slider
     if (this.enable_variant_images) {
       setTimeout(() => {
         this.galleryScrollToStart(0);
       }, 100);
-    } 
+    }
 
     // If store is not using enable_variant_images
+    // Scroll to first featured image
     else {
-      const featuredImages = formContainer.querySelectorAll('.js-' + this.current_variant_featured_media_id);
-      if (featuredImages.length > 0) {
+      const featuredImage = formContainer.querySelectorAll('.js-' + this.current_variant_featured_media_id);
+      const featuredImageGrid = formContainer.querySelectorAll('.js-' + this.current_variant_featured_media_id + '-grid');
 
-        // Slide to featured image
-        const slideIndex = featuredImages[0].getAttribute('data-slide');
+      if (featuredImage.length > 0) {
+        // Slide to image
+        const slideIndex = featuredImage[0].getAttribute('data-slide');
         if (slideIndex) {
           this.galleryScrollToIndex(parseInt(slideIndex));
-        } 
-
-        // Reorder grid
-        else {
-          const parentElement = featuredImages[0].parentNode;
-          if (parentElement) {
-            parentElement.insertBefore(featuredImages[0], parentElement.firstChild);
-          }
         }
 
+        // Reorder grid
+        if(featuredImageGrid.length > 0) {
+          const parentElement = featuredImageGrid[0].parentNode;
+          if (parentElement) {
+            parentElement.insertBefore(featuredImageGrid[0], parentElement.firstChild);
+          }
+        }
       }
     }
 
@@ -536,11 +536,11 @@ export const products = {
     setTimeout(() => {
       if (zoomSlider){
         let currentSlide = zoomSlider.querySelector('[data-slide="' + index +'"]');
-        let currentSlidePosition = currentSlide.offsetLeft;
+        let currentSlidePosition = currentSlide.offsetTop;
         if (currentSlide) {
           zoomSlider.scrollTo({
-            top: 0,
-            left: currentSlidePosition,
+            top: currentSlidePosition,
+            left: 0,
             behavior: 'smooth'
           });
         }
@@ -548,7 +548,7 @@ export const products = {
     }, 100);
 
     // Update index
-    this.gallery_index = index;
+    // this.gallery_index = index;
 
   },
 

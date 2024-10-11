@@ -7,57 +7,62 @@
   /* default borders */
   /* - default border width */
   .outline--width {
-    outline-width: var(--sizes__border-element-width);
+    outline-width: var(--size__border-element-width);
     outline-style: solid;
   }
   .border--width {
-    border-width: var(--sizes__border-element-width);
+    border-width: var(--size__border-element-width);
   }
   .border--t-width {
-    border-top-width: var(--sizes__border-element-width);
+    border-top-width: var(--size__border-element-width);
   }
   .border--r-width {
-    border-right-width: var(--sizes__border-element-width);
+    border-right-width: var(--size__border-element-width);
   }
   .border--b-width {
-    border-bottom-width: var(--sizes__border-element-width);
+    border-bottom-width: var(--size__border-element-width);
   }
   .border--l-width {
-    border-left-width: var(--sizes__border-element-width);
+    border-left-width: var(--size__border-element-width);
   }
   .border--button-width {
-    border-width: var(--sizes__border-button-width);
+    border-width: var(--size__border-button-width);
   }
   .border--t-button-width {
-    border-top-width: var(--sizes__border-button-width);
+    border-top-width: var(--size__border-button-width);
   }
   .border--r-button-width {
-    border-right-width: var(--sizes__border-button-width);
+    border-right-width: var(--size__border-button-width);
   }
   .border--b-button-width {
-    border-bottom-width: var(--sizes__border-button-width);
+    border-bottom-width: var(--size__border-button-width);
   }
   .border--l-button-width {
-    border-left-width: var(--sizes__border-button-width);
+    border-left-width: var(--size__border-button-width);
   }
   .border--input-width {
-    border-width: var(--sizes__border-input-width);
+    border-width: var(--size__border-input-width);
   }
   .border--t-input-width {
-    border-top-width: var(--sizes__border-input-width);
+    border-top-width: var(--sizes__border-input-width-top);
   }
   .border--r-input-width {
-    border-right-width: var(--sizes__border-input-width);
+    border-right-width: var(--sizes__border-input-width-right);
   }
   .border--b-input-width {
-    border-bottom-width: var(--sizes__border-input-width);
+    border-bottom-width: var(--sizes__border-input-width-bottom);
   }
   .border--l-input-width {
-    border-left-width: var(--sizes__border-input-width);
+    border-left-width: var(--sizes__border-input-width-left);
   }
+  .border--input-padding {
+    padding-left: var(--sizes__border-input-padding-left);
+    padding-right: var(--sizes__border-input-padding-right);
+  }
+
   /* - default border raidus */
   .border--radius {
-    border-radius: var(--sizes-border-element-radius);
+    border-radius: var(--size__element-radius);
   }
   .mobile-border--radius-t-0 {
     @media (max-width: 768px) {
@@ -71,18 +76,19 @@
       border-bottom-right-radius: 0;
     }
   }
+  
   /* - default focus border */
   .border--focus {
-    box-shadow: var(--color__bg-body-light) 0px 0px 0px 2px,
-      var(--color__border-selected-light-1) 0px 0px 0px 4px;
+    box-shadow: var(--color__background-body) 0px 0px 0px 2px,
+      var(--color__border-selected-1) 0px 0px 0px 4px;
     outline: 2px solid transparent;
     outline-offset: 2px;
   }
   .border--focus--inset {
     box-shadow: none;
-    outline: 2px solid var(--color__bg-body-light);
+    outline: 2px solid var(--color__background-body);
     outline-offset: -4px;
-    border: 2px solid var(--color__border-selected-light-1) !important;
+    border: 2px solid var(--color__border-selected-1) !important;
   }
 
   /* ======= */
@@ -96,22 +102,22 @@
   .border__button--hover {
   }
   .border__button--radius {
-    border-radius: var(--sizes-border-button-radius);
+    border-radius: var(--size__button-radius);
   }
 
   /* ======= */
   /* input borders */
   .border__input {
-    @apply border--input-width color__border-divider-2;
+    @apply border--t-input-width border--r-input-width border--b-input-width border--l-input-width;
   }
   .border__input--focus {
-    @apply border--focus color__border-divider-2;
+    @apply border--focus color__border-selected-1;
   }
   .border__input--hover {
     @apply color__border-selected-1;
   }
   .border__input--radius {
-    border-radius: var(--sizes-border-input-radius);
+    border-radius: var(--size__input-radius);
   }
 
 }

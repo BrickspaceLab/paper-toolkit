@@ -19,7 +19,7 @@
   select,
   select[multiple],
   textarea {
-    @apply color__bg-overlay-1 animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input;
+    @apply animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input color__border-input color__bg-input border--input-padding;
     &::placeholder {
       @apply opacity-50 color__text;
     }
@@ -27,7 +27,7 @@
       @apply border__input--hover;
     }
     &:focus-visible {
-      @apply border__input--focus color__bg-body;
+      @apply border__input--focus;
     }
   }
 
@@ -41,26 +41,26 @@
 
   /* checkboxes and radios */
   input[type="checkbox"] {
-    @apply cursor-pointer color__link color__bg-overlay-1 border__input;
+    @apply cursor-pointer color__text color__border-divider-1 color__border-selected-1;
     &:checked {
-      @apply bg-current !important;
+      @apply color__text !important;
     }
     &:hover {
       @apply border__input--hover;
     }
-    &:focus-visible {
+    &:focus {
       @apply border__input--focus;
     }
   }
   input[type="radio"] {
-    @apply rounded-full cursor-pointer color__link color__bg-overlay-1 border__input;
+    @apply rounded-full cursor-pointer color__text color__border-divider-1 color__border-selected-1;
     &:checked {
-      @apply bg-current !important;
+      @apply color__text !important;
     }
     &:hover {
       @apply border__input--hover;
     }
-    &:focus-visible {
+    &:focus {
       @apply border__input--focus;
     }
   }

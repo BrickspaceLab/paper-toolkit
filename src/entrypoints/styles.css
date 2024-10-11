@@ -40,7 +40,7 @@
 /* - scale with base size */
 html {
   scroll-behavior: smooth;
-  font-size: var(--type-font-base-size);
+  font-size: var(--type__font-base-size);
 }
 
 /* - hide alpine elements until ready */
@@ -60,12 +60,12 @@ html {
   @apply relative;
 }
 .strikethrough:before {
-  @apply absolute left-0 right-0 opacity-50;
+  @apply absolute left-0 right-0 z-10 opacity-50;
   content: "";
   top: 50%;
   border-top: 2px solid;
-  border-color: var(--color__text-light) !important;
-  outline: 1px solid var(--color__bg-body-light);
+  border-color: var(--color__text-default) !important;
+  outline: 1px solid var(--color__background-body);
   -webkit-transform:rotate(-15deg);
   -moz-transform:rotate(-15deg);
   -ms-transform:rotate(-15deg);
@@ -83,7 +83,7 @@ html {
   content: "";
   top: 50%;
   border-top: 2px solid;
-  border-color: var(--color__text-light) !important;
+  border-color: var(--color__text-default) !important;
 
   -webkit-transform: rotate(-15deg);
   -moz-transform: rotate(-15deg);
@@ -137,6 +137,13 @@ html {
 .rte {
   display: flex;
   flex-direction: column;
+}
+
+/* mapbox styling */
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  background-color: transparent !important;
+  padding: 5px !important;
+  opacity: 0.5 !important;
 }
 
 /* Customer template */

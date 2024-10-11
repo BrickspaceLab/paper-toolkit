@@ -10,6 +10,9 @@
   .animation-300 {
     @apply transition duration-300;
   }
+  .animation-300--all {
+    @apply transition-all duration-300;
+  }
   .animation-500 {
     @apply transition duration-500;
   }
