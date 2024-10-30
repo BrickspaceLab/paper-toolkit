@@ -12,24 +12,62 @@ This is a kit to help extend and customize the [Paper Shopify theme](https://the
 
 ---
 
+# Features
+
+Paper has a number of useful features that make it a developer friendly theme to work with out of the box.
+
+- **Fast and reliable**: From the very beginning, we've made sure Paper works fast and reliably by using the latest browser-supported features. Don't worry if you're still using an older browser, our progressive enhancement ensures you'll still have the best experience.
+- **Works with JavaScript disabled**: We want everyone to have access to your store, so we've minimized the use of JavaScript. Even if someone has disabled JavaScript, we've got you covered with excellent fallbacks for core functionality.
+- **Easily extendable**: We've built Paper with a modular approach, so it's super simple to extend and customize. We use Tailwind CSS to give you an easy approach to styling, and Alpine.js to add interactivity without weighing you down.
+- **Built-in styleguide**: Making site wide changes consistently is much easier now that you can preview all the theme components from a single page.
+- **Meets all standards for theme store**: Paper meets all the [requirements](https://shopify.dev/docs/themes/store/requirements) for the Shopify theme store.
+
+---
+
 # Getting started
 
 ### Requirements
 
-- [Paper](https://themes.shopify.com/themes/paper/styles/poster) installed on your Shopify account
+Make sure all dependencies have been installed before moving on:
+
 - [NPM](https://www.npmjs.com/package/npm) (6.0.0 or higher)
 - [Node.js](https://nodejs.org/en/download/) (16.0.0 or higher)
 - [Shopify CLI](https://shopify.dev/docs/themes/tools/cli/install) (3.0.0 or higher)
 
 ### Installing
 
-1. Purchase Paper from the Shopify theme store and create a duplicate
+1. Purchase Space from the Shopify theme store and create a duplicate
 2. Clone this repo
-3. Replace `paper-theme.myshopify.com` in `package.json` with your Shopify store URL
+3. Replace `brickspacetestingstore.myshopify.com` in `package.json` with your Shopify store URL
 4. Run `npm install` to install dependencies
-5. Run `npm run pull` to download the your theme (be sure to select the theme that has Paper installed)
+5. Run `npm run pull` to download the your theme (be sure to select the theme that has Space installed)
 6. Run `npm run dev` to create a development preview
 7. Run `npm run build` to build production ready assets
+
+### Development enviroment
+
+Consider using recommened development envitorment for a consistent experience.
+
+- Use [Cursor](https://www.cursor.com/)
+- Install extensions from `.vscode/extensions.json`
+- Install recommended Cursor settings from `.vscode/settings.json`
+  - Open cursor settings by clicking `CMD + ,` then clicking Open Settings (JSON)
+  - Paste in the settings from `.vscode/settings.json`
+
+### Automatic code formatting
+
+Automatic code formatting should be enabled by default if you follow above steps.
+
+1. Install [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+2. Ensure `editor.formatOnSave` is enabled in Cursor settings. Your `settings.json` should include the following:
+
+```
+"[liquid]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+},
+ "editor.formatOnSave": true
+```
 
 ### Command refferance
 
@@ -68,7 +106,7 @@ Section files follow a similar naming convention.
 ### Using Alpine.js
 
 - For debugging there are [Chrome](https://chrome.google.com/webstore/detail/alpinejs-devtools/fopaemeedckajflibkpifppcankfmbhk) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/alpinejs-devtools/?src=recommended) browser extensions available.
-- For an extensive list of Alpine resources take a look at this [repo](https://github.com/alpine-collective/awesome). 
+- For an extensive list of Alpine resources take a look at this [repo](https://github.com/alpine-collective/awesome).
 
 ---
 
@@ -77,9 +115,6 @@ Section files follow a similar naming convention.
 - [Discord community](https://discord.gg/4qdBFhmzCR)
 - [Twitter updates](https://twitter.com/brickspacelab)
 - [Our blog](https://brickspacelab.com/blogs/news)
-- [Paper docs](https://brickspacelab.notion.site/Paper-help-center-84ce6b9217574833a7d9b9f4053cb403)
-- [Paper changelog](https://brickspacelab.notion.site/Paper-changelog-cdfeea8101ae465f8880ac90ce22e951)
 - [Shopify Vite Plugin](https://shopify-vite.barrelny.com/)
 - [Alpine.js](https://alpinejs.dev/)
 - [Tailwind CSS](https://tailwindcss.com/)
-

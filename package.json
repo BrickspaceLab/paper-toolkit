@@ -1,13 +1,10 @@
 {
   "name": "paper",
   "version": "7.6.0",
-  "description": "A feature rich and utilitarian Shopify theme",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
-    "dev_sync": "npm-run-all --parallel vite_dev shopify_dev_sync",
     "pull": "shopify theme pull --nodelete --store brickspacetestingstore.myshopify.com",
     "shopify_dev": "shopify theme dev --store brickspacetestingstore.myshopify.com",
-    "shopify_dev_sync": "shopify theme dev --theme-editor-sync --store brickspacetestingstore.myshopify.com",
     "vite_dev": "vite dev",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -21,17 +18,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "^1.0.6",
+    "@shopify/prettier-plugin-liquid": "^1.5.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.20",
     "jsdom": "^21.1.1",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.47",
     "postcss-import": "^15.1.0",
     "postcss-nested": "^6.0.1",
-    "prettier": "^2.8.7",
-    "prettier-plugin-tailwindcss": "^0.2.6",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.13",
     "vite": "^4.2.0",
     "vite-plugin-shopify": "^2.0.2",
@@ -41,9 +38,10 @@
     "@alpinejs/focus": "^3.12.0",
     "@alpinejs/intersect": "^3.12.0",
     "@alpinejs/persist": "^3.12.0",
-    "@by-association-only/vite-plugin-shopify-clean": "^1.0.1",
     "alpinejs": "^3.12.0",
-    "import": "^0.0.6",
     "instant.page": "5.1.1"
+  },
+  "config": {
+    "store": "brickspacetestingstore.myshopify.com"
   }
 }

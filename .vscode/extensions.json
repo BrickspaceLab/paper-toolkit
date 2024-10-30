@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "waderyan.gitblame",
+    "pranaygp.vscode-css-peek",
+    "dakara.dakara-foldplus",
+    "github.vscode-github-actions",
+    "github.vscode-pull-request-github",
+    "zignd.html-css-class-completion",
+    "neilding.language-liquid",
+    "esbenp.prettier-vscode",
+    "urbantrout.refactor-css",
+    "shopify.theme-check-vscode",
+    "killalau.vscode-liquid-snippets",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

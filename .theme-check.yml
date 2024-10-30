@@ -1,0 +1,93 @@
+extends: theme-check:recommended
+ignore:
+  - node_modules/**
+
+# AssetPreload:
+#   enabled: true
+#   severity: 1
+# CdnPreconnect:
+#   enabled: true
+#   severity: 0
+# ContentForHeaderModification:
+#   enabled: true
+#   severity: 0
+# DeprecateBgsizes:
+#   enabled: true
+#   severity: 1
+# DeprecateLazysizes:
+#   enabled: true
+#   severity: 1
+# DeprecatedFilter:
+#   enabled: true
+#   severity: 1
+# DeprecatedTag:
+#   enabled: true
+#   severity: 1
+# ImgWidthAndHeight:
+#   enabled: true
+#   severity: 0
+# JSONSyntaxError:
+#   enabled: true
+#   severity: 0
+# LiquidHTMLSyntaxError:
+#   enabled: true
+#   severity: 0
+# MatchingTranslations:
+#   enabled: true
+#   severity: 0
+# MissingAsset:
+#   enabled: true
+#   severity: 0
+# MissingTemplate:
+#   enabled: true
+#   severity: 0
+#   ignoreMissing: []
+# PaginationSize:
+#   enabled: true
+#   severity: 1
+#   minSize: 1
+#   maxSize: 50
+# ParserBlockingScript:
+#   enabled: true
+#   severity: 0
+# RemoteAsset:
+#   enabled: true
+#   severity: 1
+# RequiredLayoutThemeObject:
+#   enabled: true
+#   severity: 0
+# TranslationKeyExists:
+#   enabled: true
+#   severity: 0
+# UnclosedHTMLElement:
+#   enabled: true
+#   severity: 1
+# UndefinedObject:
+#   enabled: true
+#   severity: 1
+# UniqueStaticBlockId:
+#   enabled: true
+#   severity: 0
+# UnknownFilter:
+#   enabled: true
+#   severity: 0
+# UnusedAssign:
+#   enabled: true
+#   severity: 1
+# ValidHTMLTranslation:
+#   enabled: true
+#   severity: 1
+# ValidJSON:
+#   enabled: true
+#   severity: 0
+# ValidSchema:
+#   enabled: true
+#   severity: 0
+# ValidStaticBlockType:
+#   enabled: true
+#   severity: 0
+# VariableName:
+#   enabled: true
+#   severity: 1
+#   format: snake_case
+# 
