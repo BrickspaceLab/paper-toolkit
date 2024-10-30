@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/4685863/225655352-0d8b3cd2-4b27-4565-9f60-e240a1285349.jpg" width="64" style="border-radius:4px;">
+<img src="https://avatars.githubusercontent.com/u/35352591?s=200&v=4" width="64" style="border-radius:4px;">
 
 # Paper
 
