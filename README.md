@@ -49,9 +49,31 @@ Consider using recommened development envitorment for a consistent experience.
 
 - Use [Cursor](https://www.cursor.com/)
 - Install extensions from `.vscode/extensions.json`
-- Install recommended Cursor settings from `.vscode/settings.json`
+- Consider using recommended settings
   - Open cursor settings by clicking `CMD + ,` then clicking Open Settings (JSON)
-  - Paste in the settings from `.vscode/settings.json`
+  - Paste in the settings from below code snippet
+
+```
+{
+  "window.commandCenter": 1,
+  "editor.fontSize": 14,
+  "scm.inputFontSize": 14,
+  "debug.console.fontSize": 14,
+  "chat.editor.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
+  "editor.tabSize": 2,
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "": "",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .gitattributes, .shopifyignore, postcss.config.js, tailwind.config.js, tsconfig.json, vite.config.ts, .gitignore, .theme-check.yml, release-notes.md, next-env.d.ts, turbo.json, vercel.json, *config.cjs, .prettierrc"
+  },
+  "[liquid]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "editor.formatOnSave": true
+}
+```
 
 ### Automatic code formatting
 
