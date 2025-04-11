@@ -73,6 +73,13 @@ html {
   transform:rotate(-15deg);
 }
 
+/* line-through */
+.linethrough {
+  text-decoration: line-through;
+  text-decoration-color: hsl(0deg 0% 0% / 30%);
+  text-decoration-thickness: 2px;
+}
+
 /* unavailable */
 .unavailable {
   @apply relative;
@@ -93,13 +100,31 @@ html {
 }
 
 
-/* hide scrollbar */
+/* - scrollbars */
 .hidescrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 .hidescrollbar::-webkit-scrollbar {
   display: none;
+}
+.showscrollbar::-webkit-scrollbar {
+  @apply h-1;
+}
+.showscrollbar::-webkit-scrollbar-track {
+  @apply color__bg-shade-1;
+}
+.showscrollbar::-webkit-scrollbar-thumb {
+  @apply color__bg-shade-2 cursor-ew-resize;
+}
+.showscrollbar::-ms-scrollbar {
+  @apply h-1;
+}
+.showscrollbar::-ms-track {
+  @apply color__bg-shade-1;
+}
+.showscrollbar::-ms-thumb {
+  @apply color__bg-shade-2 cursor-ew-resize;
 }
 
 /* - flag stuff */
@@ -135,9 +160,14 @@ html {
   display: initial;
 }
 .rte {
-  display: flex;
+  display: block;
   flex-direction: column;
 }
+.editor-content {
+    p:empty {
+      @apply pt-4;
+    }
+  }
 
 /* mapbox styling */
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib {

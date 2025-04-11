@@ -1,47 +1,41 @@
 import { Params } from "../models.interface";
 export const search = {
-
   // Fetch search suggestions and update alpine variables
-  async fetchAndUpdateSearch (
-    event: InputEvent, 
+  async fetchAndUpdateSearch(
+    event: InputEvent,
     params: Params,
-    resources: any
+    resources: any,
   ) {
-
     // Reset search focus variables
-    this.search_focus_index = '';
-    this.search_focus_url = '';
+    this.search_focus_index = "";
+    this.search_focus_url = "";
 
     // Function to build query parameters string
     const buildParams = () => {
       const paramKeys = [
-        'author',
-        'body',
-        'product_type',
-        'tag',
-        'title',
-        'vendor',
+        "author",
+        "body",
+        "product_type",
+        "tag",
+        "title",
+        "vendor",
       ];
 
-      const variantKeys = [
-        'barcode',
-        'sku',
-        'title'
-      ];
+      const variantKeys = ["barcode", "sku", "title"];
 
       const flattenedParams = paramKeys
-        .filter(key => params[key])
+        .filter((key) => params[key])
         .concat(
           variantKeys
-            .filter(key => params.variants && params.variants[key])
-            .map(key => `variants.${key}`)
+            .filter((key) => params.variants && params.variants[key])
+            .map((key) => `variants.${key}`),
         );
 
-      return flattenedParams.join(',');
+      return flattenedParams.join(",");
     };
 
     // Function to build resource string
-    const buildResources= () => {
+    const buildResources = () => {
       let resourceArr = [];
       for (const [key, value] of Object.entries(resources)) {
         if (value) {
@@ -68,7 +62,7 @@ export const search = {
     }
 
     // Fetch request URL
-    const requestUrl = `${window.Shopify.routes.root}search/suggest.json?q=${this.search_term}&resources[type]=${buildResources()}&resources[limit]=6&resources[options][fields]=${buildParams()}`;
+    const requestUrl = `${window.Shopify.routes.root}search/suggest.json?q=${this.search_term}&resources[type]=${buildResources()}&resources[limit]=10&resources[options][fields]=${buildParams()}`;
 
     // Get data from shopify
     try {
@@ -82,67 +76,59 @@ export const search = {
       // Parse response data
       const data = await response.json();
 
-
       // Assign data to relevant variables
-      const { products, collections, pages, articles, queries } = data.resources.results;
+      const { products, collections, pages, articles, queries } =
+        data.resources.results;
       this.search_items = products ? products : [];
       this.search_items_collections = collections ? collections : [];
       this.search_items_pages = pages ? pages : [];
       this.search_items_articles = articles ? articles : [];
       this.search_items_queries = queries ? queries : [];
       this.search_loading = false;
-    } 
-    
-    // If an error occurred, set the error message and show an alert
-    catch (error: any) {
+    } catch (error: any) {
+      // If an error occurred, set the error message and show an alert
       this.error_message = error.description;
-      this.error_alert = true;
-    } 
-
-    // Stop loading regardless of whether an error occurred
-    finally {
+      this.show_alert = true;
+      
+    } finally {
+      // Stop loading regardless of whether an error occurred
       this.search_loading = false;
-      this.search_focus_index = '';
-      this.search_focus_url = '';
+      this.search_focus_index = "";
+      this.search_focus_url = "";
     }
-
   },
 
   // Get total search results
-  getSearchItems () {
-      const totalResults = [
-        ...this.search_items_queries,
-         ...this.search_items_pages,
-         ...this.search_items_articles,
-         ...this.search_items_collections,
-         ...this.search_items
-      ];
-      return totalResults;
+  getSearchItems() {
+    const totalResults = [
+      ...this.search_items_queries,
+      ...this.search_items_pages,
+      ...this.search_items_articles,
+      ...this.search_items_collections,
+      ...this.search_items,
+    ];
+    return totalResults;
   },
-  
+
   // Update selected search index when using arrow keys
-  updateSelectedSearch (
-      increment: number
-    ) {
-      const searchItems = this.getSearchItems();
-      if (this.search_focus_index === "") {
-        this.search_focus_index = 0;
-      } else {
-        this.search_focus_index = (this.search_focus_index + increment + searchItems.length) % searchItems.length;
-      }
-      this.search_focus_url = searchItems[this.search_focus_index].url;
+  updateSelectedSearch(increment: number) {
+    const searchItems = this.getSearchItems();
+    if (this.search_focus_index === "") {
+      this.search_focus_index = 0;
+    } else {
+      this.search_focus_index =
+        (this.search_focus_index + increment + searchItems.length) %
+        searchItems.length;
+    }
+    this.search_focus_url = searchItems[this.search_focus_index].url;
   },
-  
+
   // Go to selected search item when using arrow keys
-  goToSelectedItem (
-      formElement: HTMLFormElement
-    ) {
-      if (this.search_focus_url === '') {
-        formElement.submit();
-      }
-      else {
-        window.location.href = this.search_focus_url;
-      }
-  }
-  
+  goToSelectedItem(formElement: HTMLFormElement) {
+    if (this.search_focus_url === "") {
+      formElement.submit();
+    } else {
+      window.location.href = this.search_focus_url;
+    }
+  },
 };

@@ -19,9 +19,9 @@
   select,
   select[multiple],
   textarea {
-    @apply animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input color__border-input color__bg-input border--input-padding;
+    @apply animation-500 border__input--radius w-full appearance-none px-3 py-1.5 min-h-[44px] border__input color__border-input color__bg-input border--input-padding color__input;
     &::placeholder {
-      @apply opacity-50 color__text;
+      @apply opacity-50 color__input;
     }
     &:hover {
       @apply border__input--hover;

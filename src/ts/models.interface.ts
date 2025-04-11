@@ -15,16 +15,18 @@ export interface AppInterface {
   quick_add_popup: boolean;
   quick_edit_popup: boolean;
   quick_edit_handle: string;
-  quick_add_handle: string; 
+  quick_add_handle: string;
   menu_drawer: boolean;
   menu_nested: boolean;
   hide_header: boolean;
-  error_alert: boolean;
   error_message: string;
+  show_alert: boolean;
+  pagination_pages_loaded: number;
   price_format_with_currency: string;
   price_format_without_currency: string;
   price_enable_zeros: boolean;
   price_enable_currency: boolean;
+  product_loading: boolean;
   recent_products: any[];
   discount_text: string;
   discount_code: string;
@@ -55,8 +57,8 @@ export interface AppInterface {
   filter_max: number;
   filter_min_thumb: number;
   filter_max_thumb: number;
-  show_alert: boolean;
   enable_body_scrolling: boolean;
+  header_group_height: number;
 }
 
 export interface ShopifyInterface {
@@ -220,14 +222,14 @@ export interface Product {
   line_level_discount_allocations: {
     amount: number;
     discount_application: {
-        target_selection: string,
-        target_type: string,
-        title: string,
-        total_allocated_amount: number,
-        type: string,
-        value: number,
-        value_type: string
-    }
+      target_selection: string;
+      target_type: string;
+      title: string;
+      total_allocated_amount: number;
+      type: string;
+      value: number;
+      value_type: string;
+    };
   }[];
   line_level_total_discount: number;
 }
@@ -367,4 +369,3 @@ interface Article {
   title: string;
   url: string;
 }
-

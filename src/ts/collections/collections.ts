@@ -8,7 +8,11 @@ export const collections = {
     // Go back to top
     const element = document.getElementById("js-top"); 
     if (element) {
-      element.scrollIntoView();
+      // Scroll to element with offset for header height
+      window.scrollTo({
+        top: element.getBoundingClientRect().top + window.scrollY - this.header_group_height,
+        behavior: 'smooth'
+      });
     }
 
     // Loop through form data and build url
@@ -62,16 +66,25 @@ export const collections = {
   },
 
   // Check if next page is avaible and inject more products
-  async fetchAndRenderNextPage () {
+  async fetchAndRenderPage (direction: "next" | "previous") {
+    // Prevent browser from scrolling down
+    history.scrollRestoration = "manual";
 
     // Show loading
     this.pagination_loading = true;
+
+    // Update URL to show updated page number
+    if (direction === "next") {
+      let url = new URL(window.location.href);
+      url.searchParams.set("page", this.pagination_current_page + 1);
+      window.history.pushState({}, "", url.toString());
+    }
 
     // Get filter data
     const filter = document.getElementById("js-desktopFilter") as HTMLFormElement;
 
     // Get pagination count
-    const pageUrl = `&page=${this.pagination_current_page + 1}`;
+    const pageUrl = `&page=${direction === "next" ? this.pagination_current_page + 1 : this.pagination_current_page - 1}`;
 
     // Get search parameter
     const searchUrl = new URL(location.href).searchParams.get("q") ? `&q=${new URL(location.href).searchParams.get("q")}` : '';
@@ -87,7 +100,8 @@ export const collections = {
     }
     
     // Check if new page is available
-    if (this.pagination_current_page < this.pagination_total_pages) {
+    if (this.pagination_current_page < this.pagination_total_pages ||
+      direction === "previous") {
 
       // Get data from Shopify
       try {
@@ -105,12 +119,28 @@ export const collections = {
         if (fetchedElement) {
           const resultsElement = document.getElementById("js-results");
           if (resultsElement) {
-            resultsElement.insertAdjacentHTML("beforeend", fetchedElement.innerHTML);
+            if (direction === "next") {
+              resultsElement.insertAdjacentHTML(
+                "beforeend",
+                fetchedElement.innerHTML,
+              );
+            } else {
+              resultsElement.insertAdjacentHTML(
+                "afterbegin",
+                fetchedElement.innerHTML,
+              );
+            }
           }
         }
 
         // Update next page url
-        this.pagination_current_page += 1;
+         // Update next page url
+         if (direction === "next") {
+          this.pagination_current_page += 1;
+          this.pagination_pages_loaded += 1;
+        } else {
+          this.pagination_current_page -= 1;
+        }
         
         // Reset loading
         // this.loadImages();

@@ -118,6 +118,13 @@
     color: var(--color__foreground-tertiary);
   }
 
+  .color__input {
+    color: var(--inputs__text);
+    * {
+      color: var(--inputs__text);
+    }
+  }
+  
   /* ======= */
   /* borders */
   /* - transparent */
