@@ -45,9 +45,8 @@ export const cart = {
     try {
       const response = await fetch(`${window.Shopify.routes.root}cart.js`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        credentials: "same-origin",
+        cache: "no-store",
       });
 
       // If response is not OK, throw an error

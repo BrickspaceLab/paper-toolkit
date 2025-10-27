@@ -30,6 +30,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply underline-offset-2 tracking-normal;
     @apply leading-tight;
   }
@@ -37,6 +38,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-5xl underline-offset-2 text-4xl tracking-normal;
     @apply leading-tight;
   }
@@ -44,6 +46,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-4xl underline-offset-2 text-3xl tracking-normal;
     @apply leading-tight;
   }
@@ -51,6 +54,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-3xl underline-offset-2 text-2xl tracking-normal;
     @apply leading-tight;
   }
@@ -58,6 +62,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-2xl underline-offset-2 text-xl tracking-normal;
     @apply leading-tight;
   }
@@ -65,6 +70,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-xl underline-offset-2 text-lg tracking-normal;
     @apply leading-tight;
   }
@@ -72,6 +78,7 @@
     font-family: var(--type__font-header-family);
     font-style: var(--type__font-header-style);
     font-weight: var(--type__font-header-weight);
+    text-transform: var(--type__header-capitilization);
     @apply md:text-lg underline-offset-2 text-base tracking-normal;
     @apply leading-tight;
   }

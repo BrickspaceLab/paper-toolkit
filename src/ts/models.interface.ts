@@ -16,6 +16,7 @@ export interface AppInterface {
   quick_edit_popup: boolean;
   quick_edit_handle: string;
   quick_add_handle: string;
+  quick_add_initial_load: boolean;
   menu_drawer: boolean;
   menu_nested: boolean;
   hide_header: boolean;

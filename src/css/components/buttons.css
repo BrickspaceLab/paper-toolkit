@@ -5,11 +5,11 @@
   /* standard button */
   .btn {
     @apply inline-flex items-center justify-center w-auto px-6 py-2 overflow-hidden text-center no-underline cursor-pointer type__nav border__button--radius color__button-primary border__button animation-500;
-    text-transform: var(--type__button-capiliziation);
+    text-transform: var(--type__button-capitilization);
 
     * {
       @apply type__nav;
-      text-transform: var(--type__button-capiliziation);
+      text-transform: var(--type__button-capitilization);
     }
 
     &__content {

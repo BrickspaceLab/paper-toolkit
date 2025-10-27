@@ -1,10 +1,10 @@
 {
   "name": "paper",
-  "version": "7.6.0",
+  "version": "8.1.0",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
-    "pull": "shopify theme pull --nodelete --store brickspacetestingstore.myshopify.com",
-    "shopify_dev": "shopify theme dev --store brickspacetestingstore.myshopify.com",
+    "pull": "shopify theme pull --nodelete --store high-variant-combined-testing-store.myshopify.com",
+    "shopify_dev": "shopify theme dev --store high-variant-combined-testing-store.myshopify.com",
     "vite_dev": "vite dev",
     "test": "vitest",
     "coverage": "vitest run --coverage",
@@ -42,6 +42,6 @@
     "instant.page": "5.1.1"
   },
   "config": {
-    "store": "brickspacetestingstore.myshopify.com"
+    "store": "high-variant-combined-testing-store.myshopify.com"
   }
 }

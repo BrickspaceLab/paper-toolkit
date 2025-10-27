@@ -120,7 +120,10 @@ export const utils = {
   encodeToBase64 (
     str: string
   ) {
-    return btoa(unescape(encodeURIComponent(str)));
+    // Match Liquid: {{ value | replace: ' ', '+' | base64_encode }}
+    // Liquid's base64_encode handles UTF-8 properly
+    const withSpacesReplaced = str.replace(/\s/g, '+');
+    return btoa(unescape(encodeURIComponent(withSpacesReplaced)));
   },
 
   // Add classes to images after loading

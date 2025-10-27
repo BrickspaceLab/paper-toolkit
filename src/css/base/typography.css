@@ -21,36 +21,42 @@
   h1,
   .h1,
   h1 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-1;
     @apply leading-none;
   }
   h2,
   .h2,
   h2 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-2;
     @apply leading-none;
   }
   h3,
   .h3,
   h3 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-3;
     @apply leading-none;
   }
   h4,
   .h4,
   h4 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-4;
     @apply leading-tight;
   }
   h5,
   .h5,
   h5 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-5;
     @apply leading-tight;
   }
   h6,
   .h6,
   h6 > * {
+    text-transform: var(--type__header-capitilization);
     @apply type__heading--bold-6;
     @apply leading-tight;
   }

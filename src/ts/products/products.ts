@@ -1,100 +1,172 @@
 export const products = {
   // Update page when variant selection changes
   handleProductFormChange(
-    newVariant: string,
-    sectionId: number,
+    initialVariant: string | null,
+    sectionId: string,
     productHandle: string,
+    optionPosition: string | null,
+    optionValueId: string | null,
     sellingPlanGroupId: number = 0,
     sellingPlanId: number = 0,
     enableDefault: boolean = true,
   ) {
-    if (!newVariant) return;
-
-    // Parse incoming variant
-    const selectedVariant = JSON.parse(decodeURIComponent(newVariant));
-
-    if (selectedVariant !== null) {
-
-      // Refesh the options with section rendering API
-      this.fetchAndUpdateOptions(sectionId, productHandle, selectedVariant.id);
-
-      if (enableDefault) {
-        // Set option variables base on selectedVariant
-        this.setVariantOptions(selectedVariant);
+    
+    // Get the selected options map from the DOM
+    const optionsMap = Array.from(
+      document
+        .querySelector(`.options-${sectionId}`)
+        ?.querySelectorAll('[data-option-value-id].js-activeVariant') || []
+    ).reduce((map: Map<string, string>, el: Element) => {
+      const htmlEl = el as HTMLElement;
+      const position = htmlEl.dataset.optionPosition || '';
+      const valueId = htmlEl.dataset.optionValueId || '';
+      if (position && valueId) {
+        map.set(position, valueId);
       }
+      return map;
+    }, new Map<string, string>());
 
-      // Update display values based on selectedVariant
-      this.setDefaultsFromSelectedVariant(
-        selectedVariant,
-        sellingPlanGroupId,
-        sellingPlanId,
-      );
+    this.options_map = optionsMap;
 
-      // Update all_options_selected if all options are selected
-      this.setallOptionsSelected();
-
-      // Update order of product gallery based on new selections
-      this.reorderProductGallery();
-
-      // Refresh pickup availability block
-      this.fetchAndRefreshPickup(selectedVariant.id);
-
-      // Add variant id to URL parameters
-      this.updateUrlParameters();
-
+    if(!enableDefault && !this.quick_add_initial_load) {
+      if(sectionId === 'quick-add') {
+        this.quick_add_initial_load = true;
+      }
+      return;
+    }
+    // If there is an initial variant, we can use it to update the options
+    else if(initialVariant) {
+      this.current_variant = initialVariant;
+      // Refesh the options with section rendering API
+      this.fetchAndUpdateOptions(sectionId, productHandle, undefined, undefined, this.current_variant, enableDefault, sellingPlanGroupId, sellingPlanId);
     } else {
-      // Handle unavailable variant
-
-      // Set all_options_selected to true
-      this.all_options_selected = true;
-
-      // Set current_variant_exists to false
-      this.current_variant_exists = false;
+      // If there is no initial variant, we need to fetch the options and fetch the variant
+      this.fetchAndUpdateOptions(sectionId, productHandle, optionPosition, optionValueId, undefined, enableDefault, sellingPlanGroupId, sellingPlanId);
     }
   },
 
   fetchAndUpdateOptions(
     sectionId: string,
     productHandle: string,
-    variantId: string,
+    optionPosition?: string | null,
+    optionValueId?: string | null,
+    initialVariant?: string | null,
+    enableDefault: boolean = true,
+    sellingPlanGroupId: number = 0,
+    sellingPlanId: number = 0,
   ) {
+    // If optionPosition and optionValueId are provided, update the options map
+    if (optionPosition && optionValueId) {
+      this.options_map.set(optionPosition, optionValueId);
+    }
+
+    let params = '';
+    
+    // If initialVariant is provided, use variant id param
+    if (initialVariant) {
+      const variant = JSON.parse(decodeURIComponent(initialVariant));
+      params = `&variant=${variant.id}`;
+    } 
+    // Otherwise, use option_values from options_map
+    else if (this.options_map.size) {
+      params = `&option_values=${Array.from(this.options_map.values()).join(',')}`;
+    }
+    
     this.product_loading = true;
     // Call the section rendering api
     fetch(
-      `${window.Shopify.routes.root}products/${productHandle}?section_id=${sectionId}&variant=${variantId}`,
+      `${window.Shopify.routes.root}products/${productHandle}?section_id=${sectionId}${params}`,
     )
       .then((response) => response.text())
       .then((responseText) => {
         const html = new DOMParser().parseFromString(responseText, "text/html");
         const optionsElement = document.querySelector(`.options-${sectionId}`);
+        const variantJson = html.querySelector(`.options-${sectionId} script[type="application/json"]`);
 
-        optionsElement?.parentNode?.insertBefore(
-          html.querySelector(`.options-${sectionId}`),
-          optionsElement,
-        );
-        optionsElement?.remove();
+        // Update current_variant from the new HTML
+        this.current_variant = variantJson?.textContent || '';
+
+        // Parse the variant and process it immediately
+        let selectedVariant = null;
+        if (this.current_variant && this.current_variant.trim() !== '') {
+          try {
+            selectedVariant = JSON.parse(this.current_variant);
+          } catch (error) {
+            console.warn('Failed to parse current_variant JSON:', this.current_variant, error);
+            selectedVariant = null;
+          }
+        }
+ 
+        if (selectedVariant !== null) {          
+          if (enableDefault || (sectionId === 'quick-add' && this.quick_add_initial_load)) {
+            // Set option variables base on selectedVariant BEFORE inserting new HTML
+            this.setVariantOptions(selectedVariant);
+          }
+
+          // Update display values based on selectedVariant
+          this.setDefaultsFromSelectedVariant(
+            selectedVariant,
+            sellingPlanGroupId,
+            sellingPlanId,
+          );
+
+          // Update all_options_selected if all options are selected
+          this.setallOptionsSelected();
+
+          // Update order of product gallery based on new selections
+          this.reorderProductGallery();
+
+          // Refresh pickup availability block
+          this.fetchAndRefreshPickup(selectedVariant.id, sectionId);
+
+          // Add variant id to URL parameters
+          this.updateUrlParameters();
+
+        } else {
+          // Handle unavailable variant
+
+          // Set all_options_selected to true
+          this.all_options_selected = true;
+
+          // Set current_variant_exists to false
+          this.current_variant_exists = false;
+        }
+
+        const newOptionsElement = html.querySelector(`.options-${sectionId}`);
+        if (newOptionsElement && optionsElement?.parentNode) {
+          // Insert new HTML after options are already set
+          optionsElement.parentNode.insertBefore(newOptionsElement, optionsElement);
+        }
+        // Always remove the old options element to prevent stale data
+        if (optionsElement?.parentNode) {
+          optionsElement.remove();
+        }
         this.product_loading = false;
       });
   },
 
   // Update options to match the selected variant
   setVariantOptions(selectedVariant: any) {
-    if (selectedVariant) {
-      let optionsSize = this.product.options.length;
-      switch (optionsSize) {
-        case 1:
-          this.option1 = this.encodeToBase64(selectedVariant.option1);
-          break;
-        case 2:
-          this.option1 = this.encodeToBase64(selectedVariant.option1);
-          this.option2 = this.encodeToBase64(selectedVariant.option2);
-          break;
-        case 3:
-          this.option1 = this.encodeToBase64(selectedVariant.option1);
-          this.option2 = this.encodeToBase64(selectedVariant.option2);
-          this.option3 = this.encodeToBase64(selectedVariant.option3);
-          break;
-      }
+    let optionsSize = selectedVariant.options.length;
+    switch (optionsSize) {
+      case 1:
+        this.option1 = this.encodeToBase64(selectedVariant.options[0]);
+        break;
+      case 2:
+        this.option1 = this.encodeToBase64(selectedVariant.options[0]);
+        this.option2 = this.encodeToBase64(selectedVariant.options[1]);
+        break;
+      case 3:
+        this.option1 = this.encodeToBase64(selectedVariant.options[0]);
+        this.option2 = this.encodeToBase64(selectedVariant.options[1]);
+        this.option3 = this.encodeToBase64(selectedVariant.options[2]);
+        break;
+      case 4:
+        this.option1 = this.encodeToBase64(selectedVariant.options[0]);
+        this.option2 = this.encodeToBase64(selectedVariant.options[1]);
+        this.option3 = this.encodeToBase64(selectedVariant.options[2]);
+        this.option4 = this.encodeToBase64(selectedVariant.options[3]);
+        break;
     }
   },
 
@@ -111,14 +183,21 @@ export const products = {
       // Catpure data from fetch
       const responseHtml = await response.text();
       const html = new DOMParser().parseFromString(responseHtml, "text/html");
+      const variantJson = html.querySelector(`.options-${sectionId} script[type="application/json"]`);
 
       // inject new html
-      const oldSection = document.querySelector(".js-product");
+      const oldSection = document.querySelector(`.js-product-${sectionId}`);
       if (oldSection) {
-        const newSection = html.querySelector(".js-product");
+        const newSection = html.querySelector(`.js-product-${sectionId}`);
         oldSection.parentNode!.insertBefore(newSection!, oldSection);
         oldSection.remove();
       }
+
+      // Update browser URL to match the fetched product URL (without section parameters) only if not quick-add
+      if(sectionId !== 'quick-add') {
+        history.replaceState(null, "", productURL);
+      }
+
     } catch (error) {
       console.error(error);
     }
@@ -305,7 +384,8 @@ export const products = {
     this.all_options_selected =
       (optionsSize === 1 && this.option1) ||
       (optionsSize === 2 && this.option1 && this.option2) ||
-      (optionsSize === 3 && this.option1 && this.option2 && this.option3);
+      (optionsSize === 3 && this.option1 && this.option2 && this.option3) ||
+      (optionsSize === 4 && this.option1 && this.option2 && this.option3 && this.option4);
     if (this.current_variant_has_only_default_variant === true) {
       this.all_options_selected = true;
     }
@@ -370,29 +450,45 @@ export const products = {
   },
 
   // Refresh pickup availability block
-  fetchAndRefreshPickup() {
+  fetchAndRefreshPickup(variantId?: string, sectionId?: string) {
     const formContainer = this.$refs.formContainer;
-    const pickupContainer = formContainer.querySelector(".js-pickup");
+    const pickupDiv = formContainer.querySelector(".js-pickup");
 
-    if (pickupContainer) {
-      fetch(window.location + "&section_id=product__pickup")
-        .then(async (response) => {
-          const data = await response.text();
-          if (response.status === 200) {
-            const html = document.createElement("div");
-            html.innerHTML = data;
-            const htmlCleaned = html.querySelector(".js-pickup");
-            if (htmlCleaned) {
-              pickupContainer.innerHTML = htmlCleaned.innerHTML;
+    // Check if pickup block exists before fetching
+    if (!pickupDiv) return;
+
+    const pickupContainer = pickupDiv.querySelector(".js-pickup-container");
+
+    // Fetch new pickup section for the specific variant
+    const baseUrl = window.location.pathname;
+    const params = variantId ? `?variant=${variantId}&section_id=${sectionId}` : `${window.location.search ? window.location.search + '&' : '?'}section_id=${sectionId}`;
+    
+    fetch(baseUrl + params)
+      .then(async (response) => {
+        const data = await response.text();
+        if (response.status === 200) {
+          const html = document.createElement("div");
+          html.innerHTML = data;
+          const newPickupDiv = html.querySelector(".js-pickup");
+          
+          // Replace only the inner content of pickup container to preserve classes and styles
+          if (newPickupDiv) {
+            const newPickupContainer = newPickupDiv.querySelector(".js-pickup-container");
+            if (newPickupContainer && pickupContainer) {
+              // Both exist: update inner content to preserve classes/styles
+              pickupContainer.innerHTML = newPickupContainer.innerHTML;
+            } else {
+              // Either showing pickup for first time or hiding it: replace entire content
+              pickupDiv.innerHTML = newPickupDiv.innerHTML;
             }
-          } else {
-            console.error("Error:", error);
           }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
+        } else {
+          console.error("Error:", response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   },
 
   // Scroll to next gallery item

@@ -2,14 +2,14 @@ import shopify from 'vite-plugin-shopify'
 
 export default {
   build: {
-    minify: false,
+    minify: false
   },
   plugins: [
     shopify({
-      sourceCodeDir:"src",
-      entrypointsDir: 'src/entrypoints',
-      snippetFile: "assets.liquid"
-    }),
+        sourceCodeDir:"src",
+        entrypointsDir: "src/entrypoints",
+        snippetFile: "assets.liquid"
+    })
   ],
   test: {
     environment: "jsdom"
