@@ -1,6 +1,6 @@
 {
   "name": "paper",
-  "version": "8.1.0",
+  "version": "8.1.1",
   "scripts": {
     "dev": "npm-run-all --parallel vite_dev shopify_dev",
     "pull": "shopify theme pull --nodelete --store high-variant-combined-testing-store.myshopify.com",

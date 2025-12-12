@@ -1,7 +1,9 @@
-
+# **/.vscode/settings.json
+.vscode/settings.json
 node_modules/
 snippets/styleguide__section.liquid
 snippets/styleguide__example.liquid
 sections/styleguide.liquid
 snippets/styleguide__row.liquid
 .DS_Store
+.shopify
